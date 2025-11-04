@@ -249,7 +249,7 @@ export default function CurrentIssuePage() {
   };
 
   return (
-    <div className="min-h-screen bg-white overflow-x-hidden">
+    <div className="min-h-screen bg-white">
       <Header />
       <section className="bg-[#071936] text-white py-12">
         <div className=" mx-auto px-4 sm:px-6 lg:px-8">

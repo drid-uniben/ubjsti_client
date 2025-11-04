@@ -52,13 +52,13 @@ export default function Header() {
     }`;
 
   return (
-    <header className="bg-[#071936] text-white shadow-lg sticky top-0 z-50">
+    <header className="bg-[#071936] border-b border-white text-white shadow-lg sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Top Row */}
         <div className="flex items-center justify-between h-20">
           {/* Logo + Title */}
           <Link href="/" className="flex items-center gap-4 group">
-            <div className="w-14 h-14 bg-[#8690A0C2] rounded-lg flex items-center justify-center transition-transform group-hover:scale-105">
+            <div className="w-14 h-14 bg-[white] rounded-lg flex items-center justify-center transition-transform group-hover:scale-105">
               <Image
                 src="/uniben-logo.png"
                 alt="UNIBEN Logo"

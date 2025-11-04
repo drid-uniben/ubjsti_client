@@ -168,7 +168,7 @@ export default function Footer() {
             </div>
 
             <div className="text-center">
-              <div className="flex items-center gap-2 bg-[#071936] border border-[#8690A0]/40 rounded-lg px-6 py-3">
+              <div className="flex items-center gap-2 bg-[white] border border-[#8690A0]/40 rounded-lg px-6 py-3">
                 <div className="relative w-18 h-18">
                   <Image
                     src="/indexing/open_access.png"
