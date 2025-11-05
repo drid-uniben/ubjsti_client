@@ -126,12 +126,10 @@ export default function STIJournalHome() {
               </span>
             </div>
             <h2 className="text-3xl md:text-5xl font-bold mb-6 leading-tight font-serif">
-              Advancing African and Global Perspectives in the Science, Technology and Innovation
+              UNIBEN Journal of Science & Technology
             </h2>
             <p className="text-xl mb-8 text-white leading-relaxed">
-              Publishing peer-reviewed scholarship in law & society, history,
-              languages, culture, philosophy, arts, and environmental
-              humanities.
+            University of Benin • Applied sciences, engineering, computing, climate/energy tech, public-health technologies, data & AI for development.
             </p>
             <div className="flex flex-wrap items-center gap-4 mb-10">
               <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg">
@@ -237,16 +235,11 @@ export default function STIJournalHome() {
                 About the Journal
               </h2>
               <p className="text-gray-700 leading-relaxed mb-4">
-                The <strong>UNIBEN Journal of Science, Technology and Innovation</strong> publishes
-                peer-reviewed scholarship with African and global perspectives
-                in law & society, history, languages, culture, philosophy, arts,
-                and environmental humanities.
+                The <strong>UNIBEN Journal of Science & Technology</strong> publishes
+                peer-reviewed applied research in natural sciences, engineering, computing, climate/energy technologies, public-health technologies, and data & AI for development, with an emphasis on reproducibility and practical impact.
               </p>
               <p className="text-gray-700 leading-relaxed mb-6">
-                We welcome empirical, doctrinal, and decolonial approaches with
-                policy relevance, committed to advancing knowledge that serves
-                society and promotes justice, equity, and sustainable
-                development.
+              We invite original research, reviews, and short communications. No APCs (Diamond OA). Authors retain copyright under CC BY 4.0.
               </p>
               <Link
                 href="/about"
@@ -259,8 +252,8 @@ export default function STIJournalHome() {
             <div className="relative h-96 rounded-2xl overflow-hidden shadow-2xl">
               {/* Placeholder for journal mission image */}
               <Image
-                src="/humanities-research.png"
-                alt="Humanities research and scholarship"
+                src="/about-hero.png"
+                alt="Science and Technology research"
                 fill
                 className="object-cover"
               />
@@ -481,29 +474,6 @@ export default function STIJournalHome() {
                   </a>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Indexing & Trust Indicators */}
-      <section className="py-12 bg-white border-t-2 border-[#071936]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h3 className="text-center text-sm text-gray-600 font-semibold mb-6">
-            INDEXED & PRESERVED BY
-          </h3>
-          <div className="flex flex-wrap items-center justify-center gap-8">
-            <div className="h-16 w-32 bg-gray-100 rounded flex items-center justify-center">
-              <span className="text-gray-500 font-semibold">Google Scholar</span>
-            </div>
-            <div className="h-16 w-32 bg-gray-100 rounded flex items-center justify-center">
-              <span className="text-gray-500 font-semibold">Crossref</span>
-            </div>
-            <div className="h-16 w-32 bg-gray-100 rounded flex items-center justify-center">
-              <span className="text-gray-500 font-semibold">PKP PN</span>
-            </div>
-            <div className="h-16 w-32 bg-gray-100 rounded flex items-center justify-center">
-              <span className="text-gray-500 font-semibold">DOAJ (pending)</span>
             </div>
           </div>
         </div>

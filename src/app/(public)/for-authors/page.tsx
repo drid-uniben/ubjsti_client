@@ -32,7 +32,7 @@ export default function ForAuthorsPage() {
     {
       question: "What types of manuscripts do you accept?",
       answer:
-        "We accept original research articles, review articles, short communications, book reviews, and policy briefs in the humanities disciplines including law & society, history, languages, culture, philosophy, arts, and environmental humanities.",
+        "We accept original research articles, review articles, short communications, book reviews, and policy briefs in applied sciences, engineering, computing, climate/energy technologies, public-health technologies, and data & AI for development.",
     },
     {
       question: "How long does the peer review process take?",
@@ -88,8 +88,8 @@ export default function ForAuthorsPage() {
               Publish Your Research With Us
             </h1>
             <p className="text-xl mb-8 text-[#fbefff] leading-relaxed">
-              Join a community of scholars advancing knowledge in the
-              Science, Technology and Innovation. No fees. Fast review. Global reach.
+              Join a community of scholars advancing knowledge in Science, Technology and Innovation.
+              No fees. Fast review. Global reach.
             </p>
           </div>
         </div>

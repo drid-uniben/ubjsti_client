@@ -286,7 +286,7 @@ export default function Footer() {
           <div className="border-t border-[#8690A0]/40 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-[#8690A0]">
             <p>
               © {new Date().getFullYear()} University of Benin — UNIBEN Journal
-              of Humanities
+              of Science & Technology
             </p>
           </div>
         </div>

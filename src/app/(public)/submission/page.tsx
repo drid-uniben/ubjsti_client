@@ -155,7 +155,7 @@ export default function SubmissionPortalPage() {
               Submit Your Manuscript
             </h1>
             <p className="text-xl text-[#FFE9EE] mb-8 leading-relaxed">
-              Join scholars advancing knowledge in the Science, Technology and Innovation. Fast review,
+              Join scholars advancing knowledge in Science, Technology and Innovation. Fast review,
               no fees, global reach.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

@@ -25,7 +25,7 @@ export default function AboutPage() {
       <section className="relative bg-[#071936] to-[#5A0A1A] text-white py-20">
         <div className="absolute inset-0 opacity-10">
           <Image
-            src="/about-hero.png"
+            src="/about-hero0.png"
             alt=""
             fill
             className="object-cover"
@@ -34,11 +34,10 @@ export default function AboutPage() {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
             <h1 className="text-5xl font-bold mb-6 leading-tight font-serif">
-              About the Journal
+              About the UNIBEN Journal of Science & Technology
             </h1>
             <p className="text-xl text-[white] leading-relaxed">
-              Advancing scholarship in the Science, Technology and Innovation with African and global
-              perspectives
+              Publishing peer-reviewed applied research in natural sciences, engineering, computing, climate/energy technologies, public-health technologies, and data & AI for development.
             </p>
           </div>
         </div>
@@ -62,17 +61,12 @@ export default function AboutPage() {
 
               <div className="prose prose-lg max-w-none space-y-6">
                 <p className="text-gray-700 leading-relaxed">
-                  The <strong>UNIBEN Journal of Science, Technology and Innovation</strong> publishes
-                  peer-reviewed scholarship with African and global perspectives
-                  in law & society, history, languages, culture, philosophy, arts,
-                  and environmental Science, Technology and Innovation.
+                  The <strong>UNIBEN Journal of Science & Technology</strong> publishes
+                  peer-reviewed applied research in natural sciences, engineering, computing, climate/energy technologies, public-health technologies, and data & AI for development, with an emphasis on reproducibility and practical impact.
                 </p>
 
                 <p className="text-gray-700 leading-relaxed">
-                  We welcome empirical, doctrinal, and decolonial approaches with
-                  policy relevance, committed to advancing knowledge that serves
-                  society and promotes justice, equity, and sustainable
-                  development.
+                  We invite original research, reviews, and short communications. No APCs (Diamond OA). Authors retain copyright under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.
                 </p>
 
                 <div className="bg-[#FAF7F8] border-l-4 border-[#071936] p-6 rounded-r-lg">
@@ -84,21 +78,19 @@ export default function AboutPage() {
                       <CheckCircle className="h-5 w-5 text-[#071936] flex-shrink-0 mt-0.5" />
                       <div>
                         <strong className="text-[#212121]">
-                          Law & Society
+                          Applied Sciences
                         </strong>
                         <p className="text-sm text-gray-600">
-                          Legal theory, human rights, constitutional law,
-                          jurisprudence
+                          Physics, Chemistry, Biology, Environmental Science
                         </p>
                       </div>
                     </div>
                     <div className="flex items-start gap-3">
                       <CheckCircle className="h-5 w-5 text-[#071936] flex-shrink-0 mt-0.5" />
                       <div>
-                        <strong className="text-[#212121]">History</strong>
+                        <strong className="text-[#212121]">Engineering</strong>
                         <p className="text-sm text-gray-600">
-                          African history, global history, oral traditions,
-                          archives
+                          Mechanical, Civil, Electrical, Chemical Engineering
                         </p>
                       </div>
                     </div>
@@ -106,30 +98,28 @@ export default function AboutPage() {
                       <CheckCircle className="h-5 w-5 text-[#071936] flex-shrink-0 mt-0.5" />
                       <div>
                         <strong className="text-[#212121]">
-                          Languages & Literature
+                          Computing & IT
                         </strong>
                         <p className="text-sm text-gray-600">
-                          Linguistics, creative writing, literary criticism,
-                          translation
+                          Computer Science, Software Engineering, Data Science
                         </p>
                       </div>
                     </div>
                     <div className="flex items-start gap-3">
                       <CheckCircle className="h-5 w-5 text-[#071936] flex-shrink-0 mt-0.5" />
                       <div>
-                        <strong className="text-[#212121]">Culture & Arts</strong>
+                        <strong className="text-[#212121]">Climate & Energy Technologies</strong>
                         <p className="text-sm text-gray-600">
-                          Cultural studies, performing arts, visual arts,
-                          heritage
+                          Renewable Energy, Climate Modeling, Sustainable Tech
                         </p>
                       </div>
                     </div>
                     <div className="flex items-start gap-3">
                       <CheckCircle className="h-5 w-5 text-[#071936] flex-shrink-0 mt-0.5" />
                       <div>
-                        <strong className="text-[#212121]">Philosophy</strong>
+                        <strong className="text-[#212121]">Public Health Technologies</strong>
                         <p className="text-sm text-gray-600">
-                          African philosophy, ethics, epistemology, metaphysics
+                          Biomedical Engineering, Health Informatics, Epidemiology
                         </p>
                       </div>
                     </div>
@@ -137,10 +127,10 @@ export default function AboutPage() {
                       <CheckCircle className="h-5 w-5 text-[#071936] flex-shrink-0 mt-0.5" />
                       <div>
                         <strong className="text-[#212121]">
-                          Environmental Humanities
+                          Data & AI for Development
                         </strong>
                         <p className="text-sm text-gray-600">
-                          Climate justice, eco-criticism, sustainability studies
+                          AI Applications, Machine Learning, Big Data Analytics
                         </p>
                       </div>
                     </div>
@@ -162,9 +152,9 @@ export default function AboutPage() {
 
               <p className="text-gray-700 mb-8 leading-relaxed">
                 Our editorial board comprises distinguished scholars from Nigeria
-                and around the world, bringing diverse expertise across Science, Technology and Innovation disciplines. They are committed to maintaining the highest
+                and around the world, bringing diverse expertise across Science and Technology disciplines. They are committed to maintaining the highest
                 standards of academic rigor while fostering inclusive,
-                decolonized scholarship.
+                impactful scholarship.
               </p>
 
               <div className="grid md:grid-cols-2 gap-6 mb-8">
@@ -186,13 +176,12 @@ export default function AboutPage() {
                     Prof. Adebayo M. Ogunleye
                   </h3>
                   <p className="text-sm text-gray-600 mb-3">
-                    Department of History & International Studies
+                    Department of Computer Science
                     <br />
                     University of Benin
                   </p>
                   <p className="text-sm text-gray-700">
-                    Specializes in African political history and decolonization
-                    studies
+                    Specializes in Artificial Intelligence and Machine Learning applications
                   </p>
                 </div>
 
@@ -414,7 +403,7 @@ export default function AboutPage() {
                 <p className="text-gray-700 leading-relaxed">
                   Launched in 2025 as part of the University of Benin&apos;s renewed
                   commitment to advancing research excellence, the UNIBEN Journal
-                  of Science, Technology and Innovation builds on decades of scholarly tradition at one
+                  of Science & Technology builds on decades of scholarly tradition at one
                   of Nigeria&apos;s premier universities.
                 </p>
 
@@ -428,10 +417,9 @@ export default function AboutPage() {
                 <div className="bg-[#071936] text-white rounded-xl p-8">
                   <h3 className="text-2xl font-bold mb-4">Our Vision</h3>
                   <p className="text-[white] leading-relaxed">
-                    To become a leading platform for Science, Technology and Innovation scholarship that
-                    centers African voices, challenges colonial epistemologies,
-                    and contributes to global conversations on justice, culture,
-                    and human flourishing.
+                    To become a leading platform for Science & Technology scholarship that
+                    centers African voices, addresses global challenges,
+                    and contributes to sustainable development.
                   </p>
                 </div>
               </div>
