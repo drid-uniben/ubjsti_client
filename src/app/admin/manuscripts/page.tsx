@@ -3,7 +3,7 @@
 import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
-import { manuscriptAdminApi, type Manuscript } from '@/services/api';
+import { manuscriptAdminApi, type Manuscript, type ExistingReviewForReassignment } from '@/services/api';
 import { AdminLayout } from '@/components/admin/AdminLayout';
 import { Loader2, FileText, Filter, ArrowUpDown, Eye, RefreshCw, MoreVertical, User, Users, Search, CheckCircle, UserPlus, AlertCircle, Building2, ChevronDown, ChevronRight } from 'lucide-react';
 import { EligibleReviewer } from '@/services/api';
@@ -11,6 +11,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Button } from "@/components/ui/button";
 import { Toaster, toast } from "sonner";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { FileUpload } from '@/components/FileUpload';
 
 interface Faculty {
   faculty: string;
@@ -23,14 +24,7 @@ interface PaginationData {
   currentPage: number;
 }
 
-interface ExistingReviewForReassignment {
-  reviewId: string;
-  reviewer: {
-    name: string;
-  };
-  reviewType: "human" | "reconciliation";
-  status: string;
-}
+
 
 function AdminManuscriptsPage() {
   const { isAuthenticated } = useAuth();    
@@ -69,6 +63,18 @@ function AdminManuscriptsPage() {
   const [reassignReviewerSuccess, setReassignReviewerSuccess] = useState(false);
   const [existingReviewsForReassignment, setExistingReviewsForReassignment] = useState<ExistingReviewForReassignment[]>([]); // To store existing reviews for selection
   const [selectedReviewToReassign, setSelectedReviewToReassign] = useState<string | null>(null); // The ID of the review to reassign
+
+  // State for Edit Manuscript Modal
+  const [showEditManuscriptModal, setShowEditManuscriptModal] = useState(false);
+  const [currentManuscriptForEdit, setCurrentManuscriptForEdit] = useState<Manuscript | null>(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [editingManuscript, setEditingManuscript] = useState(false);
+
+  // State for Edit Revised Manuscript Modal
+  const [showEditRevisedManuscriptModal, setShowEditRevisedManuscriptModal] = useState(false);
+  const [currentManuscriptForRevisedEdit, setCurrentManuscriptForRevisedEdit] = useState<Manuscript | null>(null);
+  const [selectedRevisedFile, setSelectedRevisedFile] = useState<File | null>(null);
+  const [editingRevisedManuscript, setEditingRevisedManuscript] = useState(false);
 
   const [assigningFaculty, setAssigningFaculty] = useState(false);
   const [expandedFaculty, setExpandedFaculty] = useState<string | null>(null);
@@ -130,6 +136,82 @@ function AdminManuscriptsPage() {
     }
   };
 
+  const handleEditManuscriptClick = (manuscript: Manuscript) => {
+    setCurrentManuscriptForEdit(manuscript);
+    setShowEditManuscriptModal(true);
+  };
+
+  const handleEditManuscriptSubmit = async () => {
+    if (!currentManuscriptForEdit || !selectedFile) return;
+
+    setEditingManuscript(true);
+    toast.info("Editing manuscript...");
+
+    try {
+      const response = await manuscriptAdminApi.editManuscript(
+        currentManuscriptForEdit._id,
+        selectedFile
+      );
+
+      if (response.success) {
+        toast.success("Manuscript edited successfully!");
+        setShowEditManuscriptModal(false);
+        refreshData(); // Refresh manuscripts list
+      } else {
+        toast.error("Failed to edit manuscript");
+      }
+    } catch (error) {
+      console.error("Failed to edit manuscript:", error);
+      toast.error("Error while editing manuscript");
+    } finally {
+      setEditingManuscript(false);
+      setSelectedFile(null);
+      setCurrentManuscriptForEdit(null);
+    }
+  };
+
+  const handleEditRevisedManuscriptClick = (manuscript: Manuscript) => {
+    setCurrentManuscriptForRevisedEdit(manuscript);
+    setShowEditRevisedManuscriptModal(true);
+  };
+
+  const handleEditRevisedManuscriptSubmit = async () => {
+    if (!currentManuscriptForRevisedEdit || !selectedRevisedFile) return;
+
+    setEditingRevisedManuscript(true);
+    toast.info("Editing revised manuscript...");
+
+    try {
+      const response = await manuscriptAdminApi.editRevisedManuscript(
+        currentManuscriptForRevisedEdit._id,
+        selectedRevisedFile
+      );
+
+      if (response.success) {
+        toast.success("Revised manuscript edited successfully!");
+        setShowEditRevisedManuscriptModal(false);
+        refreshData(); // Refresh manuscripts list
+      } else {
+        toast.error("Failed to edit revised manuscript");
+      }
+    } catch (error) {
+      console.error("Failed to edit revised manuscript:", error);
+      toast.error("Error while editing revised manuscript");
+    } finally {
+      setEditingRevisedManuscript(false);
+      setSelectedRevisedFile(null);
+      setCurrentManuscriptForRevisedEdit(null);
+    }
+  };
+
+  useEffect(() => {
+    if (!showReassignReviewerModal && !showAssignReviewerModal && !showAssignFacultyModal && !showEditManuscriptModal && !showEditRevisedManuscriptModal) {
+      // Ensure body styles are reset when modal is closed
+      document.body.style.pointerEvents = ''; // Reset to default
+      document.body.style.overflow = ''; // Reset to default
+    }
+  }, [showReassignReviewerModal, showAssignReviewerModal, showAssignFacultyModal, showEditManuscriptModal, showEditRevisedManuscriptModal]);
+
   useEffect(() => {
     const fetchManuscripts = async () => {
       if (!isAuthenticated) return;
@@ -185,21 +267,17 @@ function AdminManuscriptsPage() {
   };
 
   // Helper function to determine if reassign is available
-  const canReassignReview = (manuscript: Manuscript): {
-    canReassign: boolean;
-    isReconciliation: boolean
-  } => {
-    // For regular review reassignment
-    if (manuscript.status === 'under_review') {
-      return { canReassign: true, isReconciliation: false };
+  const canReassignReview = (manuscript: Manuscript): boolean => {
+    if (manuscript.originRevisedPdfFile) {
+        return true;
     }
 
-    // For reconciliation review reassignment
-    if (manuscript.status === 'in_reconciliation') {
-      return { canReassign: true, isReconciliation: true };
+    // For non-revised manuscripts, keep the original logic but exclude revised ones that haven't been edited yet.
+    if (!manuscript.revisedPdfFile) {
+        return !manuscript.isReviewProcessCompleted && (manuscript.assignedReviewerCount ?? 0) > 0;
     }
 
-    return { canReassign: false, isReconciliation: false };
+    return false;
   };
 
   // Assign Reviewer Functions
@@ -266,6 +344,11 @@ function AdminManuscriptsPage() {
     setReassignReviewerSuccess(false);
     setExistingReviewsForReassignment([]);
     setSelectedReviewToReassign(null);
+
+    if (manuscript.revisedPdfFile) {
+    toast.info('For revised manuscripts, only the admin or original reviewer can be assigned');
+  }
+  
     setShowReassignReviewerModal(true);
     loadExistingReviewsForReassignment(manuscript._id);
   };
@@ -274,7 +357,7 @@ function AdminManuscriptsPage() {
     try {
       setReassignReviewerLoading(true);
       const response = await manuscriptAdminApi.getExistingReviewers(manuscriptId);
-      setExistingReviewsForReassignment(response.data.reviews);
+      setExistingReviewsForReassignment(response.data);
     } catch (err) {
       console.error('Failed to load existing reviews for reassignment:', err);
       toast.error('Failed to load existing reviews');
@@ -286,7 +369,14 @@ function AdminManuscriptsPage() {
   const loadEligibleReviewersForReassignment = async (manuscriptId: string) => {
     try {
       setReassignReviewerLoading(true);
-      const response = await manuscriptAdminApi.getEligibleReviewers(manuscriptId);
+      
+      let response;
+      if (currentManuscriptForReassignment?.revisedPdfFile) {
+        response = await manuscriptAdminApi.getEligibleReviewersForRevised(manuscriptId);
+      } else {
+        response = await manuscriptAdminApi.getReassignEligibleReviewers(manuscriptId);
+      }
+      
       setEligibleReviewersForReassignment(response.data || []);
     } catch (err) {
       console.error('Failed to load eligible reviewers for reassignment:', err);
@@ -387,10 +477,10 @@ function AdminManuscriptsPage() {
     <AdminLayout>
       <div className="py-6">
         <div className="mx-auto px-4 sm:px-6 md:px-8">
-          <div className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
+          <div className="grid flex-1 items-start gap-4 p-4 sm:py-0 md:gap-8">
             <div className="flex justify-between items-center mb-6">
               <h1 className="text-2xl font-semibold text-gray-900">Manuscripts</h1>
-              <button 
+              <button
                 onClick={refreshData}
                 className="flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#7A0019]"
               >
@@ -471,6 +561,7 @@ function AdminManuscriptsPage() {
                       <option value="createdAt">Submission Date</option>
                       <option value="title">Title</option>
                       <option value="status">Status</option>
+                      <option value="type">Type</option>
                     </select>
                   </div>
                 </div>
@@ -535,6 +626,18 @@ function AdminManuscriptsPage() {
                         <th
                           scope="col"
                           className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+                          onClick={() => toggleSortOrder('type')}
+                        >
+                          <div className="flex items-center">
+                            Type
+                            {filters.sort === 'type' && (
+                              <ArrowUpDown className="ml-1 h-4 w-4" />
+                            )}
+                          </div>
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
                           onClick={() => toggleSortOrder('createdAt')}
                         >
                           <div className="flex items-center">
@@ -584,6 +687,20 @@ function AdminManuscriptsPage() {
                               </span>
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+  <div className="flex flex-col gap-1">
+    {manuscript.revisedPdfFile && (
+      <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+        Revised
+      </span>
+    )}
+    {manuscript.revisionType && (
+      <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+        {manuscript.revisionType === 'minor' ? 'Minor Rev' : 'Major Rev'}
+      </span>
+    )}
+  </div>
+</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                               {formatDate(manuscript.createdAt)}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
@@ -598,35 +715,43 @@ function AdminManuscriptsPage() {
                                   <DropdownMenuItem onSelect={() => router.push(`/admin/manuscripts/${manuscript._id}`)}>
                                     <Eye className="h-4 w-4 mr-2" /> View Details
                                   </DropdownMenuItem>
+
+                                  {!manuscript.originPdfFile && (
+                                    <DropdownMenuItem onSelect={() => handleEditManuscriptClick(manuscript)}>
+                                      <FileText className="h-4 w-4 mr-2" /> Edit Manuscript
+                                    </DropdownMenuItem>
+                                  )}
+
+                                  {manuscript.revisedPdfFile && !manuscript.originRevisedPdfFile && (
+                                    <DropdownMenuItem onSelect={() => handleEditRevisedManuscriptClick(manuscript)}>
+                                      <FileText className="h-4 w-4 mr-2" /> Edit Revised Manuscript
+                                    </DropdownMenuItem>
+                                  )}
                                   
-                                  {((manuscript.status === 'submitted' && !manuscript.submitter.assignedFaculty) || (manuscript.submitter.assignedFaculty && manuscript.assignedReviewerCount === 0)) && (
+                                  {((manuscript.status === 'submitted' && !manuscript.submitter.assignedFaculty) || (manuscript.submitter.assignedFaculty && (manuscript.assignedReviewerCount ?? 0) === 0)) && !manuscript.revisedPdfFile && (
                                     <DropdownMenuItem onSelect={() => { setCurrentManuscriptForFaculty(manuscript); setShowAssignFacultyModal(true); }}>
                                       <Building2 className="h-4 w-4 mr-2" /> 
                                       {!manuscript.submitter.assignedFaculty ? 'Assign Faculty' : 'Change Faculty'}
                                     </DropdownMenuItem>
                                   )}
 
-                                  {manuscript.submitter.assignedFaculty && manuscript.assignedReviewerCount === 0 && (
+                                  {manuscript.submitter.assignedFaculty && manuscript.originPdfFile && (manuscript.assignedReviewerCount ?? 0) === 0 && (
                                     <DropdownMenuItem onSelect={() => handleAssignReviewerClick(manuscript)}>
                                       <UserPlus className="h-4 w-4 mr-2" /> Assign First Reviewer
                                     </DropdownMenuItem>
                                   )}
 
-                                  {manuscript.submitter.assignedFaculty && manuscript.assignedReviewerCount === 1 && (
+                                  {manuscript.submitter.assignedFaculty && manuscript.originPdfFile && (manuscript.assignedReviewerCount ?? 0) === 1 && (
                                     <DropdownMenuItem onSelect={() => handleAssignReviewerClick(manuscript)}>
                                       <UserPlus className="h-4 w-4 mr-2" /> Assign Second Reviewer
                                     </DropdownMenuItem>
                                   )}
 
-                                  {(() => {
-                                    const { canReassign, isReconciliation } = canReassignReview(manuscript);
-                                    return canReassign && (
-                                      <DropdownMenuItem onSelect={() => handleReassignReviewerClick(manuscript)}>
-                                        <RefreshCw className="h-4 w-4 mr-2" /> 
-                                        {isReconciliation ? 'Reassign Reconciliation' : 'Reassign Review'}
-                                      </DropdownMenuItem>
-                                    );
-                                  })()}
+                                  {canReassignReview(manuscript) && (
+                                    <DropdownMenuItem onSelect={() => handleReassignReviewerClick(manuscript)}>
+                                      <RefreshCw className="h-4 w-4 mr-2" /> Reassign Review
+                                    </DropdownMenuItem>
+                                  )}
                                 </DropdownMenuContent>
                               </DropdownMenu>
                             </td>
@@ -908,25 +1033,36 @@ function AdminManuscriptsPage() {
                     </div>
                   ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      {existingReviewsForReassignment.map((review) => (
-                        <div
-                          key={review.reviewId}
-                          className={`p-4 border-2 rounded-lg cursor-pointer transition-all ${
-                            selectedReviewToReassign === review.reviewId ? 'border-purple-500 bg-purple-50' : 'border-gray-200 hover:border-purple-300'
-                          }`}
-                          onClick={() => setSelectedReviewToReassign(review.reviewId)}
-                        >
-                          <p className="font-medium">Reviewer: {review.reviewer.name}</p>
-                          <p className="text-sm text-gray-600">Type: {review.reviewType}</p>
-                          <p className="text-sm text-gray-600">Status: {review.status}</p>
-                        </div>
-                      ))}
+                      {existingReviewsForReassignment.map((review) => {
+                        const isRevisedManuscript = currentManuscriptForReassignment?.revisedPdfFile;
+                        const isCompletedReview = review.status === 'completed';
+                        const canSelectReview = isRevisedManuscript || !isCompletedReview;
+
+                        return (
+                          <div
+                            key={review.reviewId}
+                            className={`p-4 border-2 rounded-lg transition-all ${
+                              selectedReviewToReassign === review.reviewId
+                                ? 'border-purple-500 bg-purple-50'
+                                : canSelectReview
+                                ? 'border-gray-200 hover:border-purple-300 cursor-pointer'
+                                : 'border-gray-200 bg-gray-100 text-gray-400 cursor-not-allowed opacity-70'
+                            }`}
+                            onClick={() => canSelectReview && setSelectedReviewToReassign(review.reviewId)}
+                          >
+                            <p className="font-medium">Reviewer: {review.reviewer.name}</p>
+                            <p className="text-sm text-gray-600">Type: {review.reviewType}</p>
+                            <p className="text-sm text-gray-600">Status: {review.status}</p>
+                          </div>
+                        );
+                      })}
                     </div>
                   )}
                 </div>
               ) : !reassignReviewerMode ? (
                 <div className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {!(currentManuscriptForReassignment?.revisedPdfFile) && (
                     <div 
                       onClick={() => setReassignReviewerMode('auto')}
                       className="group p-6 border-2 border-gray-200 rounded-xl hover:border-purple-500 hover:bg-purple-50 transition-all cursor-pointer"
@@ -941,6 +1077,7 @@ function AdminManuscriptsPage() {
                         </p>
                       </div>
                     </div>
+                  )}
 
                     <div 
                       onClick={() => {
@@ -959,6 +1096,14 @@ function AdminManuscriptsPage() {
                         <p className="text-gray-600 text-sm leading-relaxed">
                           Browse and select from a list of eligible reviewers to manually assign the review.
                         </p>
+                        {currentManuscriptForReassignment?.revisedPdfFile && (
+  <div className="mb-4 p-3 bg-purple-50 border border-purple-200 rounded-lg">
+    <p className="text-sm text-purple-800">
+      <strong>Revised Manuscript:</strong> This is a {currentManuscriptForReassignment.revisionType} revision.
+      Only the administrator or the original reviewer can review this submission.
+    </p>
+  </div>
+)}
                       </div>
                     </div>
                   </div>
@@ -1195,6 +1340,48 @@ function AdminManuscriptsPage() {
               disabled={assigningFaculty}
             >
               Cancel
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Edit Manuscript Modal */}
+      <Dialog open={showEditManuscriptModal} onOpenChange={setShowEditManuscriptModal}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Edit Manuscript</DialogTitle>
+            <DialogDescription>
+              Upload a new version of the manuscript. This will replace the existing file.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="py-4">
+            <FileUpload onFileSelect={setSelectedFile} />
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setShowEditManuscriptModal(false)}>Cancel</Button>
+            <Button onClick={handleEditManuscriptSubmit} disabled={!selectedFile || editingManuscript}>
+              {editingManuscript ? <Loader2 className="h-4 w-4 animate-spin" /> : "Submit"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Edit Revised Manuscript Modal */}
+      <Dialog open={showEditRevisedManuscriptModal} onOpenChange={setShowEditRevisedManuscriptModal}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Edit Revised Manuscript</DialogTitle>
+            <DialogDescription>
+              Upload a new version of the revised manuscript. This will replace the existing revised file and trigger the review process.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="py-4">
+            <FileUpload onFileSelect={setSelectedRevisedFile} />
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setShowEditRevisedManuscriptModal(false)}>Cancel</Button>
+            <Button onClick={handleEditRevisedManuscriptSubmit} disabled={!selectedRevisedFile || editingRevisedManuscript}>
+              {editingRevisedManuscript ? <Loader2 className="h-4 w-4 animate-spin" /> : "Submit"}
             </Button>
           </DialogFooter>
         </DialogContent>

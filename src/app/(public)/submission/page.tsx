@@ -136,7 +136,7 @@ export default function SubmissionPortalPage() {
 
       {/* Hero Section */}
       <section className="bg-[#071936] text-white py-20">
-        <div className="absolute inset-0 opacity-10">
+        <div className="absolute inset-0 opacity-3">
                   {/* Placeholder for subtle pattern/texture */}
                   <Image
                     src="/academic-pattern.png"

@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   BookOpen,
-  Download,
   FileText,
   CheckCircle,
   Clock,
@@ -108,7 +107,7 @@ export default function STIJournalHome() {
 
       {/* Hero Section */}
       <section className="relative bg-[#0b1f41] text-white py-20">
-        <div className="absolute inset-0 opacity-10">
+        <div className="absolute inset-0 opacity-3">
           {/* Placeholder for subtle pattern/texture */}
           <Image
             src="/academic-pattern.png"
@@ -155,67 +154,6 @@ export default function STIJournalHome() {
                 Browse Current Issue
               </Link>
             </div>
-          </div>
-        </div>
-      </section>
-
-     
-
-      {/* Current Issue Highlight */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between mb-10">
-            <div>
-              <h2 className="text-3xl font-bold text-[#071936] mb-2 font-serif">
-                Current Issue
-              </h2>
-              <p className="text-gray-600">Volume 1, Issue 1 (2025)</p>
-            </div>
-            <Link
-              href="/current-issue"
-              className="text-[#071936] font-semibold hover:text-[#071936c2] flex items-center gap-2"
-            >
-              View Full Issue
-              <ChevronRight className="h-5 w-5" />
-            </Link>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            {/* Article Card 1 */}
-            <article className="bg-white border-2 border-[#071936] rounded-xl p-6 hover:shadow-xl hover:border-[#071936c2] transition-all group">
-              <div className="flex gap-2 mb-4">
-              </div>
-              <h3 className="text-xl font-bold text-[#212121] mb-3 group-hover:text-[#071936c2] transition-colors font-serif">
-                Decolonizing Legal Education in West Africa: A Critical
-                Analysis of Pedagogical Approaches
-              </h3>
-              <p className="text-gray-600 text-sm mb-2">
-                Afolabi O. Johnson, Chinwe M. Okeke
-              </p>
-              <p className="text-gray-700 mb-4 leading-relaxed">
-                This study examines the persistence of colonial frameworks in
-                contemporary legal education across West African universities
-                and proposes context-driven pedagogical reforms...
-              </p>
-            </article>
-
-            {/* Article Card 2 */}
-            <article className="bg-white border-2 border-[#071936] rounded-xl p-6 hover:shadow-xl hover:border-[#071936c2] transition-all group">
-              <div className="flex gap-2 mb-4">
-              </div>
-              <h3 className="text-xl font-bold text-[#212121] mb-3 group-hover:text-[#071936c2] transition-colors font-serif">
-                Environmental Humanities and Climate Justice: Perspectives from
-                the Niger Delta
-              </h3>
-              <p className="text-gray-600 text-sm mb-2">
-                Ngozi F. Adekunle, Emmanuel I. Okonkwo, Sarah T. Benson
-              </p>
-              <p className="text-gray-700 mb-4 leading-relaxed">
-                Drawing on interdisciplinary scholarship, this review explores
-                the intersection of environmental degradation, cultural memory,
-                and climate justice advocacy in Nigeria&apos;s Niger Delta...
-              </p>
-            </article>
           </div>
         </div>
       </section>

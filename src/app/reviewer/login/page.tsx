@@ -2,11 +2,11 @@
 
 import { useState, FormEvent } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
-import { AlertCircle, Loader2, LogIn, BookOpen } from 'lucide-react';
+import { AlertCircle, Loader2, LogIn, FileCheck } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 
-export default function AdminLoginPage() {
+export default function ReviewerLoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [formError, setFormError] = useState('');
@@ -70,7 +70,7 @@ export default function AdminLoginPage() {
                 <h1 className="text-xl font-bold text-[#7A0019] tracking-tight">
                   UNIBEN Journal of Humanities
                 </h1>
-                <p className="text-sm text-gray-600">Admin Portal</p>
+                <p className="text-sm text-gray-600">Reviewer Portal</p>
               </div>
             </Link>
             <Link
@@ -91,13 +91,13 @@ export default function AdminLoginPage() {
             {/* Card Header */}
             <div className="bg-[#fffbfb] px-8 py-8 text-center">
               <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
-                <BookOpen className="h-10 w-10 text-[#7A0019]" />
+                <FileCheck className="h-10 w-10 text-[#7A0019]" />
               </div>
               <h2 className="text-2xl font-bold text-[#7A0019] mb-2">
-                Administrator Login
+                Reviewer Login
               </h2>
               <p className="text-[#7A0019] text-sm">
-                Access the journal management dashboard
+                Access your peer review dashboard
               </p>
             </div>
 
@@ -134,7 +134,7 @@ export default function AdminLoginPage() {
                     value={email}
                     onChange={handleEmailChange}
                     className="appearance-none block w-full px-4 py-3 border-2 border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#7A0019] focus:border-transparent transition-all text-gray-900"
-                    placeholder="admin@uniben.edu"
+                    placeholder="reviewer@uniben.edu"
                     disabled={isLoading}
                   />
                 </div>
@@ -213,12 +213,6 @@ export default function AdminLoginPage() {
                 className="text-sm text-[#7A0019] hover:text-[#5A0A1A] font-medium underline"
               >
                 Author Login
-              </Link>
-              <Link
-                href="/reviewer/login"
-                className="text-sm text-[#7A0019] hover:text-[#5A0A1A] font-medium underline"
-              >
-                Reviewer Login
               </Link>
             </div>
           </div>

@@ -102,10 +102,16 @@ export interface Manuscript {
     email: string;
   }>;
   pdfFile: string;
+  revisedPdfFile?: string;
+  originPdfFile?: string;
+  originRevisedPdfFile?: string;
   createdAt: string;
   updatedAt: string;
   authorRole?: string;
-  assignedReviewerCount?: number; // Added assignedReviewerCount
+  originalReviewer?: string | object;
+  revisionType?: string;
+  assignedReviewerCount?: number;
+  isReviewProcessCompleted?: boolean;
 }
 
 export interface ManuscriptListResponse {
@@ -119,6 +125,12 @@ export interface ManuscriptListResponse {
 export interface ManuscriptDetailResponse {
   success: boolean;
   data: Manuscript;
+}
+
+export interface EditManuscriptResponse {
+  success: boolean;
+  data: Manuscript;
+  message?: string;
 }
 
 export interface ManuscriptStatistics {
@@ -190,6 +202,15 @@ export interface AssignReviewerResponse {
 export interface ReassignReviewRequest {
   assignmentType: "automatic" | "manual";
   newReviewerId?: string;
+}
+
+export interface ExistingReviewForReassignment {
+  reviewId: string;
+  reviewer: {
+    name: string;
+  };
+  reviewType: "human" | "reconciliation";
+  status: string;
 }
 
 export interface ReassignReviewResponse {
@@ -413,7 +434,7 @@ export interface ReviewerDashboardData {
   statistics: {
     totalAssigned: number;
     completed: number;
-    pending: number;
+    inProgress: number;
     overdue: number;
   };
   assignedReviews: Array<{
@@ -470,6 +491,144 @@ export interface SaveReviewProgressRequest {
     confidentialCommentsToEditor?: string;
   };
   reviewDecision?: string;
+}
+
+export interface AdminReviewAssignment {
+  _id: string;
+  manuscript: {
+    _id: string;
+    title: string;
+    status: string;
+    createdAt: string;
+  };
+  reviewType: "human" | "reconciliation";
+  status: "in_progress" | "completed" | "overdue";
+  dueDate: string;
+  completedAt?: string;
+  totalScore: number;
+}
+
+export interface AdminReviewStatistics {
+  totalAssigned: number;
+  completed: number;
+  pending: number;
+  overdue: number;
+}
+
+export interface AdminReviewAssignmentsResponse {
+  success: boolean;
+  count: number;
+  data: AdminReviewAssignment[];
+}
+
+export interface AdminReviewStatisticsResponse {
+  success: boolean;
+  data: {
+    statistics: AdminReviewStatistics;
+    recentActivity: AdminReviewAssignment[];
+  };
+}
+
+export interface AdminReviewByIdResponse {
+  success: boolean;
+  data: ManuscriptReviewWithDetails;
+}
+
+export interface AdminSubmitReviewRequest {
+  scores: ReviewScores;
+  comments: {
+    commentsForAuthor?: string;
+    confidentialCommentsToEditor?: string;
+  };
+  reviewDecision: string;
+}
+
+export interface AdminSaveReviewProgressRequest {
+  scores?: Partial<ReviewScores>;
+  comments?: {
+    commentsForAuthor?: string;
+    confidentialCommentsToEditor?: string;
+  };
+  reviewDecision?: string;
+}
+
+export interface RevisedManuscript extends Manuscript {
+  revisedPdfFile?: string;
+  revisionType?: "minor" | "major";
+  originalReviewer?: string;
+  revisedFrom?: string;
+}
+
+export interface Volume {
+  _id: string;
+  volumeNumber: number;
+  year: number;
+  coverImage?: string;
+  description?: string;
+  publishDate: string;
+  isActive: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface Issue {
+  _id: string;
+  volume: string | Volume;
+  issueNumber: number;
+  publishDate: string;
+  description?: string;
+  isActive: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface AuthorSummary {
+  _id: string;
+  name: string;
+  email: string;
+}
+
+export interface PublishedArticle {
+  _id: string;
+  title: string;
+  abstract: string;
+  keywords: string[];
+  pdfFile: string;
+  author: AuthorSummary;
+  coAuthors: AuthorSummary[];
+  manuscriptId?: string;
+  publishDate: string;
+  doi?: string;
+  volume: Volume;
+  issue: Issue;
+  articleType: string;
+  pages?: { start: number; end: number };
+  viewers: { count: number; viewers: string[] };
+  downloads: { count: number; downloaders: string[] };
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface EmailSubscriber {
+  _id: string;
+  email: string;
+  isActive: boolean;
+  subscribedAt: string;
+  lastEmailSent?: string;
+}
+
+export interface FailedJob {
+  _id: string;
+  jobType: string;
+  articleId: string;
+  errorMessage: string;
+  errorStack?: string;
+  attemptCount: number;
+  lastAttemptAt: string;
+  data?: unknown;
+  resolved: boolean;
+  resolvedAt?: string;
+  createdAt: string;
 }
 
 // Create API instance
@@ -763,6 +922,51 @@ export const manuscriptAdminApi = {
     }
   },
 
+  editManuscript: async (manuscriptId: string, file: File): Promise<EditManuscriptResponse> => {
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const response = await api.put(
+        `/admin/manuscripts/${manuscriptId}/edit`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Failed to edit manuscript:", error);
+      throw error;
+    }
+  },
+
+  editRevisedManuscript: async (
+    manuscriptId: string,
+    file: File
+  ): Promise<EditManuscriptResponse> => {
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const response = await api.put(
+        `/admin/manuscripts/${manuscriptId}/edit-revised`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Failed to edit revised manuscript:", error);
+      throw error;
+    }
+  },
+
   // Get manuscript statistics
   getStatistics: async (): Promise<ManuscriptStatistics> => {
     try {
@@ -876,7 +1080,9 @@ export const manuscriptAdminApi = {
   },
 
   // Get existing reviewers for manuscript
-  getExistingReviewers: async (manuscriptId: string) => {
+  getExistingReviewers: async (
+    manuscriptId: string
+  ): Promise<{ success: boolean; data: ExistingReviewForReassignment[] }> => {
     try {
       const response = await api.get(
         `/admin/reassign-review/existing-reviewers/${manuscriptId}`
@@ -884,6 +1090,71 @@ export const manuscriptAdminApi = {
       return response.data;
     } catch (error) {
       console.error("Failed to fetch existing reviewers:", error);
+      throw error;
+    }
+  },
+
+  // Get manuscripts pending decision (reviewed manuscripts)
+  getManuscriptsForDecision: async (params: {
+    page?: number;
+    limit?: number;
+  }): Promise<ManuscriptListResponse> => {
+    try {
+      const response = await api.get("/admin/decisions", { params });
+      return response.data;
+    } catch (error) {
+      console.error("Failed to fetch manuscripts for decision:", error);
+      throw error;
+    }
+  },
+
+  // Update manuscript status (final decision)
+  updateManuscriptStatus: async (
+    manuscriptId: string,
+    data: { status: string; feedbackComments: string }
+  ): Promise<ManuscriptDetailResponse> => {
+    try {
+      const response = await api.put(
+        `/admin/decisions/${manuscriptId}/status`,
+        data
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Failed to update manuscript status:", error);
+      throw error;
+    }
+  },
+
+  getEligibleReviewersForRevised: async (
+    manuscriptId: string
+  ): Promise<EligibleReviewersResponse> => {
+    try {
+      const response = await api.get(
+        `/admin/reassign-review/eligible-reviewers-revised/${manuscriptId}`
+      );
+      return response.data;
+    } catch (error) {
+      console.error(
+        "Failed to fetch eligible reviewers for revised manuscript:",
+        error
+      );
+      throw error;
+    }
+  },
+
+  getReassignEligibleReviewers: async (
+    manuscriptId: string
+  ): Promise<EligibleReviewersResponse> => {
+    try {
+      const response = await api.get(
+        `/admin/reassign-review/eligible-reviewers/${manuscriptId}`
+      );
+      return response.data;
+    } catch (error) {
+      console.error(
+        "Failed to fetch eligible reviewers for revised manuscript:",
+        error
+      );
       throw error;
     }
   },
@@ -1213,7 +1484,7 @@ export const manuscriptReviewerApi = {
   // Get reviewer assignments
   getReviewerAssignments: async (): Promise<ReviewerAssignmentsResponse> => {
     try {
-      const response = await api.get("/reviews/assignments");
+      const response = await api.get("/reviewsys/assignments");
       return response.data;
     } catch (error) {
       console.error("Error fetching reviewer assignments:", error);
@@ -1224,7 +1495,7 @@ export const manuscriptReviewerApi = {
   // Get reviewer statistics
   getReviewerStatistics: async (): Promise<ReviewerStatisticsResponse> => {
     try {
-      const response = await api.get("/reviews/statistics");
+      const response = await api.get("/reviewsys/statistics");
       return response.data;
     } catch (error) {
       console.error("Error fetching reviewer statistics:", error);
@@ -1235,7 +1506,7 @@ export const manuscriptReviewerApi = {
   // Get review by ID
   getReviewById: async (reviewId: string): Promise<ReviewByIdResponse> => {
     try {
-      const response = await api.get(`/reviews/${reviewId}`);
+      const response = await api.get(`/reviewsys/${reviewId}`);
       return response.data;
     } catch (error) {
       console.error(`Error fetching review with ID ${reviewId}:`, error);
@@ -1254,7 +1525,7 @@ export const manuscriptReviewerApi = {
   }> => {
     try {
       const response = await api.post(
-        `/reviews/${reviewId}/submit`,
+        `/reviewsys/${reviewId}/submit`,
         reviewData
       );
       return response.data;
@@ -1275,7 +1546,7 @@ export const manuscriptReviewerApi = {
   }> => {
     try {
       const response = await api.patch(
-        `/reviews/${reviewId}/save-progress`,
+        `/reviewsys/${reviewId}/save-progress`,
         progressData
       );
       return response.data;
@@ -1283,6 +1554,504 @@ export const manuscriptReviewerApi = {
       console.error("Error saving review progress:", error);
       throw error;
     }
+  },
+
+  getReviewWithHistory: async (
+    reviewId: string
+  ): Promise<{
+    success: boolean;
+    data: {
+      review: ManuscriptReviewWithDetails;
+      previousReview?: ReviewDetail;
+      isRevised: boolean;
+      revisionType?: string;
+    };
+  }> => {
+    try {
+      const response = await api.get(`/reviewsys/${reviewId}/with-history`);
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching review with history:", error);
+      throw error;
+    }
+  },
+
+  getReconciliationData: async (
+    reviewId: string
+  ): Promise<{
+    success: boolean;
+    data: {
+      review: ManuscriptReviewWithDetails;
+      conflictingReviews: Array<{
+        reviewerId: string;
+        reviewerName: string;
+        reviewDecision: string;
+        totalScore: number;
+        completedAt: string;
+      }>;
+    };
+  }> => {
+    try {
+      const response = await api.get(
+        `/reviewsys/${reviewId}/reconciliation-data`
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching reconciliation data:", error);
+      throw error;
+    }
+  },
+};
+
+// Admin Review API methods
+export const adminReviewApi = {
+  // Get admin review assignments
+  getAdminAssignments: async (): Promise<AdminReviewAssignmentsResponse> => {
+    try {
+      const response = await api.get("/admin/reviews");
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching admin assignments:", error);
+      throw error;
+    }
+  },
+
+  // Get admin review statistics
+  getAdminStatistics: async (): Promise<AdminReviewStatisticsResponse> => {
+    try {
+      const response = await api.get("/admin/reviews/statistics");
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching admin statistics:", error);
+      throw error;
+    }
+  },
+
+  // Get admin review by ID
+  getAdminReviewById: async (
+    reviewId: string
+  ): Promise<AdminReviewByIdResponse> => {
+    try {
+      const response = await api.get(`/admin/reviews/${reviewId}`);
+      return response.data;
+    } catch (error) {
+      console.error(`Error fetching admin review with ID ${reviewId}:`, error);
+      throw error;
+    }
+  },
+
+  // Submit admin review
+  submitAdminReview: async (
+    reviewId: string,
+    reviewData: AdminSubmitReviewRequest
+  ): Promise<{
+    success: boolean;
+    message: string;
+    data: ManuscriptReviewWithDetails;
+  }> => {
+    try {
+      const response = await api.post(
+        `/admin/reviews/${reviewId}/submit`,
+        reviewData
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error submitting admin review:", error);
+      throw error;
+    }
+  },
+
+  // Save admin review progress
+  saveAdminReviewProgress: async (
+    reviewId: string,
+    progressData: AdminSaveReviewProgressRequest
+  ): Promise<{
+    success: boolean;
+    message: string;
+    data: ManuscriptReviewWithDetails;
+  }> => {
+    try {
+      const response = await api.patch(
+        `/admin/reviews/${reviewId}/save`,
+        progressData
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error saving admin review progress:", error);
+      throw error;
+    }
+  },
+
+  getReviewWithHistory: async (
+    reviewId: string
+  ): Promise<{
+    success: boolean;
+    data: {
+      review: ManuscriptReviewWithDetails;
+      previousReview?: ReviewDetail;
+      isRevised: boolean;
+      revisionType?: string;
+    };
+  }> => {
+    try {
+      const response = await api.get(`/admin/reviews/${reviewId}/with-history`);
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching review with history:", error);
+      throw error;
+    }
+  },
+
+  getReconciliationData: async (
+    reviewId: string
+  ): Promise<{
+    success: boolean;
+    data: {
+      review: ManuscriptReviewWithDetails;
+      conflictingReviews: Array<{
+        reviewerId: string;
+        reviewerName: string;
+        reviewDecision: string;
+        totalScore: number;
+        completedAt: string;
+      }>;
+    };
+  }> => {
+    try {
+      const response = await api.get(
+        `/admin/reviews/${reviewId}/reconciliation-data`
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching reconciliation data:", error);
+      throw error;
+    }
+  },
+};
+
+// ==================== VOLUME API ====================
+export const volumeApi = {
+  // Create volume
+  createVolume: async (formData: FormData) => {
+    const response = await api.post("/publication/volumes", formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+    return response.data;
+  },
+
+  // Get all volumes
+  getVolumes: async (params?: {
+    page?: number;
+    limit?: number;
+    isActive?: boolean;
+  }) => {
+    const response = await api.get("/publication/volumes", { params });
+    return response.data;
+  },
+
+  // Get public volumes
+  getPublicVolumes: async (params?: { page?: number; limit?: number }) => {
+    const response = await api.get("/publication/public/volumes", { params });
+    return response.data;
+  },
+
+  // Get volume by ID
+  getVolumeById: async (id: string) => {
+    const response = await api.get(`/publication/volumes/${id}`);
+    return response.data;
+  },
+
+  // Update volume
+  updateVolume: async (id: string, formData: FormData) => {
+    const response = await api.put(`/publication/volumes/${id}`, formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+    return response.data;
+  },
+
+  // Delete volume
+  deleteVolume: async (id: string) => {
+    const response = await api.delete(`/publication/volumes/${id}`);
+    return response.data;
+  },
+};
+
+// ==================== ISSUE API ====================
+export const issueApi = {
+  // Create issue
+  createIssue: async (data: {
+    volume: string;
+    issueNumber: number;
+    description?: string;
+    publishDate?: string;
+  }) => {
+    const response = await api.post("/publication/issues", data);
+    return response.data;
+  },
+
+  // Get all issues
+  getIssues: async (params?: {
+    page?: number;
+    limit?: number;
+    volume?: string;
+    isActive?: boolean;
+  }) => {
+    const response = await api.get("/publication/issues", { params });
+    return response.data;
+  },
+
+  // Get public issues
+  getPublicIssues: async (params?: {
+    page?: number;
+    limit?: number;
+    volume?: string;
+  }) => {
+    const response = await api.get("/publication/public/issues", { params });
+    return response.data;
+  },
+
+  // Get issue by ID
+  getIssueById: async (id: string) => {
+    const response = await api.get(`/publication/issues/${id}`);
+    return response.data;
+  },
+
+  // Get issues by volume
+  getIssuesByVolume: async (volumeId: string) => {
+    const response = await api.get(`/publication/volumes/${volumeId}/issues`);
+    return response.data;
+  },
+
+  // Update issue
+  updateIssue: async (
+    id: string,
+    data: {
+      issueNumber?: number;
+      description?: string;
+      publishDate?: string;
+      isActive?: boolean;
+    }
+  ) => {
+    const response = await api.put(`/publication/issues/${id}`, data);
+    return response.data;
+  },
+
+  // Delete issue
+  deleteIssue: async (id: string) => {
+    const response = await api.delete(`/publication/issues/${id}`);
+    return response.data;
+  },
+};
+
+// ==================== PUBLICATION API ====================
+export const publicationApi = {
+  // Get manuscripts ready for publication
+  getPendingPublications: async (params?: {
+    page?: number;
+    limit?: number;
+  }) => {
+    const response = await api.get("/publication/publications/pending", {
+      params,
+    });
+    return response.data;
+  },
+
+  // Publish an article
+  publishArticle: async (
+    articleId: string,
+    data: {
+      volumeId: string;
+      issueId: string;
+      articleType: string;
+      pages?: { start: number; end: number };
+      publishDate?: string;
+      customDOI?: string;
+    }
+  ) => {
+    const response = await api.post(
+      `/publication/publications/${articleId}/publish`,
+      data
+    );
+    return response.data;
+  },
+
+  // Create and publish manual article
+  createManualArticle: async (formData: FormData) => {
+    const response = await api.post(
+      "/publication/publications/manual",
+      formData,
+      {
+        headers: { "Content-Type": "multipart/form-data" },
+      }
+    );
+    return response.data;
+  },
+
+  // Get published articles (public)
+  getPublishedArticles: async (params?: {
+    page?: number;
+    limit?: number;
+    volumeId?: string;
+    issueId?: string;
+    articleType?: string;
+  }) => {
+    const response = await api.get("/publication/articles", { params });
+    return response.data;
+  },
+
+  // Get single published article (public)
+  getPublishedArticle: async (id: string) => {
+    const response = await api.get(`/publication/articles/${id}`);
+    return response.data;
+  },
+
+  // Get articles by volume and issue (public)
+  getArticlesByVolumeAndIssue: async (volumeId: string, issueId: string) => {
+    const response = await api.get(
+      `/publication/volumes/${volumeId}/issues/${issueId}/articles`
+    );
+    return response.data;
+  },
+
+  // Get current issue (public)
+  getCurrentIssue: async () => {
+    const response = await api.get("/publication/current-issue");
+    return response.data;
+  },
+
+  // Get archives (public)
+  getArchives: async () => {
+    const response = await api.get("/publication/archives");
+    return response.data;
+  },
+};
+
+// ==================== EMAIL SUBSCRIPTION API ====================
+export const emailSubscriptionApi = {
+  // Subscribe to email alerts (public)
+  subscribe: async (email: string) => {
+    const response = await api.post("/publication/subscribe", { email });
+    return response.data;
+  },
+
+  // Unsubscribe from email alerts (public)
+  unsubscribe: async (token: string) => {
+    const response = await api.get(`/publication/unsubscribe/${token}`);
+    return response.data;
+  },
+
+  // Get all subscribers (admin)
+  getSubscribers: async (params?: {
+    page?: number;
+    limit?: number;
+    isActive?: boolean;
+  }) => {
+    const response = await api.get("/publication/subscribers", { params });
+    return response.data;
+  },
+
+  // Get subscriber statistics (admin)
+  getStatistics: async () => {
+    const response = await api.get("/publication/subscribers/statistics");
+    return response.data;
+  },
+};
+
+// ==================== FAILED JOBS API ====================
+export const failedJobsApi = {
+  // Get all failed jobs
+  getFailedJobs: async (params?: {
+    page?: number;
+    limit?: number;
+    jobType?: string;
+    resolved?: boolean;
+  }) => {
+    const response = await api.get("/publication/failed-jobs", { params });
+    return response.data;
+  },
+
+  // Get failed job statistics
+  getStatistics: async () => {
+    const response = await api.get("/publication/failed-jobs/statistics");
+    return response.data;
+  },
+
+  // Get failed job by ID
+  getFailedJobById: async (id: string) => {
+    const response = await api.get(`/publication/failed-jobs/${id}`);
+    return response.data;
+  },
+
+  // Retry a specific failed job
+  retryFailedJob: async (id: string) => {
+    const response = await api.post(`/publication/failed-jobs/${id}/retry`);
+    return response.data;
+  },
+
+  // Retry all failed jobs
+  retryAllFailedJobs: async () => {
+    const response = await api.post("/publication/failed-jobs/retry-all");
+    return response.data;
+  },
+
+  // Mark failed job as resolved
+  markAsResolved: async (id: string) => {
+    const response = await api.patch(`/publication/failed-jobs/${id}/resolve`);
+    return response.data;
+  },
+
+  // Delete resolved jobs
+  deleteResolvedJobs: async () => {
+    const response = await api.delete("/publication/failed-jobs/resolved");
+    return response.data;
+  },
+};
+
+// ==================== CITATION API ====================
+export const citationApi = {
+  // Get citation in specific format (public)
+  getCitation: async (articleId: string, format: string) => {
+    const response = await api.get(
+      `/publication/articles/${articleId}/citation`,
+      {
+        params: { format },
+      }
+    );
+    return response.data;
+  },
+
+  // Download citation file (public)
+  downloadCitation: async (articleId: string, format: "bibtex" | "ris") => {
+    const response = await api.get(
+      `/publication/articles/${articleId}/citation/download`,
+      {
+        params: { format },
+        responseType: "blob",
+      }
+    );
+    return response.data;
+  },
+
+  // Get all citation formats (public)
+  getAllCitations: async (articleId: string) => {
+    const response = await api.get(
+      `/publication/articles/${articleId}/citations`
+    );
+    return response.data;
+  },
+
+  // Get indexing metadata (public)
+  getIndexingMetadata: async (
+    articleId: string,
+    format: "json-ld" | "google-scholar" | "oai-pmh"
+  ) => {
+    const response = await api.get(
+      `/publication/articles/${articleId}/metadata`,
+      {
+        params: { format },
+      }
+    );
+    return response.data;
   },
 };
 
