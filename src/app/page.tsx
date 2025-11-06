@@ -13,7 +13,6 @@ import {
   Mail,
   ExternalLink,
   ChevronRight,
-  Award,
   Search,
 } from "lucide-react";
 import Header from "@/components/Header"
