@@ -138,7 +138,7 @@ export default function ArchivesPage() {
             </h1>
             
             <p className="text-xl md:text-2xl text-[#FFE9EE] max-w-3xl mx-auto leading-relaxed mb-8 animate-slide-up" style={{ animationDelay: "0.1s" }}>
-              Explore our complete collection of published research in the humanities
+              Explore our complete collection of published research in the science, technologies, and innovation fields.
             </p>
 
             {/* Quick Stats */}

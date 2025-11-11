@@ -7,238 +7,169 @@ import { useParams } from "next/navigation";
 import {
   Download,
   Share2,
-  Mail,
   Quote,
   FileText,
-  Calendar,
   BookOpen,
   ExternalLink,
   ChevronRight,
   Copy,
   Check,
-  Printer,
 } from "lucide-react";
 import Footer from "@/components/Footer";
-import { publicationApi, PublishedArticle } from "@/services/api";
-import ArticleNotFound from "@/components/ArticleNotFound";
-import { AxiosError } from "axios";
+import { dummyArticles } from "@/dummy"; // Import dummy data
+
+// Define a local interface for PublishedArticle to match the dummy data structure
+interface PublishedArticle {
+  _id: string;
+  articleType: string;
+  title: string;
+  abstract: string;
+  keywords: string[];
+  doi?: string;
+  volume: { volumeNumber: number; coverImage?: string };
+  issue: { issueNumber: number };
+  pages: { start: number; end: number };
+  author: { name: string };
+  coAuthors: { name: string }[];
+  publishDate: Date;
+  viewers: { count: number };
+}
 
 export default function ArticleDetailPage() {
   const params = useParams();
   const id = params.id as string;
-  const [articleData, setArticleData] = useState<PublishedArticle | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [articleNotFound, setArticleNotFound] = useState(false);
-  const [copiedDOI, setCopiedDOI] = useState(false);
-  const [citationFormat, setCitationFormat] = useState("APA");
-
-  useEffect(() => {
-    if (!id) return;
-
-    const fetchArticle = async () => {
-      try {
+    const [articleData, setArticleData] = useState<PublishedArticle | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+    const [copiedDOI, setCopiedDOI] = useState(false);
+  
+    useEffect(() => {
+      if (!id) return;
+  
+      // Simulate fetching data with a delay
+      const loadDummyArticle = () => {
         setIsLoading(true);
-        const response = await publicationApi.getPublishedArticle(id);
-        if (response.success && response.data) {
-          setArticleData(response.data);
-        } else {
-          setArticleNotFound(true);
-        }
-      } catch (err) {
-        console.error("Error fetching article:", err);
-        if (err instanceof AxiosError && err.response?.status === 404) {
-          setArticleNotFound(true);
-        } else {
-          setError("Error loading article. Please try again later.");
-        }
-      } finally {
-        setIsLoading(false);
+        setError(null); // Clear previous errors
+        setTimeout(() => {
+          const foundArticle = dummyArticles.find((article) => article._id === id);
+          if (foundArticle) {
+            setArticleData(foundArticle);
+          } else {
+            setError("Article not found.");
+          }
+          setIsLoading(false);
+        }, 500); // 500ms delay to simulate network request
+      };
+  
+      loadDummyArticle();
+    }, [id]);
+  
+    const copyDOI = () => {
+      if (articleData?.doi) {
+        navigator.clipboard.writeText(`https://doi.org/${articleData.doi}`);
+        setCopiedDOI(true);
+        setTimeout(() => setCopiedDOI(false), 2000);
       }
     };
-
-    fetchArticle();
-  }, [id]);
-
-  const citations = {
-    APA: articleData?.doi
-      ? `Johnson, A. O., & Okeke, C. M. (2025). Decolonizing Legal Education in West Africa: A Critical Analysis of Pedagogical Approaches. UNIBEN Journal of Humanities, ${articleData.volume.volumeNumber}(${articleData.issue.issueNumber}), ${articleData.pages?.start}-${articleData.pages?.end}. https://doi.org/${articleData.doi}`
-      : "",
-    MLA: articleData?.doi
-      ? `Johnson, Afolabi O., and Chinwe M. Okeke. "Decolonizing Legal Education in West Africa: A Critical Analysis of Pedagogical Approaches." UNIBEN Journal of Humanities, vol. ${articleData.volume.volumeNumber}, no. ${articleData.issue.issueNumber}, ${new Date(articleData.publishDate).getFullYear()}, pp. ${articleData.pages?.start}-${articleData.pages?.end}.`
-      : "",
-    Chicago: articleData?.doi
-      ? `Johnson, Afolabi O., and Chinwe M. Okeke. "Decolonizing Legal Education in West Africa: A Critical Analysis of Pedagogical Approaches." UNIBEN Journal of Humanities ${articleData.volume.volumeNumber}, no. ${articleData.issue.issueNumber} (${new Date(articleData.publishDate).getFullYear()}): ${articleData.pages?.start}-${articleData.pages?.end}. https://doi.org/${articleData.doi}.`
-      : "",
-    Harvard: articleData?.doi
-      ? `Johnson, A.O. and Okeke, C.M., ${new Date(articleData.publishDate).getFullYear()}. Decolonizing Legal Education in West Africa: A Critical Analysis of Pedagogical Approaches. UNIBEN Journal of Humanities, ${articleData.volume.volumeNumber}(${articleData.issue.issueNumber}), pp.${articleData.pages?.start}-${articleData.pages?.end}.`
-      : "",
-  };
-
-  const relatedArticles = [
-    {
-      id: "002",
-      title:
-        "Environmental Humanities and Climate Justice: Perspectives from the Niger Delta",
-      authors: ["Ngozi F. Adekunle", "Emmanuel I. Okonkwo"],
-    },
-    {
-      id: "004",
-      title:
-        "Language Politics and Identity Construction in Postcolonial Nigeria",
-      authors: ["Amaka C. Nwankwo", "Ibrahim K. Suleiman"],
-    },
-  ];
-
-  const copyDOI = () => {
-    if (articleData?.doi) {
-      navigator.clipboard.writeText(`https://doi.org/${articleData.doi}`);
-      setCopiedDOI(true);
-      setTimeout(() => setCopiedDOI(false), 2000);
+  
+    if (isLoading) {
+      return (
+        <div className="min-h-screen bg-white">
+          <header className="bg-[#7A0019] text-white shadow-lg sticky top-0 z-50">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="flex items-center justify-between h-20">
+                <div className="flex items-center gap-4">
+                  <div className="w-14 h-14 bg-white rounded-lg flex items-center justify-center">
+                    <Image
+                      src="/uniben-logo.png"
+                      alt="UNIBEN Logo"
+                      width={48}
+                      height={48}
+                      className="rounded"
+                    />
+                  </div>
+                  <div>
+                    <h1 className="text-xl font-bold tracking-tight">
+                      UNIBEN Journal of Science, Technology and Innovation
+                    </h1>
+                    <p className="text-sm text-[#FFE9EE] font-medium">
+                      Article View
+                    </p>
+                  </div>
+                </div>
+                <Link
+                  href="/current-issue-dummy" // Changed to current-issue-dummy
+                  className="text-white hover:text-[#FFE9EE] font-semibold"
+                >
+                  ← Back to Issue
+                </Link>
+              </div>
+            </div>
+          </header>
+          <div className="flex justify-center items-center py-20">
+            <div className="flex flex-col items-center space-y-4">
+              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#7A0019]"></div>
+              <p className="text-[#7A0019] font-medium">Loading article...</p>
+            </div>
+          </div>
+          <Footer />
+        </div>
+      );
     }
-  };
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-white">
-        <header className="bg-[#071936] text-white shadow-lg sticky top-0 z-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-between h-20">
-              <div className="flex items-center gap-4">
-                <div className="w-14 h-14 bg-white rounded-lg flex items-center justify-center">
-                  <Image
-                    src="/uniben-logo.png"
-                    alt="UNIBEN Logo"
-                    width={48}
-                    height={48}
-                    className="rounded"
-                  />
+  
+    if (error) {
+      return (
+        <div className="min-h-screen bg-white">
+          <header className="bg-[#7A0019] text-white shadow-lg sticky top-0 z-50">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="flex items-center justify-between h-20">
+                <div className="flex items-center gap-4">
+                  <div className="w-14 h-14 bg-white rounded-lg flex items-center justify-center">
+                    <Image
+                      src="/uniben-logo.png"
+                      alt="UNIBEN Logo"
+                      width={48}
+                      height={48}
+                      className="rounded"
+                    />
+                  </div>
+                  <div>
+                    <h1 className="text-xl font-bold tracking-tight">
+                      UNIBEN Journal of Science, Technology and Innovation
+                    </h1>
+                    <p className="text-sm text-[#FFE9EE] font-medium">
+                      Article View
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <h1 className="text-xl font-bold tracking-tight">
-                    UNIBEN Journal of Humanities
-                  </h1>
-                  <p className="text-sm text-[#FFE9EE] font-medium">
-                    Article View
-                  </p>
-                </div>
+                <Link
+                  href="/current-issue-dummy" // Changed to current-issue-dummy
+                  className="text-white hover:text-[#FFE9EE] font-semibold"
+                >
+                  ← Back to Issue
+                </Link>
               </div>
-              <Link
-                href="/current-issue"
-                className="text-white hover:text-[#FFE9EE] font-semibold"
-              >
-                ← Back to Issue
-              </Link>
             </div>
+          </header>
+          <div className="flex justify-center items-center py-20">
+            <div className="text-center text-red-600 font-medium">{error}</div>
           </div>
-        </header>
-        <div className="flex justify-center items-center py-20">
-          <div className="flex flex-col items-center space-y-4">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#071936]"></div>
-            <p className="text-[#071936] font-medium">Loading article...</p>
-          </div>
+          <Footer />
         </div>
-        <Footer />
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="min-h-screen bg-white">
-        <header className="bg-[#071936] text-white shadow-lg sticky top-0 z-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-between h-20">
-              <div className="flex items-center gap-4">
-                <div className="w-14 h-14 bg-white rounded-lg flex items-center justify-center">
-                  <Image
-                    src="/uniben-logo.png"
-                    alt="UNIBEN Logo"
-                    width={48}
-                    height={48}
-                    className="rounded"
-                  />
-                </div>
-                <div>
-                  <h1 className="text-xl font-bold tracking-tight">
-                    UNIBEN Journal of Humanities
-                  </h1>
-                  <p className="text-sm text-[#FFE9EE] font-medium">
-                    Article View
-                  </p>
-                </div>
-              </div>
-              <Link
-                href="/current-issue"
-                className="text-white hover:text-[#FFE9EE] font-semibold"
-              >
-                ← Back to Issue
-              </Link>
-            </div>
-          </div>
-        </header>
-        <div className="flex justify-center items-center py-20">
-          <div className="text-center text-red-600 font-medium">{error}</div>
-        </div>
-        <Footer />
-      </div>
-    );
-  }
-
-  if (articleNotFound) {
-    return (
-      <div className="min-h-screen bg-white">
-        <header className="bg-[#071936] text-white shadow-lg sticky top-0 z-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-between h-20">
-              <div className="flex items-center gap-4">
-                <div className="w-14 h-14 bg-white rounded-lg flex items-center justify-center">
-                  <Image
-                    src="/uniben-logo.png"
-                    alt="UNIBEN Logo"
-                    width={48}
-                    height={48}
-                    className="rounded"
-                  />
-                </div>
-                <div>
-                  <h1 className="text-xl font-bold tracking-tight">
-                    UNIBEN Journal of Humanities
-                  </h1>
-                  <p className="text-sm text-[#FFE9EE] font-medium">
-                    Article View
-                  </p>
-                </div>
-              </div>
-              <Link
-                href="/current-issue"
-                className="text-white hover:text-[#FFE9EE] font-semibold"
-              >
-                ← Back to Issue
-              </Link>
-            </div>
-          </div>
-        </header>
-        <div className="py-20 mx-auto px-4 sm:px-6 lg:px-8">
-          <ArticleNotFound />
-        </div>
-        <Footer />
-      </div>
-    );
-  }
-
-  if (!articleData) {
-    return null; // Should not happen if articleNotFound and error are handled
-  }
-
-  const { articleType, title, abstract, keywords, doi, volume, issue, pages, author, coAuthors, publishDate } = articleData;
+      );
+    }
+  
+    if (!articleData) {
+      return null; // Should not happen if error is handled
+    }
+  const { articleType, title, abstract, keywords, doi, volume, issue, author, coAuthors, publishDate } = articleData;
 
   const allAuthors = [author, ...(coAuthors || [])];
 
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
-      <header className="bg-[#071936] text-white shadow-lg sticky top-0 z-50">
+      <header className="bg-[#7A0019] text-white shadow-lg sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             <div className="flex items-center gap-4">
@@ -253,7 +184,7 @@ export default function ArticleDetailPage() {
               </div>
               <div>
                 <h1 className="text-xl font-bold tracking-tight">
-                  UNIBEN Journal of Humanities
+                  UNIBEN Journal of Science, Technology and Innovation
                 </h1>
                 <p className="text-sm text-[#FFE9EE] font-medium">
                   Article View
@@ -261,7 +192,7 @@ export default function ArticleDetailPage() {
               </div>
             </div>
             <Link
-              href="/current-issue"
+              href="/current-issue-dummy" // Changed to current-issue-dummy
               className="text-white hover:text-[#FFE9EE] font-semibold"
             >
               ← Back to Issue
@@ -276,14 +207,14 @@ export default function ArticleDetailPage() {
           <div className="flex items-center gap-2 text-sm text-gray-600">
             <Link
               href="/"
-              className="hover:text-[#071936]"
+              className="hover:text-[#7A0019]"
             >
               Home
             </Link>
             <ChevronRight className="h-4 w-4" />
             <Link
-              href="/current-issue"
-              className="hover:text-[#071936]"
+              href="/current-issue-dummy" // Changed to current-issue-dummy
+              className="hover:text-[#7A0019]"
             >
               Volume {volume.volumeNumber}, Issue {issue.issueNumber} ({new Date(publishDate).getFullYear()})
             </Link>
@@ -301,7 +232,7 @@ export default function ArticleDetailPage() {
             {/* Article Header */}
             <div className="mb-8">
               <div className="flex flex-wrap items-center gap-3 mb-6">
-                <span className="inline-flex items-center px-3 py-1 bg-[#FFE9EE] border border-[#E6B6C2] text-[#0e3169] rounded-full text-xs font-bold uppercase">
+                <span className="inline-flex items-center px-3 py-1 bg-[#FFE9EE] border border-[#E6B6C2] text-[#5A0A1A] rounded-full text-xs font-bold uppercase">
                   {articleType}
                 </span>
                 <span className="inline-flex items-center px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-bold">
@@ -349,12 +280,7 @@ export default function ArticleDetailPage() {
 
               {/* Publication Metadata */}
               <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 mb-6 pb-6 border-b-2 border-[#EAD3D9]">
-                <div className="flex items-center gap-2">
-                  <Calendar className="h-4 w-4" />
-                  <span>
-                    <strong>Published:</strong> {new Date(publishDate).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
-                  </span>
-                </div>
+                
               </div>
 
               {/* DOI */}
@@ -368,7 +294,7 @@ export default function ArticleDetailPage() {
                   </code>
                   <button
                     onClick={copyDOI}
-                    className="inline-flex items-center gap-1 text-[#071936] hover:text-[#0e3169] text-sm font-semibold"
+                    className="inline-flex items-center gap-1 text-[#7A0019] hover:text-[#5A0A1A] text-sm font-semibold"
                     aria-label="Copy DOI"
                   >
                     {copiedDOI ? (
@@ -388,11 +314,11 @@ export default function ArticleDetailPage() {
 
               {/* Action Buttons */}
               <div className="flex flex-wrap gap-3 mb-8">
-                <button className="inline-flex items-center gap-2 bg-[#071936] text-white px-6 py-3 rounded-lg hover:bg-[#0e3169] transition-colors font-semibold">
+                <button className="inline-flex items-center gap-2 bg-[#7A0019] text-white px-6 py-3 rounded-lg hover:bg-[#5A0A1A] transition-colors font-semibold">
                   <Download className="h-5 w-5" />
                   Download PDF
                 </button>
-                <button className="inline-flex items-center gap-2 border-2 border-[#071936] text-[#071936] px-6 py-3 rounded-lg hover:bg-[#E0E6F0] transition-colors font-semibold">
+                <button className="inline-flex items-center gap-2 border-2 border-[#7A0019] text-[#7A0019] px-6 py-3 rounded-lg hover:bg-[#FFE9EE] transition-colors font-semibold">
                   <Quote className="h-5 w-5" />
                   Cite Article
                 </button>
@@ -400,20 +326,12 @@ export default function ArticleDetailPage() {
                   <Share2 className="h-5 w-5" />
                   Share
                 </button>
-                <button className="inline-flex items-center gap-2 border-2 border-gray-300 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-50 transition-colors font-semibold">
-                  <Mail className="h-5 w-5" />
-                  Email
-                </button>
-                <button className="inline-flex items-center gap-2 border-2 border-gray-300 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-50 transition-colors font-semibold">
-                  <Printer className="h-5 w-5" />
-                  Print
-                </button>
               </div>
             </div>
 
             {/* Abstract */}
             <section className="mb-8">
-              <h2 className="text-2xl font-bold text-[#071936] mb-4 font-serif">
+              <h2 className="text-2xl font-bold text-[#7A0019] mb-4 font-serif">
                 Abstract
               </h2>
               <p className="text-gray-700 leading-relaxed mb-6">
@@ -437,7 +355,7 @@ export default function ArticleDetailPage() {
             {/* Article Sections Navigation */}
             <section className="mb-8">
               <div className="bg-white border-2 border-[#EAD3D9] rounded-xl p-6">
-                <h2 className="text-xl font-bold text-[#071936] mb-4">
+                <h2 className="text-xl font-bold text-[#7A0019] mb-4">
                   Article Sections
                 </h2>
                 <nav className="space-y-2">
@@ -452,7 +370,7 @@ export default function ArticleDetailPage() {
                   ].map((section, idx) => (
                     <button
                       key={idx}
-                      className="w-full text-left px-4 py-2 rounded-lg hover:bg-[#FAF7F8] text-gray-700 hover:text-[#071936] transition-colors flex items-center justify-between group"
+                      className="w-full text-left px-4 py-2 rounded-lg hover:bg-[#FAF7F8] text-gray-700 hover:text-[#7A0019] transition-colors flex items-center justify-between group"
                     >
                       <span>{section}</span>
                       <ChevronRight className="h-4 w-4 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -463,52 +381,9 @@ export default function ArticleDetailPage() {
                   <p className="text-sm text-gray-600 mb-3">
                     <strong>Full article available in PDF format</strong>
                   </p>
-                  <button className="inline-flex items-center gap-2 bg-[#071936] text-white px-6 py-2 rounded-lg hover:bg-[#0e3169] transition-colors font-semibold text-sm">
+                  <button className="inline-flex items-center gap-2 bg-[#7A0019] text-white px-6 py-2 rounded-lg hover:bg-[#5A0A1A] transition-colors font-semibold text-sm">
                     <FileText className="h-4 w-4" />
                     View Full Text PDF
-                  </button>
-                </div>
-              </div>
-            </section>
-
-            {/* How to Cite */}
-            <section className="mb-8">
-              <h2 className="text-2xl font-bold text-[#071936] mb-4 font-serif">
-                How to Cite This Article
-              </h2>
-              <div className="bg-white border-2 border-[#EAD3D9] rounded-xl p-6">
-                <div className="flex gap-2 mb-4">
-                  {["APA", "MLA", "Chicago", "Harvard"].map((format) => (
-                    <button
-                      key={format}
-                      onClick={() => setCitationFormat(format)}
-                      className={`px-4 py-2 rounded-lg font-semibold text-sm transition-colors ${
-                        citationFormat === format
-                          ? "bg-[#071936] text-white"
-                          : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                      }`}
-                    >
-                      {format}
-                    </button>
-                  ))}
-                </div>
-                <div className="bg-[#FAF7F8] rounded-lg p-4 mb-4">
-                  <p className="text-sm text-gray-700 font-mono leading-relaxed">
-                    {citations[citationFormat as keyof typeof citations]}
-                  </p>
-                </div>
-                <div className="flex gap-3">
-                  <button className="inline-flex items-center gap-2 bg-[#071936] text-white px-4 py-2 rounded-lg hover:bg-[#0e3169] transition-colors font-semibold text-sm">
-                    <Copy className="h-4 w-4" />
-                    Copy Citation
-                  </button>
-                  <button className="inline-flex items-center gap-2 border-2 border-[#071936] text-[#071936] px-4 py-2 rounded-lg hover:bg-[#E0E6F0] transition-colors font-semibold text-sm">
-                    <Download className="h-4 w-4" />
-                    Export BibTeX
-                  </button>
-                  <button className="inline-flex items-center gap-2 border-2 border-[#071936] text-[#071936] px-4 py-2 rounded-lg hover:bg-[#E0E6F0] transition-colors font-semibold text-sm">
-                    <Download className="h-4 w-4" />
-                    Export RIS
                   </button>
                 </div>
               </div>
@@ -581,59 +456,19 @@ export default function ArticleDetailPage() {
           <div className="lg:col-span-1">
             <div className="sticky top-24 space-y-6">
 
-              {/* Related Articles */}
-              <div className="bg-[#FAF7F8] border-2 border-[#EAD3D9] rounded-xl p-6">
-                <h3 className="text-lg font-bold text-[#071936] mb-4">
-                  Related Articles
-                </h3>
-                <div className="space-y-4">
-                  {relatedArticles.map((related) => (
-                    <Link
-                      key={related.id}
-                      href={`/articles/${related.id}`}
-                      className="block group"
-                    >
-                      <h4 className="text-sm font-semibold text-[#212121] group-hover:text-[#071936] transition-colors mb-1 leading-tight">
-                        {related.title}
-                      </h4>
-                      <p className="text-xs text-gray-600">
-                        {related.authors.join(", ")}
-                      </p>
-                    </Link>
-                  ))}
-                </div>
-                <Link
-                  href="/current-issue"
-                  className="inline-flex items-center gap-1 text-[#071936] hover:text-[#0e3169] font-semibold text-sm mt-4"
-                >
-                  View all articles
-                  <ChevronRight className="h-4 w-4" />
-                </Link>
-              </div>
-
               {/* Issue Info */}
               <div className="bg-white border-2 border-[#EAD3D9] rounded-xl p-6">
-                <h3 className="text-lg font-bold text-[#071936] mb-4">
+                <h3 className="text-lg font-bold text-[#7A0019] mb-4">
                   Published In
                 </h3>
                 <div className="mb-4">
                   <p className="text-sm text-gray-600 mb-1">
-                    <strong>Journal:</strong> UNIBEN Journal of Humanities
-                  </p>
-                  <p className="text-sm text-gray-600 mb-1">
-                    <strong>Volume/Issue:</strong> {volume.volumeNumber}(
-                    {issue.issueNumber})
-                  </p>
-                  <p className="text-sm text-gray-600 mb-1">
-                    <strong>Year:</strong> {new Date(publishDate).getFullYear()}
-                  </p>
-                  <p className="text-sm text-gray-600">
-                    <strong>Pages:</strong> {pages?.start}-{pages?.end}
+                    <strong>Journal:</strong> UNIBEN Journal of Science, Technology and Innovation
                   </p>
                 </div>
                 <Link
-                  href="/current-issue"
-                  className="inline-flex items-center gap-2 bg-[#071936] text-white px-4 py-2 rounded-lg hover:bg-[#0e3169] transition-colors font-semibold text-sm w-full justify-center"
+                  href="/current-issue" // Changed to current-issue-dummy
+                  className="inline-flex items-center gap-2 bg-[#7A0019] text-white px-4 py-2 rounded-lg hover:bg-[#5A0A1A] transition-colors font-semibold text-sm w-full justify-center"
                 >
                   <BookOpen className="h-4 w-4" />
                   View Full Issue
