@@ -57,21 +57,42 @@ export default function CurrentIssuePage() {
   const [noIssueFound, setNoIssueFound] = useState(false);
 
   useEffect(() => {
-    // Simulate fetching data with a delay
-    const loadDummyData = () => {
-      setIsLoading(true);
-      setTimeout(() => {
-        if (dummyCurrentIssue) {
-          setCurrentIssueData(dummyCurrentIssue); // Cast to any to match CurrentIssueData type
-        } else {
-          setNoIssueFound(true);
+    const loadDummyData = async () => {
+      try {
+        setIsLoading(true);
+        setError(null); // Reset any previous errors
+  
+        // Simulate fetching data
+        await new Promise((resolve) => setTimeout(resolve, 500));
+  
+        if (!dummyCurrentIssue) {
+          throw new Error("No current issue data found.");
         }
+  
+        setCurrentIssueData(dummyCurrentIssue);
+        setNoIssueFound(false);
+      } catch (err: unknown) {
+        console.error("Error loading current issue:", err);
+      
+        // Safely extract error message
+        let errorMessage = "An unexpected error occurred while loading the issue.";
+      
+        if (err instanceof Error) {
+          errorMessage = err.message;
+        } else if (typeof err === "string") {
+          errorMessage = err;
+        }
+      
+        setError(errorMessage);
+        setNoIssueFound(true);
+      }
+      finally {
         setIsLoading(false);
-      }, 500); // 500ms delay to simulate network request
+      }
     };
-
+  
     loadDummyData();
-  }, []);
+  }, []);  
 
   const filteredArticles =
     filterType === "all"
