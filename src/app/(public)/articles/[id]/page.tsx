@@ -33,6 +33,7 @@ interface PublishedArticle {
   coAuthors: { name: string }[];
   publishDate: Date;
   viewers: { count: number };
+  download: {file: string}
 }
 
 export default function ArticleDetailPage() {
@@ -75,7 +76,7 @@ export default function ArticleDetailPage() {
     if (isLoading) {
       return (
         <div className="min-h-screen bg-white">
-          <header className="bg-[#7A0019] text-white shadow-lg sticky top-0 z-50">
+          <header className="bg-[#071936] text-white shadow-lg sticky top-0 z-50">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="flex items-center justify-between h-20">
                 <div className="flex items-center gap-4">
@@ -98,7 +99,7 @@ export default function ArticleDetailPage() {
                   </div>
                 </div>
                 <Link
-                  href="/current-issue-dummy" // Changed to current-issue-dummy
+                  href="/current-issue" // Changed to current-issue
                   className="text-white hover:text-[#FFE9EE] font-semibold"
                 >
                   ← Back to Issue
@@ -108,8 +109,8 @@ export default function ArticleDetailPage() {
           </header>
           <div className="flex justify-center items-center py-20">
             <div className="flex flex-col items-center space-y-4">
-              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#7A0019]"></div>
-              <p className="text-[#7A0019] font-medium">Loading article...</p>
+              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#071936]"></div>
+              <p className="text-[#071936] font-medium">Loading article...</p>
             </div>
           </div>
           <Footer />
@@ -120,7 +121,7 @@ export default function ArticleDetailPage() {
     if (error) {
       return (
         <div className="min-h-screen bg-white">
-          <header className="bg-[#7A0019] text-white shadow-lg sticky top-0 z-50">
+          <header className="bg-[#071936] text-white shadow-lg sticky top-0 z-50">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="flex items-center justify-between h-20">
                 <div className="flex items-center gap-4">
@@ -137,13 +138,13 @@ export default function ArticleDetailPage() {
                     <h1 className="text-xl font-bold tracking-tight">
                       UNIBEN Journal of Science, Technology and Innovation
                     </h1>
-                    <p className="text-sm text-[#FFE9EE] font-medium">
+                    <p className="text-sm text-[white/80] font-medium">
                       Article View
                     </p>
                   </div>
                 </div>
                 <Link
-                  href="/current-issue-dummy" // Changed to current-issue-dummy
+                  href="/current-issue" // Changed to current-issue
                   className="text-white hover:text-[#FFE9EE] font-semibold"
                 >
                   ← Back to Issue
@@ -169,7 +170,7 @@ export default function ArticleDetailPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
-      <header className="bg-[#7A0019] text-white shadow-lg sticky top-0 z-50">
+      <header className="bg-[#071936] text-white shadow-lg sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             <div className="flex items-center gap-4">
@@ -186,14 +187,14 @@ export default function ArticleDetailPage() {
                 <h1 className="text-xl font-bold tracking-tight">
                   UNIBEN Journal of Science, Technology and Innovation
                 </h1>
-                <p className="text-sm text-[#FFE9EE] font-medium">
+                <p className="text-sm text-[white/80] font-medium">
                   Article View
                 </p>
               </div>
             </div>
             <Link
-              href="/current-issue-dummy" // Changed to current-issue-dummy
-              className="text-white hover:text-[#FFE9EE] font-semibold"
+              href="/current-issue" // Changed to current-issue
+              className="text-white hover:text-[#8690a0c2] font-semibold"
             >
               ← Back to Issue
             </Link>
@@ -202,19 +203,19 @@ export default function ArticleDetailPage() {
       </header>
 
       {/* Breadcrumb */}
-      <nav className="bg-[#FAF7F8] border-b border-[#EAD3D9] py-3">
+      <nav className="bg-[#FAF7F8] border-b border-[#8690a0c2] py-3">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-2 text-sm text-gray-600">
             <Link
               href="/"
-              className="hover:text-[#7A0019]"
+              className="hover:text-[#8690a0c2]"
             >
               Home
             </Link>
             <ChevronRight className="h-4 w-4" />
             <Link
-              href="/current-issue-dummy" // Changed to current-issue-dummy
-              className="hover:text-[#7A0019]"
+              href="/current-issue" // Changed to current-issue
+              className="hover:text-[#8690a0c2]"
             >
               Volume {volume.volumeNumber}, Issue {issue.issueNumber} ({new Date(publishDate).getFullYear()})
             </Link>
@@ -232,7 +233,7 @@ export default function ArticleDetailPage() {
             {/* Article Header */}
             <div className="mb-8">
               <div className="flex flex-wrap items-center gap-3 mb-6">
-                <span className="inline-flex items-center px-3 py-1 bg-[#FFE9EE] border border-[#E6B6C2] text-[#5A0A1A] rounded-full text-xs font-bold uppercase">
+                <span className="inline-flex items-center px-3 py-1 bg-[#8690a0c2] border border-[#8690a0c2] text-[#071936] rounded-full text-xs font-bold uppercase">
                   {articleType}
                 </span>
                 <span className="inline-flex items-center px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-bold">
@@ -267,7 +268,7 @@ export default function ArticleDetailPage() {
                           href={`https://orcid.org/${auth.orcid}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-[#7A0019] hover:text-[#5A0A1A]"
+                          className="text-[#071936] hover:text-[#8690a0c2]"
                           aria-label="ORCID"
                         >
                           <Globe className="h-4 w-4" />
@@ -279,7 +280,7 @@ export default function ArticleDetailPage() {
               </div>
 
               {/* Publication Metadata */}
-              <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 mb-6 pb-6 border-b-2 border-[#EAD3D9]">
+              <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 mb-6 pb-6 border-b-2 border-[#8690a0c2]">
                 
               </div>
 
@@ -294,7 +295,7 @@ export default function ArticleDetailPage() {
                   </code>
                   <button
                     onClick={copyDOI}
-                    className="inline-flex items-center gap-1 text-[#7A0019] hover:text-[#5A0A1A] text-sm font-semibold"
+                    className="inline-flex items-center gap-1 text-[#071936] hover:text-[#8690a0c2] text-sm font-semibold"
                     aria-label="Copy DOI"
                   >
                     {copiedDOI ? (
@@ -314,15 +315,18 @@ export default function ArticleDetailPage() {
 
               {/* Action Buttons */}
               <div className="flex flex-wrap gap-3 mb-8">
-                <button className="inline-flex items-center gap-2 bg-[#7A0019] text-white px-6 py-3 rounded-lg hover:bg-[#5A0A1A] transition-colors font-semibold">
-                  <Download className="h-5 w-5" />
+              <a href={`/files/${articleData.download.file}`} download className="inline-flex items-center gap-2 bg-[#071936] text-white px-8 py-2 rounded-lg transition-colors text-sm font-semibold hover:bg-[#8690a0c2]">
+                
+                
+                  <Download className="h-4 w-4" />
                   Download PDF
-                </button>
-                <button className="inline-flex items-center gap-2 border-2 border-[#7A0019] text-[#7A0019] px-6 py-3 rounded-lg hover:bg-[#FFE9EE] transition-colors font-semibold">
+     
+                </a>
+                <button className="inline-flex items-center gap-2 border-2 border-[#071936] text-[#071936] px-6 py-3 rounded-lg hover:bg-[#8690a0c2] transition-colors font-semibold">
                   <Quote className="h-5 w-5" />
                   Cite Article
                 </button>
-                <button className="inline-flex items-center gap-2 border-2 border-gray-300 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-50 transition-colors font-semibold">
+                <button className="inline-flex items-center gap-2 border-2 border-gray-300 text-gray-700 px-6 py-3 rounded-lg hover:bg-[#8690a0c2] transition-colors font-semibold">
                   <Share2 className="h-5 w-5" />
                   Share
                 </button>
@@ -331,7 +335,7 @@ export default function ArticleDetailPage() {
 
             {/* Abstract */}
             <section className="mb-8">
-              <h2 className="text-2xl font-bold text-[#7A0019] mb-4 font-serif">
+              <h2 className="text-2xl font-bold text-[#071936] mb-4 font-serif">
                 Abstract
               </h2>
               <p className="text-gray-700 leading-relaxed mb-6">
@@ -343,7 +347,7 @@ export default function ArticleDetailPage() {
                   {keywords.map((keyword, idx) => (
                     <span
                       key={idx}
-                      className="px-3 py-1 bg-white border border-[#EAD3D9] text-gray-700 rounded-full text-sm"
+                      className="px-3 py-1 bg-white border border-[#8690a0c2] text-gray-700 rounded-full text-sm"
                     >
                       {keyword}
                     </span>
@@ -354,8 +358,8 @@ export default function ArticleDetailPage() {
 
             {/* Article Sections Navigation */}
             <section className="mb-8">
-              <div className="bg-white border-2 border-[#EAD3D9] rounded-xl p-6">
-                <h2 className="text-xl font-bold text-[#7A0019] mb-4">
+              <div className="bg-white border-2 border-[#8690a0c2] rounded-xl p-6">
+                <h2 className="text-xl font-bold text-[#071936] mb-4">
                   Article Sections
                 </h2>
                 <nav className="space-y-2">
@@ -370,18 +374,18 @@ export default function ArticleDetailPage() {
                   ].map((section, idx) => (
                     <button
                       key={idx}
-                      className="w-full text-left px-4 py-2 rounded-lg hover:bg-[#FAF7F8] text-gray-700 hover:text-[#7A0019] transition-colors flex items-center justify-between group"
+                      className="w-full text-left px-4 py-2 rounded-lg hover:bg-[#FAF7F8] text-gray-700 hover:text-[#071936] transition-colors flex items-center justify-between group"
                     >
                       <span>{section}</span>
                       <ChevronRight className="h-4 w-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                     </button>
                   ))}
                 </nav>
-                <div className="mt-6 pt-6 border-t border-[#EAD3D9]">
+                <div className="mt-6 pt-6 border-t border-[#8690a0c2]">
                   <p className="text-sm text-gray-600 mb-3">
                     <strong>Full article available in PDF format</strong>
                   </p>
-                  <button className="inline-flex items-center gap-2 bg-[#7A0019] text-white px-6 py-2 rounded-lg hover:bg-[#5A0A1A] transition-colors font-semibold text-sm">
+                  <button className="inline-flex items-center gap-2 bg-[#071936] text-white px-6 py-2 rounded-lg hover:bg-[#8690a0c2] transition-colors font-semibold text-sm">
                     <FileText className="h-4 w-4" />
                     View Full Text PDF
                   </button>
@@ -392,11 +396,11 @@ export default function ArticleDetailPage() {
             {/* Declarations */}
             {/* Assuming these fields are not directly available in PublishedArticle for now */}
             {/* <section className="mb-8">
-              <h2 className="text-2xl font-bold text-[#7A0019] mb-4 font-serif">
+              <h2 className="text-2xl font-bold text-[#071936] mb-4 font-serif">
                 Declarations
               </h2>
               <div className="space-y-4">
-                <div className="bg-white border-2 border-[#EAD3D9] rounded-xl p-6">
+                <div className="bg-white border-2 border-[#8690a0c2] rounded-xl p-6">
                   <h3 className="font-semibold text-[#212121] mb-2">
                     Funding
                   </h3>
@@ -404,7 +408,7 @@ export default function ArticleDetailPage() {
                     {article.funding}
                   </p>
                 </div>
-                <div className="bg-white border-2 border-[#EAD3D9] rounded-xl p-6">
+                <div className="bg-white border-2 border-[#8690a0c2] rounded-xl p-6">
                   <h3 className="font-semibold text-[#212121] mb-2">
                     Conflict of Interest
                   </h3>
@@ -412,7 +416,7 @@ export default function ArticleDetailPage() {
                     {article.conflictOfInterest}
                   </p>
                 </div>
-                <div className="bg-white border-2 border-[#EAD3D9] rounded-xl p-6">
+                <div className="bg-white border-2 border-[#8690a0c2] rounded-xl p-6">
                   <h3 className="font-semibold text-[#212121] mb-2">
                     Data Availability
                   </h3>
@@ -457,8 +461,8 @@ export default function ArticleDetailPage() {
             <div className="sticky top-24 space-y-6">
 
               {/* Issue Info */}
-              <div className="bg-white border-2 border-[#EAD3D9] rounded-xl p-6">
-                <h3 className="text-lg font-bold text-[#7A0019] mb-4">
+              <div className="bg-white border-2 border-[#8690a0c2] rounded-xl p-6">
+                <h3 className="text-lg font-bold text-[#071936] mb-4">
                   Published In
                 </h3>
                 <div className="mb-4">
@@ -467,8 +471,8 @@ export default function ArticleDetailPage() {
                   </p>
                 </div>
                 <Link
-                  href="/current-issue" // Changed to current-issue-dummy
-                  className="inline-flex items-center gap-2 bg-[#7A0019] text-white px-4 py-2 rounded-lg hover:bg-[#5A0A1A] transition-colors font-semibold text-sm w-full justify-center"
+                  href="/current-issue" // Changed to current-issue
+                  className="inline-flex items-center gap-2 bg-[#071936] text-white px-4 py-2 rounded-lg hover:bg-[#8690a0c2] transition-colors font-semibold text-sm w-full justify-center"
                 >
                   <BookOpen className="h-4 w-4" />
                   View Full Issue

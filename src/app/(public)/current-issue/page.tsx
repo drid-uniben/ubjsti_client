@@ -33,6 +33,7 @@ interface PublishedArticle {
   coAuthors: { name: string }[];
   publishDate: Date;
   viewers: { count: number };
+  download: {file: string}
 }
 
 interface CurrentIssueData {
@@ -180,7 +181,7 @@ export default function CurrentIssuePage() {
             <div className="md:col-span-1">
               <div className="bg-white rounded-xl shadow-2xl overflow-hidden">
                 <Image
-                  src={issue.volume.coverImage || "/cover.png"}
+                  src="/issue-cover.png"
                   alt={`Volume ${issue.volume.volumeNumber}, Issue ${issue.issueNumber} Cover`}
                   width={400}
                   height={600}
@@ -196,22 +197,22 @@ export default function CurrentIssuePage() {
               <h1 className="text-4xl font-bold mb-4 font-serif">
                 Volume {issue.volume.volumeNumber}, Issue {issue.issueNumber} ({publishYear})
               </h1>
-              <p className="text-xl text-[#FFE9EE] mb-6">
+              <p className="text-xl text-[#8690a0c2] mb-6">
                 Published: {publishMonthYear}
               </p>
 
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
                 <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
                   <div className="text-3xl font-bold mb-1">{totalArticles}</div>
-                  <div className="text-sm text-[#FFE9EE]">Articles</div>
+                  <div className="text-sm text-[#8690a0c2]">Articles</div>
                 </div>
                 <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
                   <div className="text-3xl font-bold mb-1">{totalPages}</div>
-                  <div className="text-sm text-[#FFE9EE]">Pages</div>
+                  <div className="text-sm text-[#8690a0c2]">Pages</div>
                 </div>
                 <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
                   <div className="text-3xl font-bold mb-1">100%</div>
-                  <div className="text-sm text-[#FFE9EE]">Open Access</div>
+                  <div className="text-sm text-[#8690a0c2]">Open Access</div>
                 </div>
               </div>
               <div className="flex flex-wrap gap-3">
@@ -228,8 +229,8 @@ export default function CurrentIssuePage() {
               </div>
 
               <div className="mt-6 pt-6 border-t border-white/20">
-                <p className="text-sm text-[#FFE9EE]">
-                  <strong>ISSN:</strong> eISSN: 2XXX-XXXX (Online)
+                <p className="text-sm text-[#8690a0c2]">
+                  <strong>ISSN:</strong> eISSN: 2315-6228 (Online)
                 </p>
               </div>
             </div>
@@ -237,7 +238,7 @@ export default function CurrentIssuePage() {
         </div>
       </section>
 
-      <section className="bg-[#FAF7F8] border-b-2 border-[#EAD3D9] py-6">
+      <section className="bg-[white] border-b-2 border-[#8690a0c2] py-6">
         <div className="mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
             <div>
@@ -251,7 +252,7 @@ export default function CurrentIssuePage() {
               <select
                 value={filterType}
                 onChange={(e) => setFilterType(e.target.value)}
-                className="px-4 py-2 border-2 border-[#EAD3D9] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#071936] font-medium"
+                className="px-4 py-2 border-2 border-[#8690a0c2] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#071936] font-medium"
               >
 
                 {articleTypes.map((type) => (
@@ -276,7 +277,7 @@ export default function CurrentIssuePage() {
 
               key={article._id}
 
-              className="block bg-white border-2 border-[#EAD3D9] rounded-xl overflow-hidden hover:shadow-xl hover:border-[#071936] transition-all transform hover:scale-[1.02]"
+              className="block bg-white border-2 border-[#8690a0c2] rounded-xl overflow-hidden hover:shadow-xl hover:border-[#071936] transition-all transform hover:scale-[1.02]"
 
             >
 
@@ -284,7 +285,7 @@ export default function CurrentIssuePage() {
 
                 <div className="flex flex-wrap items-center gap-3 mb-4">
 
-                  <span className="inline-flex items-center px-3 py-1 bg-[#FFE9EE] border border-[#E6B6C2] text-[#0e3169] rounded-full text-xs font-bold uppercase">
+                  <span className="inline-flex items-center px-3 py-1 bg-[#8690a0c2] border border-[#E6B6C2] text-[#0e3169] rounded-full text-xs font-bold uppercase">
                     {article.articleType}
                   </span>
                   <span className="text-sm text-gray-500">Pages {article.pages?.start}-{article.pages?.end}</span>
@@ -318,10 +319,10 @@ export default function CurrentIssuePage() {
           ))}
         </div>
       </section>
-      <section className="bg-[#FAF7F8] py-12 border-t-2 border-[#EAD3D9]">
+      <section className="bg-[white] py-12 border-t-2 border-[#8690a0c2]">
         <div className="mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-8">
-            <div className="bg-white border-2 border-[#EAD3D9] rounded-xl p-6">
+            <div className="bg-white border-2 border-[#8690a0c2] rounded-xl p-6">
               <h3 className="text-xl font-bold text-[#071936] mb-4 flex items-center gap-2">
                 <Mail className="h-6 w-6" />
                 Subscribe to Alerts
@@ -331,7 +332,7 @@ export default function CurrentIssuePage() {
                 <input
                   type="email"
                   placeholder="Enter your email"
-                  className="flex-1 mb-2 w-full md:mb-0 px-4 py-2 border-2 border-[#EAD3D9] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#071936]"
+                  className="flex-1 mb-2 w-full md:mb-0 px-4 py-2 border-2 border-[#8690a0c2] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#071936]"
                 />
                 <button className="bg-[#071936] text-white px-6 py-2 rounded-lg hover:bg-[#0e3169] transition-colors font-semibold">
                   Subscribe

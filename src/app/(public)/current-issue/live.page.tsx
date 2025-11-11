@@ -169,28 +169,28 @@ export default function CurrentIssuePage() {
               <h1 className="text-4xl font-bold mb-4 font-serif">
                 Volume {issue.volume.volumeNumber}, Issue {issue.issueNumber} ({publishYear})
               </h1>
-              <p className="text-xl text-[#FFE9EE] mb-6">
+              <p className="text-xl text-[#8690a0c2] mb-6">
                 Published: {publishMonthYear}
               </p>
 
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
                 <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
                   <div className="text-3xl font-bold mb-1">{totalArticles}</div>
-                  <div className="text-sm text-[#FFE9EE]">Articles</div>
+                  <div className="text-sm text-[#8690a0c2]">Articles</div>
                 </div>
                 <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
                   <div className="text-3xl font-bold mb-1">{totalPages}</div>
-                  <div className="text-sm text-[#FFE9EE]">Pages</div>
+                  <div className="text-sm text-[#8690a0c2]">Pages</div>
                 </div>
                 <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
                   <div className="text-3xl font-bold mb-1">100%</div>
-                  <div className="text-sm text-[#FFE9EE]">Open Access</div>
+                  <div className="text-sm text-[#8690a0c2]">Open Access</div>
                 </div>
                 <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
                   <div className="text-3xl font-bold mb-1">
                     {totalViews}
                   </div>
-                  <div className="text-sm text-[#FFE9EE]">Total Views</div>
+                  <div className="text-sm text-[#8690a0c2]">Total Views</div>
                 </div>
               </div>
               <div className="flex flex-wrap gap-3">
@@ -207,7 +207,7 @@ export default function CurrentIssuePage() {
               </div>
 
               <div className="mt-6 pt-6 border-t border-white/20">
-                <p className="text-sm text-[#FFE9EE]">
+                <p className="text-sm text-[#8690a0c2]">
                   <strong>ISSN:</strong> eISSN: 2XXX-XXXX (Online)
                 </p>
               </div>
@@ -263,7 +263,7 @@ export default function CurrentIssuePage() {
 
                 <div className="flex flex-wrap items-center gap-3 mb-4">
 
-                  <span className="inline-flex items-center px-3 py-1 bg-[#FFE9EE] border border-[#E6B6C2] text-[#0e3169] rounded-full text-xs font-bold uppercase">
+                  <span className="inline-flex items-center px-3 py-1 bg-[#8690a0c2] border border-[#E6B6C2] text-[#0e3169] rounded-full text-xs font-bold uppercase">
 
                     {article.articleType}
 

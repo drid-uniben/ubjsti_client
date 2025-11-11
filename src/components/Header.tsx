@@ -58,7 +58,7 @@ export default function Header() {
         <div className="flex items-center justify-between h-20">
           {/* Logo + Title */}
           <Link href="/" className="flex items-center gap-4 group">
-            <div className="w-14 h-14 bg-[white] rounded-lg flex items-center justify-center transition-transform group-hover:scale-105">
+            <div className="w-14 h-14 bg-[white] rounded-lg flex items-center justify-center transition-transform">
               <Image
                 src="/uniben-logo.png"
                 alt="UNIBEN Logo"
@@ -68,10 +68,10 @@ export default function Header() {
               />
             </div>
             <div>
-              <h1 className="text-lg md:text-xl font-bold tracking-tight transition-colors group-hover:text-[#8690A0C2]">
+              <h1 className="text-lg md:text-xl font-bold tracking-tight transition-colors">
                 UNIBEN Journal of Science, Technology and Innovation
               </h1>
-              <p className="text-sm text-[#8690A0C2] font-medium">
+              <p className="text-sm text-white/80 font-medium">
                 Open Access • Peer Reviewed
               </p>
             </div>
