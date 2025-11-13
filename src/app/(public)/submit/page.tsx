@@ -92,13 +92,9 @@ export default function ManuscriptSubmissionPage() {
   // Add co-author
   const addCoAuthor = () => {
     if (
-      !currentCoAuthor.name ||
-      !currentCoAuthor.email ||
-      !currentCoAuthor.faculty ||
-      !currentCoAuthor.affiliation ||
-      !currentCoAuthor.orcid
+      !currentCoAuthor.name
     ) {
-      alert('Please fill in all fields for the co-author');
+      alert('Please fill in the required fields for the co-author');
       return;
     }
 
@@ -128,8 +124,8 @@ export default function ManuscriptSubmissionPage() {
     setSubmitError('');
 
     // Check file type
-    if (file.type !== 'application/pdf') {
-      setSubmitError('Only PDF files are accepted');
+    if (file.type !== 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
+      setSubmitError('Only DOCX files are accepted');
       return false;
     }
 
@@ -230,7 +226,7 @@ export default function ManuscriptSubmissionPage() {
     }
 
     if (!manuscriptFile) {
-      errors.manuscriptFile = 'Please upload your manuscript PDF';
+      errors.manuscriptFile = 'Please upload your manuscript DOCX';
     }
 
     if (!agreedToTerms) {
@@ -443,7 +439,7 @@ export default function ManuscriptSubmissionPage() {
                 No Account Required
               </h3>
               <p className="text-sm text-[#071936]">
-                You don&apos;t need to create an account to submit your manuscript. Simply fill out the form below, and an account will be automatically created for you. You&apos;ll receive your login credentials via email within 24 hours to access your author dashboard and track your submission.
+                You don&apos;t need to create an account to submit your manuscript. Simply fill out the form below, and an account will be automatically created for you. You&apos;ll receive your login credentials via email within 24 hours to 7 days to access your author dashboard and track your submission.
               </p>
             </div>
           </div>
@@ -759,7 +755,7 @@ export default function ManuscriptSubmissionPage() {
 
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Email Address*
+                        Email Address
                       </label>
                       <input
                         type="email"
@@ -773,7 +769,7 @@ export default function ManuscriptSubmissionPage() {
 
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Faculty/Department *
+                        Faculty/Department
                       </label>
                       <input
                         type="text"
@@ -787,7 +783,7 @@ export default function ManuscriptSubmissionPage() {
 
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Affiliation *
+                        Affiliation
                       </label>
                       <input
                         type="text"
@@ -801,7 +797,7 @@ export default function ManuscriptSubmissionPage() {
 
                     <div className="md:col-span-2">
                       <label className="block text-sm font-medium text-gray-700 mb-1">
-                        ORCID iD * (Required)
+                        ORCID iD
                       </label>
                       <input
                         type="text"
@@ -859,7 +855,7 @@ export default function ManuscriptSubmissionPage() {
 
             <div className="p-6">
               <p className="text-gray-700 mb-4">
-                Please upload your complete manuscript in PDF format. Ensure it follows the{' '}
+                Please upload your complete manuscript in DOCX format. Ensure it follows the{' '}
                 <Link href="/for-authors" className="text-[#071936] underline hover:text-[#8690a0c2]">
                   author guidelines
                 </Link>.
@@ -881,7 +877,7 @@ export default function ManuscriptSubmissionPage() {
                 <input
                   ref={fileInputRef}
                   type="file"
-                  accept=".pdf"
+                  accept=".docx"
                   onChange={handleFileChange}
                   className="hidden"
                   id="manuscript-upload"
@@ -921,7 +917,7 @@ export default function ManuscriptSubmissionPage() {
                       </label>
                       <span className="text-gray-600"> or drag and drop</span>
                     </div>
-                    <p className="text-sm text-gray-500">PDF only, up to 10MB</p>
+                    <p className="text-sm text-gray-500">DOCX only, up to 10MB</p>
                   </div>
                 )}
               </div>
