@@ -19,10 +19,10 @@ export const dummyArticles = [
     issue: { issueNumber: 1 },
     pages: { start: 1, end: 11 },
     author: { name: "Okovido J.O" },
-    coAuthors: [{name: "Akhigbe L.O."}, {name: "Momodu, O.A."}],
+    coAuthors: [{ name: "Akhigbe L.O." }, { name: "Momodu, O.A." }],
     publishDate: new Date("2025-11-15"),
     viewers: { count: 150 },
-    download: {file: "/ISOTHERMAL AND KINETICS ASSESSMENT OF METAL IONS REMOVAL FROM LEACHATE USING CASSAVA PEEL DERIVED ADSORBENT.pdf"}
+    download: { file: "ISOTHERMAL AND KINETICS ASSESSMENT OF METAL IONS REMOVAL FROM LEACHATE USING CASSAVA PEEL DERIVED ADSORBENT.pdf" }
   },
   {
     _id: "60d5f1b3e6b3b3b3b3b3b3b4",
@@ -40,10 +40,10 @@ export const dummyArticles = [
     issue: { issueNumber: 1 },
     pages: { start: 12, end: 28 },
     author: { name: "Odafe-Shalome G.I.O." },
-    coAuthors: [{name: "Favour O. Imhankhon"}],
+    coAuthors: [{ name: "Favour O. Imhankhon" }],
     publishDate: new Date("2025-11-15"),
     viewers: { count: 250 },
-    download: {file: "/CHEMICAL EVALUATION OF SOME EDIBLE MUSHROOM SPECIES CULTIVATED IN RURAL GARDENS IN EDO STATE, NIGERIA.pdf"}
+    download: { file: "CHEMICAL EVALUATION OF SOME EDIBLE MUSHROOM SPECIES CULTIVATED IN RURAL GARDENS IN EDO STATE, NIGERIA.pdf" }
   },
 ];
 
