@@ -8,7 +8,7 @@ export default function ReviewGuideline() {
                     {/* Header */}
                     <div className=" text-black bg-accent p-6 md:p-8 rounded-t-lg">
                         <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-2">Manuscript Review Guidelines</h1>
-                        <p className="text-sm md:text-base text-gray-700">University of Benin Journal of Humanities</p>
+                        <p className="text-sm md:text-base text-gray-700">University of Benin Journal of Science, technology and Innovation</p>
                     </div>
 
                     <div className="p-6 md:p-8">
@@ -16,7 +16,7 @@ export default function ReviewGuideline() {
                         <div className="mb-8">
                             <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-4 border-b-2 border-purple-600 pb-2">Introduction</h2>
                             <p className="text-sm md:text-base text-gray-700 leading-relaxed mb-4">
-                                Thank you for serving as a reviewer for the University of Benin Journal of Humanities. Your expertise and careful evaluation are crucial to maintaining the high standards of our publication. This guide provides the framework for conducting thorough and constructive manuscript reviews.
+                                Thank you for serving as a reviewer for the University of Benin Journal of Science, technology and Innovation. Your expertise and careful evaluation are crucial to maintaining the high standards of our publication. This guide provides the framework for conducting thorough and constructive manuscript reviews.
                             </p>
                         </div>
 
@@ -43,7 +43,7 @@ export default function ReviewGuideline() {
                                                 </div>
                                             </td>
                                             <td className="border border-gray-300 p-3 text-gray-700">
-                                                Assess the novelty of the research, its contribution to the field of humanities, and the creative approach to the subject matter. Consider whether the work presents new insights, theories, or methodologies.
+                                                Assess the novelty of the research, its contribution to the fields of Science, technology and Innovation, and the creative approach to the subject matter. Consider whether the work presents new insights, theories, or methodologies.
                                             </td>
                                             <td className="border border-gray-300 p-3 text-center font-bold text-purple-600">20</td>
                                         </tr>
@@ -79,7 +79,7 @@ export default function ReviewGuideline() {
                                                 </div>
                                             </td>
                                             <td className="border border-gray-300 p-3 text-gray-700">
-                                                Consider the importance of the research to the field of humanities and its potential impact. Does it address significant questions or problems? Will it advance scholarly understanding?
+                                                Consider the importance of the research to the fields of Science, technology and Innovation and its potential impact. Does it address significant questions or problems? Will it advance scholarly understanding?
                                             </td>
                                             <td className="border border-gray-300 p-3 text-center font-bold text-purple-600">15</td>
                                         </tr>
@@ -306,7 +306,7 @@ export default function ReviewGuideline() {
 
                         {/* Footer */}
                         <div className="mt-8 pt-6 border-t border-gray-200 text-center text-sm text-gray-600">
-                            <p>© {new Date().getFullYear()} University of Benin Journal of Humanities. All rights reserved.</p>
+                            <p>© {new Date().getFullYear()} University of Benin Journal of Science, technology and Innovation. All rights reserved.</p>
                             <p className="mt-2">Thank you for your valuable contribution to scholarly publishing.</p>
                         </div>
                     </div>

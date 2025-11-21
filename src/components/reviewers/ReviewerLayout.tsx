@@ -128,7 +128,7 @@ function ReviewerLayoutComponent({ children }: ReviewerLayoutProps) {
               />
             </div>
             <div>
-              <span className="text-base text-white font-bold">UBJH</span>
+              <span className="text-base text-white font-bold">UBJSTI</span>
             </div>
           </div>
           <Button
@@ -220,7 +220,7 @@ function ReviewerLayoutComponent({ children }: ReviewerLayoutProps) {
                 />
               </div>
               <div>
-                <span className="text-base text-white font-bold">UBJH</span>
+                <span className="text-base text-white font-bold">UBJSTI</span>
               </div>
             </div>
           )}
@@ -324,7 +324,7 @@ function ReviewerLayoutComponent({ children }: ReviewerLayoutProps) {
               />
             </div>
             <div>
-              <span className="text-sm text-[#7A0019] font-bold">UBJH</span>
+              <span className="text-sm text-[#7A0019] font-bold">UBJSTI</span>
             </div>
           </div>
           <div className="w-10 h-8 flex items-center justify-end">

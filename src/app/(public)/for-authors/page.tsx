@@ -734,7 +734,7 @@ export default function ForAuthorsPage() {
                 <ul className="space-y-3">
                   <li>
                     <a
-                      href="/files/UBJH_Manuscript_Template.docx"
+                      href="/files/UBJSTI_Manuscript_Template.docx"
                       className="flex items-center gap-2 text-sm text-gray-700 hover:text-[#8690a0c2] transition-colors"
                     >
                       <FileText className="h-4 w-4" />
@@ -743,7 +743,7 @@ export default function ForAuthorsPage() {
                   </li>
                   <li>
                     <a
-                      href="/files/UBJH_Author_Guidelines.pdf"
+                      href="/files/UBJSTI_Author_Guidelines.pdf"
                       className="flex items-center gap-2 text-sm text-gray-700 hover:text-[#8690a0c2] transition-colors"
                     >
                       <FileText className="h-4 w-4" />
@@ -752,7 +752,7 @@ export default function ForAuthorsPage() {
                   </li>
                   <li>
                     <a
-                      href="/files/UBJH_Citation_Style_Guide.pdf"
+                      href="/files/UBJSTI_Citation_Style_Guide.pdf"
                       className="flex items-center gap-2 text-sm text-gray-700 hover:text-[#8690a0c2] transition-colors"
                     >
                       <FileText className="h-4 w-4" />
@@ -761,7 +761,7 @@ export default function ForAuthorsPage() {
                   </li>
                   <li>
                     <a
-                      href="/files/UBJH_Ethics_Checklist.pdf"
+                      href="/files/UBJSTI_Ethics_Checklist.pdf"
                       className="flex items-center gap-2 text-sm text-gray-700 hover:text-[#8690a0c2] transition-colors"
                     >
                       <FileText className="h-4 w-4" />

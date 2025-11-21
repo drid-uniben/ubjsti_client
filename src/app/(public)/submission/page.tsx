@@ -376,7 +376,7 @@ export default function SubmissionPortalPage() {
                     </div>
                   </a>
                   <a
-                    href="/files/UBJH_Author_Guidelines.pdf"
+                    href="/files/UBJSTI_Author_Guidelines.pdf"
                     className="flex items-center gap-3 p-4 bg-white border-2 border-[#8690a0c2] rounded-lg hover:border-[#071936] transition-colors"
                   >
                     <FileText className="h-5 w-5 text-[#071936]" />
