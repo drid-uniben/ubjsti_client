@@ -118,7 +118,7 @@ export default function STIJournalHome() {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
             <h2 className="text-3xl md:text-5xl font-bold mb-6 leading-tight font-serif">
-              UNIBEN Journal of Science & Technology
+              UNIBEN Journal of Science, Technology and Innovation
             </h2>
             <p className="text-xl mb-8 text-white leading-relaxed">
             University of Benin • Applied sciences, engineering, computing, climate/energy tech, public-health technologies, data & AI for development.
