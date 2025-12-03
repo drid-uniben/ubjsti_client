@@ -174,11 +174,15 @@ export interface EligibleReviewer {
   facultyTitle?: string;
   totalReviewsCount?: number;
   completionRate?: number;
+  subcluster?: string;
 }
 
 export interface EligibleReviewersResponse {
   success: boolean;
-  data: EligibleReviewer[];
+  data: {
+    firstChoice: EligibleReviewer[];
+    secondChoice: EligibleReviewer[];
+  };
 }
 
 export interface AssignReviewerRequest {
@@ -1082,7 +1086,7 @@ export const manuscriptAdminApi = {
   // Get existing reviewers for manuscript
   getExistingReviewers: async (
     manuscriptId: string
-  ): Promise<{ success: boolean; data: ExistingReviewForReassignment[] }> => {
+  ): Promise<{ success: boolean; data: { reviews: ExistingReviewForReassignment[] } }> => {
     try {
       const response = await api.get(
         `/admin/reassign-review/existing-reviewers/${manuscriptId}`

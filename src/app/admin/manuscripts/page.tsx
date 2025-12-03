@@ -46,7 +46,8 @@ function AdminManuscriptsPage() {
   const [showAssignReviewerModal, setShowAssignReviewerModal] = useState(false);
   const [currentManuscriptForReviewer, setCurrentManuscriptForReviewer] = useState<Manuscript | null>(null);
   const [assignReviewerMode, setAssignReviewerMode] = useState<'auto' | 'manual' | null>(null);
-  const [eligibleReviewers, setEligibleReviewers] = useState<EligibleReviewer[]>([]);
+  const [firstChoiceReviewers, setFirstChoiceReviewers] = useState<EligibleReviewer[]>([]);
+  const [secondChoiceReviewers, setSecondChoiceReviewers] = useState<EligibleReviewer[]>([]);
   const [selectedReviewer, setSelectedReviewer] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [assignReviewerLoading, setAssignReviewerLoading] = useState(false);
@@ -56,7 +57,8 @@ function AdminManuscriptsPage() {
   const [showReassignReviewerModal, setShowReassignReviewerModal] = useState(false);
   const [currentManuscriptForReassignment, setCurrentManuscriptForReassignment] = useState<Manuscript | null>(null);
   const [reassignReviewerMode, setReassignReviewerMode] = useState<'auto' | 'manual' | null>(null);
-  const [eligibleReviewersForReassignment, setEligibleReviewersForReassignment] = useState<EligibleReviewer[]>([]);
+  const [firstChoiceReviewersForReassignment, setFirstChoiceReviewersForReassignment] = useState<EligibleReviewer[]>([]);
+  const [secondChoiceReviewersForReassignment, setSecondChoiceReviewersForReassignment] = useState<EligibleReviewer[]>([]);
   const [selectedReviewerForReassignment, setSelectedReviewerForReassignment] = useState<string | null>(null);
   const [searchTermForReassignment, setSearchTermForReassignment] = useState('');
   const [reassignReviewerLoading, setReassignReviewerLoading] = useState(false);
@@ -284,7 +286,8 @@ function AdminManuscriptsPage() {
   const handleAssignReviewerClick = (manuscript: Manuscript) => {
     setCurrentManuscriptForReviewer(manuscript);
     setAssignReviewerMode(null);
-    setEligibleReviewers([]);
+    setFirstChoiceReviewers([]);
+    setSecondChoiceReviewers([]);
     setSelectedReviewer(null);
     setSearchTerm('');
     setAssignReviewerSuccess(false);
@@ -292,13 +295,14 @@ function AdminManuscriptsPage() {
   };
 
   const loadEligibleReviewersForAssignment = async (manuscriptId: string) => {
+    setAssignReviewerLoading(true);
     try {
-      setAssignReviewerLoading(true);
-      const response = await manuscriptAdminApi.getEligibleReviewers(manuscriptId);
-      setEligibleReviewers(response.data || []);
-    } catch (err) {
-      console.error('Failed to load eligible reviewers for assignment:', err);
-      toast.error('Failed to load eligible reviewers');
+      const res = await manuscriptAdminApi.getEligibleReviewers(manuscriptId);
+      setFirstChoiceReviewers(res.data.firstChoice || []);
+      setSecondChoiceReviewers(res.data.secondChoice || []);
+    } catch (error) {
+      console.error('Failed to load eligible reviewers for assignment:', error);
+      toast.error('Failed to load eligible reviewers.');
     } finally {
       setAssignReviewerLoading(false);
     }
@@ -338,7 +342,8 @@ function AdminManuscriptsPage() {
   const handleReassignReviewerClick = (manuscript: Manuscript) => {
     setCurrentManuscriptForReassignment(manuscript);
     setReassignReviewerMode(null);
-    setEligibleReviewersForReassignment([]);
+    setFirstChoiceReviewersForReassignment([]);
+    setSecondChoiceReviewersForReassignment([]);
     setSelectedReviewerForReassignment(null);
     setSearchTermForReassignment('');
     setReassignReviewerSuccess(false);
@@ -357,7 +362,7 @@ function AdminManuscriptsPage() {
     try {
       setReassignReviewerLoading(true);
       const response = await manuscriptAdminApi.getExistingReviewers(manuscriptId);
-      setExistingReviewsForReassignment(response.data);
+      setExistingReviewsForReassignment(response.data.reviews);
     } catch (err) {
       console.error('Failed to load existing reviews for reassignment:', err);
       toast.error('Failed to load existing reviews');
@@ -367,20 +372,19 @@ function AdminManuscriptsPage() {
   };
 
   const loadEligibleReviewersForReassignment = async (manuscriptId: string) => {
+    setReassignReviewerLoading(true);
     try {
-      setReassignReviewerLoading(true);
-      
       let response;
       if (currentManuscriptForReassignment?.revisedPdfFile) {
         response = await manuscriptAdminApi.getEligibleReviewersForRevised(manuscriptId);
       } else {
         response = await manuscriptAdminApi.getReassignEligibleReviewers(manuscriptId);
       }
-      
-      setEligibleReviewersForReassignment(response.data || []);
-    } catch (err) {
-      console.error('Failed to load eligible reviewers for reassignment:', err);
-      toast.error('Failed to load eligible reviewers');
+      setFirstChoiceReviewersForReassignment(response.data.firstChoice || []);
+      setSecondChoiceReviewersForReassignment(response.data.secondChoice || []);
+    } catch (error) {
+      console.error('Failed to load eligible reviewers for reassignment:', error);
+      toast.error('Failed to load eligible reviewers for reassignment.');
     } finally {
       setReassignReviewerLoading(false);
     }
@@ -472,6 +476,75 @@ function AdminManuscriptsPage() {
     
     return statusMap[status] || status;
   };
+
+  const renderReviewerList = (
+    reviewers: EligibleReviewer[],
+    selectedId: string | null,
+    onSelect: (id: string) => void,
+    searchTerm: string
+  ) => {
+    const filtered = reviewers.filter(reviewer =>
+      reviewer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      reviewer.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (reviewer.facultyTitle && reviewer.facultyTitle.toLowerCase().includes(searchTerm.toLowerCase()))
+    );
+
+    if (filtered.length === 0) {
+      return (
+        <div className="p-4 text-sm text-center text-gray-500">
+          {searchTerm ? "No reviewers match your search." : "No eligible reviewers in this category."}
+        </div>
+      );
+    }
+
+    return filtered.map((reviewer) => (
+      <div
+        key={reviewer._id}
+        className={`p-4 hover:bg-gray-50 cursor-pointer border-b border-gray-100 last:border-b-0 transition-colors ${
+          selectedId === reviewer._id ? 'bg-purple-50 border-l-4 border-l-purple-500' : ''
+        }`}
+        onClick={() => onSelect(reviewer._id)}
+      >
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-4">
+            <div className="flex-shrink-0">
+              <div className={`h-10 w-10 rounded-full flex items-center justify-center ${
+                selectedId === reviewer._id ? 'bg-purple-100' : 'bg-gray-100'
+              }`}>
+                <User className={`h-5 w-5 ${
+                  selectedId === reviewer._id ? 'text-purple-600' : 'text-gray-600'
+                }`} />
+              </div>
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-medium text-gray-900">{reviewer.name}</p>
+              <p className="text-sm text-gray-500">{reviewer.facultyTitle || 'N/A'}</p>
+              <div className="flex items-center gap-2 mt-1">
+                <span className="text-xs text-gray-400">{reviewer.email}</span>
+                {reviewer.subcluster && (
+                  <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                    {reviewer.subcluster}
+                  </span>
+                )}
+              </div>
+            </div>
+          </div>
+          <div className="text-right text-sm space-y-1">
+            <div className="flex items-center gap-2 justify-end">
+              <span className="text-gray-600">{reviewer.totalReviewsCount}</span>
+              <span className="text-xs text-gray-500">reviews</span>
+            </div>
+            <div className={`text-xs font-medium ${
+              (reviewer.completionRate && reviewer.completionRate >= 80) ? 'text-green-600' :
+              (reviewer.completionRate && reviewer.completionRate >= 60) ? 'text-yellow-600' : 'text-red-600'
+            }`}>
+              {Math.round(reviewer.completionRate || 0)}% completion
+            </div>
+          </div>
+        </div>
+      </div>
+    ));
+  }
 
   return (
     <AdminLayout>
@@ -885,63 +958,16 @@ function AdminManuscriptsPage() {
                         <Loader2 className="h-8 w-8 animate-spin text-purple-600" />
                         <span className="ml-2 text-gray-600">Loading eligible reviewers...</span>
                       </div>
-                    ) : eligibleReviewers.filter(reviewer =>
-                      reviewer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                      reviewer.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                      (reviewer.facultyTitle && reviewer.facultyTitle.toLowerCase().includes(searchTerm.toLowerCase()))
-                    ).length === 0 ? (
-                      <div className="text-center py-12 text-gray-500">
-                        <Users className="h-8 w-8 mx-auto mb-2 text-gray-400" />
-                        <p>No eligible reviewers found</p>
-                      </div>
                     ) : (
-                      <div className="max-h-80 overflow-y-auto">
-                        {eligibleReviewers
-                          .filter(reviewer =>
-                            reviewer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                            reviewer.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                            (reviewer.facultyTitle && reviewer.facultyTitle.toLowerCase().includes(searchTerm.toLowerCase()))
-                          )
-                          .map((reviewer) => (
-                            <div
-                              key={reviewer._id}
-                              className={`p-4 hover:bg-gray-50 cursor-pointer border-b border-gray-100 last:border-b-0 transition-colors ${
-                                selectedReviewer === reviewer._id ? 'bg-purple-50 border-l-4 border-l-purple-500' : ''
-                              }`}
-                              onClick={() => setSelectedReviewer(reviewer._id)}
-                            >
-                              <div className="flex items-center justify-between">
-                                <div className="flex items-center space-x-4">
-                                  <div className="flex-shrink-0">
-                                    <div className={`h-10 w-10 rounded-full flex items-center justify-center ${
-                                      selectedReviewer === reviewer._id ? 'bg-purple-100' : 'bg-gray-100'
-                                    }`}>
-                                      <User className={`h-5 w-5 ${
-                                        selectedReviewer === reviewer._id ? 'text-purple-600' : 'text-gray-600'
-                                      }`} />
-                                    </div>
-                                  </div>
-                                  <div className="flex-1 min-w-0">
-                                    <p className="text-sm font-medium text-gray-900">{reviewer.name}</p>
-                                    <p className="text-sm text-gray-500">{reviewer.facultyTitle}</p>
-                                    <p className="text-xs text-gray-400">{reviewer.email}</p>
-                                  </div>
-                                </div>
-                                <div className="text-right text-sm space-y-1">
-                                  <div className="flex items-center gap-2">
-                                    <span className="text-gray-600">{reviewer.totalReviewsCount}</span>
-                                    <span className="text-xs text-gray-500">reviews</span>
-                                  </div>
-                                  <div className={`text-xs font-medium ${
-                                    (reviewer.completionRate && reviewer.completionRate >= 80) ? 'text-green-600' : 
-                                    (reviewer.completionRate && reviewer.completionRate >= 60) ? 'text-yellow-600' : 'text-red-600'
-                                  }`}>
-                                    {reviewer.completionRate}% completion
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          ))}
+                      <div className="max-h-96 overflow-y-auto">
+                        <div>
+                          <h3 className="text-sm font-semibold text-gray-500 bg-gray-50 p-3 border-b">First Choice Reviewers</h3>
+                          {renderReviewerList(firstChoiceReviewers, selectedReviewer, setSelectedReviewer, searchTerm)}
+                        </div>
+                        <div>
+                          <h3 className="text-sm font-semibold text-gray-500 bg-gray-50 p-3 border-t border-b">Second Choice Reviewers</h3>
+                          {renderReviewerList(secondChoiceReviewers, selectedReviewer, setSelectedReviewer, searchTerm)}
+                        </div>
                       </div>
                     )}
                   </div>
@@ -1127,63 +1153,16 @@ function AdminManuscriptsPage() {
                         <Loader2 className="h-8 w-8 animate-spin text-purple-600" />
                         <span className="ml-2 text-gray-600">Loading eligible reviewers...</span>
                       </div>
-                    ) : eligibleReviewersForReassignment.filter(reviewer =>
-                      reviewer.name.toLowerCase().includes(searchTermForReassignment.toLowerCase()) ||
-                      reviewer.email.toLowerCase().includes(searchTermForReassignment.toLowerCase()) ||
-                      (reviewer.facultyTitle && reviewer.facultyTitle.toLowerCase().includes(searchTermForReassignment.toLowerCase()))
-                    ).length === 0 ? (
-                      <div className="text-center py-12 text-gray-500">
-                        <Users className="h-8 w-8 mx-auto mb-2 text-gray-400" />
-                        <p>No eligible reviewers found</p>
-                      </div>
                     ) : (
                       <div className="max-h-80 overflow-y-auto">
-                        {eligibleReviewersForReassignment
-                          .filter(reviewer =>
-                            reviewer.name.toLowerCase().includes(searchTermForReassignment.toLowerCase()) ||
-                            reviewer.email.toLowerCase().includes(searchTermForReassignment.toLowerCase()) ||
-                            (reviewer.facultyTitle && reviewer.facultyTitle.toLowerCase().includes(searchTermForReassignment.toLowerCase()))
-                          )
-                          .map((reviewer) => (
-                            <div
-                              key={reviewer._id}
-                              className={`p-4 hover:bg-gray-50 cursor-pointer border-b border-gray-100 last:border-b-0 transition-colors ${
-                                selectedReviewerForReassignment === reviewer._id ? 'bg-purple-50 border-l-4 border-l-purple-500' : ''
-                              }`}
-                              onClick={() => setSelectedReviewerForReassignment(reviewer._id)}
-                            >
-                              <div className="flex items-center justify-between">
-                                <div className="flex items-center space-x-4">
-                                  <div className="flex-shrink-0">
-                                    <div className={`h-10 w-10 rounded-full flex items-center justify-center ${
-                                      selectedReviewerForReassignment === reviewer._id ? 'bg-purple-100' : 'bg-gray-100'
-                                    }`}>
-                                      <User className={`h-5 w-5 ${
-                                        selectedReviewerForReassignment === reviewer._id ? 'text-purple-600' : 'text-gray-600'
-                                      }`} />
-                                    </div>
-                                  </div>
-                                  <div className="flex-1 min-w-0">
-                                    <p className="text-sm font-medium text-gray-900">{reviewer.name}</p>
-                                    <p className="text-sm text-gray-500">{reviewer.facultyTitle}</p>
-                                    <p className="text-xs text-gray-400">{reviewer.email}</p>
-                                  </div>
-                                </div>
-                                <div className="text-right text-sm space-y-1">
-                                  <div className="flex items-center gap-2">
-                                    <span className="text-gray-600">{reviewer.totalReviewsCount}</span>
-                                    <span className="text-xs text-gray-500">reviews</span>
-                                  </div>
-                                  <div className={`text-xs font-medium ${
-                                    (reviewer.completionRate && reviewer.completionRate >= 80) ? 'text-green-600' : 
-                                    (reviewer.completionRate && reviewer.completionRate >= 60) ? 'text-yellow-600' : 'text-red-600'
-                                  }`}>
-                                    {reviewer.completionRate}% completion
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          ))}
+                        <div>
+                          <h3 className="text-sm font-semibold text-gray-500 bg-gray-50 p-3 border-b">First Choice Reviewers</h3>
+                          {renderReviewerList(firstChoiceReviewersForReassignment, selectedReviewerForReassignment, setSelectedReviewerForReassignment, searchTermForReassignment)}
+                        </div>
+                        <div>
+                          <h3 className="text-sm font-semibold text-gray-500 bg-gray-50 p-3 border-t border-b">Second Choice Reviewers</h3>
+                          {renderReviewerList(secondChoiceReviewersForReassignment, selectedReviewerForReassignment, setSelectedReviewerForReassignment, searchTermForReassignment)}
+                        </div>
                       </div>
                     )}
                   </div>
