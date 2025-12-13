@@ -208,11 +208,11 @@ function AdminLayoutComponent({ children }: AdminLayoutProps) {
       <div
         id="mobile-sidebar"
         className={cn(
-          "fixed inset-y-0 left-0 z-50 w-64 bg-[#7A0019] border-r border-[#5A0A1A] flex flex-col transition-transform duration-300 ease-in-out lg:hidden",
+          "fixed inset-y-0 left-0 z-50 w-64 bg-journal-maroon border-r border-journal-maroon-dark flex flex-col transition-transform duration-300 ease-in-out lg:hidden",
           isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
         )}
       >
-        <div className="p-4 border-b border-[#5A0A1A] flex items-center justify-between">
+        <div className="p-4 border-b border-journal-maroon-dark flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
               <Image
@@ -231,17 +231,17 @@ function AdminLayoutComponent({ children }: AdminLayoutProps) {
             variant="ghost"
             size="sm"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="p-1 h-8 w-8 text-white hover:bg-[#5A0A1A]"
+            className="p-1 h-8 w-8 text-white hover:bg-journal-maroon-dark"
           >
             <X className="h-5 w-5" />
           </Button>
         </div>
 
         {user && (
-          <div className="p-4 border-b border-[#5A0A1A]">
+          <div className="p-4 border-b border-journal-maroon-dark">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-[#FFE9EE] rounded-full flex items-center justify-center">
-                <span className="text-[#7A0019] font-semibold text-sm">
+              <div className="w-10 h-10 bg-journal-rose rounded-full flex items-center justify-center">
+                <span className="text-journal-maroon font-semibold text-sm">
                   {user.name?.charAt(0) || user.email?.charAt(0) || "A"}
                 </span>
               </div>
@@ -249,7 +249,7 @@ function AdminLayoutComponent({ children }: AdminLayoutProps) {
                 <p className="text-sm font-medium text-white truncate">
                   {user.name || user.email}
                 </p>
-                <p className="text-xs text-[#FFE9EE] truncate">Administrator</p>
+                <p className="text-xs text-journal-rose truncate">Administrator</p>
               </div>
             </div>
           </div>
@@ -268,8 +268,8 @@ function AdminLayoutComponent({ children }: AdminLayoutProps) {
                   className={cn(
                     "flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors",
                     isActive
-                      ? "bg-[#5A0A1A] text-white"
-                      : "text-[#FFE9EE] hover:bg-[#5A0A1A] hover:text-white"
+                      ? "bg-journal-maroon-dark text-white"
+                      : "text-journal-rose hover:bg-journal-maroon-dark hover:text-white"
                   )}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
@@ -291,8 +291,8 @@ function AdminLayoutComponent({ children }: AdminLayoutProps) {
                   className={cn(
                     "flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors",
                     isActive
-                      ? "bg-[#5A0A1A] text-white"
-                      : "text-[#FFE9EE] hover:bg-[#5A0A1A] hover:text-white"
+                      ? "bg-journal-maroon-dark text-white"
+                      : "text-journal-rose hover:bg-journal-maroon-dark hover:text-white"
                   )}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
@@ -307,7 +307,7 @@ function AdminLayoutComponent({ children }: AdminLayoutProps) {
                 setIsMobileMenuOpen(false);
                 logoutItem.action();
               }}
-              className="flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors w-full text-left text-[#FFE9EE] hover:bg-[#5A0A1A] hover:text-white"
+              className="flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors w-full text-left text-journal-rose hover:bg-journal-maroon-dark hover:text-white"
             >
               <logoutItem.icon className="h-5 w-5 flex-shrink-0" />
               <span>{logoutItem.name}</span>
@@ -319,11 +319,11 @@ function AdminLayoutComponent({ children }: AdminLayoutProps) {
       {/* Desktop Sidebar */}
       <div
         className={cn(
-          "hidden lg:flex bg-[#7A0019] border-r border-[#5A0A1A] flex-col transition-all duration-300",
+          "hidden lg:flex bg-journal-maroon border-r border-journal-maroon-dark flex-col transition-all duration-300",
           isCollapsed ? "w-16" : "w-64"
         )}
       >
-        <div className="p-4 border-b border-[#5A0A1A] flex items-center justify-between">
+        <div className="p-4 border-b border-journal-maroon-dark flex items-center justify-between">
           {!isCollapsed && (
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
@@ -344,7 +344,7 @@ function AdminLayoutComponent({ children }: AdminLayoutProps) {
             variant="ghost"
             size="sm"
             onClick={() => setIsCollapsed(!isCollapsed)}
-            className="p-1 h-8 w-8 text-white hover:bg-[#5A0A1A]"
+            className="p-1 h-8 w-8 text-white hover:bg-journal-maroon-dark"
           >
             {isCollapsed ? (
               <ChevronRight className="h-4 w-4" />
@@ -355,10 +355,10 @@ function AdminLayoutComponent({ children }: AdminLayoutProps) {
         </div>
 
         {!isCollapsed && user && (
-          <div className="p-4 border-b border-[#5A0A1A]">
+          <div className="p-4 border-b border-journal-maroon-dark">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-[#FFE9EE] rounded-full flex items-center justify-center">
-                <span className="text-[#7A0019] font-semibold text-sm">
+              <div className="w-10 h-10 bg-journal-rose rounded-full flex items-center justify-center">
+                <span className="text-journal-maroon font-semibold text-sm">
                   {user.name?.charAt(0) || user.email?.charAt(0) || "A"}
                 </span>
               </div>
@@ -366,7 +366,7 @@ function AdminLayoutComponent({ children }: AdminLayoutProps) {
                 <p className="text-sm font-medium text-white truncate">
                   {user.name || user.email}
                 </p>
-                <p className="text-xs text-[#FFE9EE] truncate">Administrator</p>
+                <p className="text-xs text-journal-rose truncate">Administrator</p>
               </div>
             </div>
           </div>
@@ -385,8 +385,8 @@ function AdminLayoutComponent({ children }: AdminLayoutProps) {
                   className={cn(
                     "flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors",
                     isActive
-                      ? "bg-[#5A0A1A] text-white"
-                      : "text-[#FFE9EE] hover:bg-[#5A0A1A] hover:text-white",
+                      ? "bg-journal-maroon-dark text-white"
+                      : "text-journal-rose hover:bg-journal-maroon-dark hover:text-white",
                     isCollapsed && "justify-center"
                   )}
                   title={isCollapsed ? item.name : undefined}
@@ -409,8 +409,8 @@ function AdminLayoutComponent({ children }: AdminLayoutProps) {
                   className={cn(
                     "flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors",
                     isActive
-                      ? "bg-[#5A0A1A] text-white"
-                      : "text-[#FFE9EE] hover:bg-[#5A0A1A] hover:text-white",
+                      ? "bg-journal-maroon-dark text-white"
+                      : "text-journal-rose hover:bg-journal-maroon-dark hover:text-white",
                     isCollapsed && "justify-center"
                   )}
                   title={isCollapsed ? item.name : undefined}
@@ -425,7 +425,7 @@ function AdminLayoutComponent({ children }: AdminLayoutProps) {
               onClick={logoutItem.action}
               className={cn(
                 "flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors w-full text-left",
-                "text-[#FFE9EE] hover:bg-[#5A0A1A] hover:text-white",
+                "text-journal-rose hover:bg-journal-maroon-dark hover:text-white",
                 isCollapsed && "justify-center"
               )}
               title={isCollapsed ? logoutItem.name : undefined}
@@ -444,7 +444,7 @@ function AdminLayoutComponent({ children }: AdminLayoutProps) {
           <button
             id="mobile-menu-button"
             type="button"
-            className="text-gray-500 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-[#7A0019] p-2 -ml-2 rounded-md"
+            className="text-gray-500 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-journal-maroon p-2 -ml-2 rounded-md"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle mobile menu"
           >
@@ -461,13 +461,13 @@ function AdminLayoutComponent({ children }: AdminLayoutProps) {
               />
             </div>
             <div>
-              <span className="text-sm text-[#7A0019] font-bold">UBJSTI</span>
+              <span className="text-sm text-journal-maroon font-bold">UBJSTI</span>
             </div>
           </div>
           <div className="w-10 h-8 flex items-center justify-end">
             {user && (
-              <div className="w-8 h-8 bg-[#FFE9EE] rounded-full flex items-center justify-center">
-                <span className="text-[#7A0019] font-semibold text-xs">
+              <div className="w-8 h-8 bg-journal-rose rounded-full flex items-center justify-center">
+                <span className="text-journal-maroon font-semibold text-xs">
                   {user.name?.charAt(0) || user.email?.charAt(0) || "A"}
                 </span>
               </div>

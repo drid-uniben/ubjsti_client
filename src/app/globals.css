@@ -87,11 +87,11 @@
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
 
-  --journal-maroon: #7A0019;
-  --journal-maroon-dark: #5A0A1A;
-  --journal-blush: #F2E9EC;
-  --journal-rose: #FFE9EE;
-  --journal-mauve: #EAD3D9;
+  --journal-maroon: #071936;
+  --journal-maroon-dark: #0b1f41;
+  --journal-blush: #E6E8F2;
+  --journal-rose: #E6F0FF;
+  --journal-mauve: #D9E2EA;
   --success: #0F7B3F;
   --warning: #F59E0B;
   --error: #DC2626;
@@ -131,11 +131,11 @@
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
 
-  --journal-maroon: #7A0019;
-  --journal-maroon-dark: #5A0A1A;
-  --journal-blush: #F2E9EC;
-  --journal-rose: #FFE9EE;
-  --journal-mauve: #EAD3D9;
+  --journal-maroon: #071936;
+  --journal-maroon-dark: #0b1f41;
+  --journal-blush: #E6E8F2;
+  --journal-rose: #E6F0FF;
+  --journal-mauve: #D9E2EA;
   --success: #0F7B3F;
   --warning: #F59E0B;
   --error: #DC2626;
@@ -148,7 +148,7 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-family: var(--font-serif);
+    font-family: var(--font-sans);
   }
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-sans);

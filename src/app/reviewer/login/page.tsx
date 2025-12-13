@@ -67,14 +67,14 @@ export default function ReviewerLoginPage() {
                 />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-[#7A0019] tracking-tight">
+                <h1 className="text-xl font-bold text-journal-maroon tracking-tight">
 Science, technology and Innovation                </h1>
                 <p className="text-sm text-gray-600">Reviewer Portal</p>
               </div>
             </Link>
             <Link
               href="/"
-              className="text-[#7A0019] hover:text-[#5A0A1A] font-semibold text-sm"
+              className="text-journal-maroon hover:text-journal-maroon-dark font-semibold text-sm"
             >
               ← Back to Journal
             </Link>
@@ -90,12 +90,12 @@ Science, technology and Innovation                </h1>
             {/* Card Header */}
             <div className="bg-[#fffbfb] px-8 py-8 text-center">
               <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
-                <FileCheck className="h-10 w-10 text-[#7A0019]" />
+                <FileCheck className="h-10 w-10 text-journal-maroon" />
               </div>
-              <h2 className="text-2xl font-bold text-[#7A0019] mb-2">
+              <h2 className="text-2xl font-bold text-journal-maroon mb-2">
                 Reviewer Login
               </h2>
-              <p className="text-[#7A0019] text-sm">
+              <p className="text-journal-maroon text-sm">
                 Access your peer review dashboard
               </p>
             </div>
@@ -132,7 +132,7 @@ Science, technology and Innovation                </h1>
                     required
                     value={email}
                     onChange={handleEmailChange}
-                    className="appearance-none block w-full px-4 py-3 border-2 border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#7A0019] focus:border-transparent transition-all text-gray-900"
+                    className="appearance-none block w-full px-4 py-3 border-2 border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-journal-maroon focus:border-transparent transition-all text-gray-900"
                     placeholder="reviewer@uniben.edu"
                     disabled={isLoading}
                   />
@@ -153,7 +153,7 @@ Science, technology and Innovation                </h1>
                     required
                     value={password}
                     onChange={handlePasswordChange}
-                    className="appearance-none block w-full px-4 py-3 border-2 border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#7A0019] focus:border-transparent transition-all text-gray-900"
+                    className="appearance-none block w-full px-4 py-3 border-2 border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-journal-maroon focus:border-transparent transition-all text-gray-900"
                     placeholder="Enter your password"
                     disabled={isLoading}
                   />
@@ -163,7 +163,7 @@ Science, technology and Innovation                </h1>
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className="w-full flex justify-center items-center gap-3 py-3.5 px-4 border border-transparent rounded-lg text-base font-bold text-white bg-[#7A0019] hover:bg-[#5A0A1A] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#7A0019] disabled:bg-gray-300 disabled:cursor-not-allowed transition-all shadow-lg hover:shadow-xl"
+                    className="w-full flex justify-center items-center gap-3 py-3.5 px-4 border border-transparent rounded-lg text-base font-bold text-white bg-journal-maroon hover:bg-journal-maroon-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-journal-maroon disabled:bg-gray-300 disabled:cursor-not-allowed transition-all shadow-lg hover:shadow-xl"
                   >
                     {isLoading ? (
                       <>
@@ -186,14 +186,14 @@ Science, technology and Innovation                </h1>
               <div className="flex items-center justify-center gap-6 text-sm">
                 <Link 
                   href="/" 
-                  className="text-[#7A0019] hover:text-[#5A0A1A] font-medium transition-colors"
+                  className="text-journal-maroon hover:text-journal-maroon-dark font-medium transition-colors"
                 >
                   Homepage
                 </Link>
                 <span className="text-gray-300">|</span>
                 <Link 
                   href="/contact" 
-                  className="text-[#7A0019] hover:text-[#5A0A1A] font-medium transition-colors"
+                  className="text-journal-maroon hover:text-journal-maroon-dark font-medium transition-colors"
                 >
                   Need Help?
                 </Link>
@@ -209,7 +209,7 @@ Science, technology and Innovation                </h1>
             <div className="mt-3 flex justify-center gap-4">
               <Link
                 href="/author/login"
-                className="text-sm text-[#7A0019] hover:text-[#5A0A1A] font-medium underline"
+                className="text-sm text-journal-maroon hover:text-journal-maroon-dark font-medium underline"
               >
                 Author Login
               </Link>
