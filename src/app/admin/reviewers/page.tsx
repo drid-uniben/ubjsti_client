@@ -162,7 +162,7 @@ export default function ManuscriptReviewersPage() {
       case 'pending':
         return 'bg-yellow-100 text-yellow-800';
       case 'added':
-        return 'bg-[#FFE9EE] text-[#7A0019]';
+        return 'bg-journal-rose text-journal-maroon';
       case 'expired':
         return 'bg-red-100 text-red-800';
       default:
@@ -205,7 +205,7 @@ export default function ManuscriptReviewersPage() {
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen flex justify-center items-center bg-gray-50">
-        <Loader2 className="h-8 w-8 animate-spin text-[#7A0019]" />
+        <Loader2 className="h-8 w-8 animate-spin text-journal-maroon" />
       </div>
     );
   }
@@ -235,83 +235,82 @@ export default function ManuscriptReviewersPage() {
                 {isCheckingOverdue ? 'Checking...' : 'Check Overdue'}
               </button>
 
-              <div className="bg-white px-3 py-2 rounded-lg shadow-sm border w-full sm:w-auto">
-                <div className="flex items-center space-x-2">
-                  <Users className="h-5 w-5 text-[#7A0019]" />
-                  <span className="text-sm font-medium text-gray-700">
-                    {pagination.count} Reviewers
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {error && (
-            <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-md text-red-700">
-              {error}
-            </div>
-          )}
-
-          {showOverdueAlert && overdueCheckResult && (
-            <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-md">
-              <div className="flex items-start gap-3">
-                <Bell className="h-5 w-5 text-blue-400 mt-0.5 flex-shrink-0" />
-                <div className="flex-1 min-w-0">
-                  <h3 className="text-sm font-medium text-blue-800">
-                    Review Deadline Check Completed
-                  </h3>
-                  <div className="mt-2 text-sm text-blue-700 space-y-1">
-                    <div className="flex items-center gap-2">
-                      <Clock className="h-4 w-4 text-orange-500 flex-shrink-0" />
-                      <span><span className="font-semibold">{overdueCheckResult.approachingDeadline || 0}</span> approaching deadline</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <AlertCircle className="h-4 w-4 text-red-500 flex-shrink-0" />
-                      <span><span className="font-semibold">{overdueCheckResult.overdue || 0}</span> overdue reviews</span>
-                    </div>
-                  </div>
-                </div>
-                <button
-                  onClick={() => setShowOverdueAlert(false)}
-                  className="inline-flex text-blue-500 hover:bg-blue-100 focus:outline-none rounded p-1 flex-shrink-0"
-                >
-                  <X className="h-4 w-4" />
-                </button>
-              </div>
-            </div>
-          )}
-
-          {/* Search and Filter Bar */}
-          <div className="bg-white shadow rounded-lg p-4 mb-6">
-            <div className="flex flex-col gap-3">
-              <div className="relative w-full">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
-                <input
-                  type="text"
-                  placeholder="Search by name, email, or faculty..."
-                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#7A0019] focus:border-transparent"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
-              </div>
-              <div className="flex items-center gap-2">
-                <Filter className="h-5 w-5 text-gray-400 flex-shrink-0" />
-                <select
-                  className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#7A0019] flex-1 sm:flex-none"
-                  value={statusFilter}
-                  onChange={(e) => setStatusFilter(e.target.value)}
-                >
-                  <option value="all">All Status</option>
-                  <option value="accepted">Accepted</option>
-                  <option value="pending">Pending</option>
-                  <option value="added">Added</option>
-                  <option value="expired">Expired</option>
-                </select>
-              </div>
-            </div>
-          </div>
-
-          {/* Reviewers List */}
+                            <div className="bg-white px-3 py-2 rounded-lg shadow-sm border w-full sm:w-auto">
+                              <div className="flex items-center space-x-2">
+                                <Users className="h-5 w-5 text-journal-maroon" />
+                                <span className="text-sm font-medium text-gray-700">
+                                  {pagination.count} Reviewers
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+              
+                        {error && (
+                          <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-md text-red-700">
+                            {error}
+                          </div>
+                        )}
+              
+                        {showOverdueAlert && overdueCheckResult && (
+                          <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-md">
+                            <div className="flex items-start gap-3">
+                              <Bell className="h-5 w-5 text-blue-400 mt-0.5 flex-shrink-0" />
+                              <div className="flex-1 min-w-0">
+                                <h3 className="text-sm font-medium text-blue-800">
+                                  Review Deadline Check Completed
+                                </h3>
+                                <div className="mt-2 text-sm text-blue-700 space-y-1">
+                                  <div className="flex items-center gap-2">
+                                    <Clock className="h-4 w-4 text-orange-500 flex-shrink-0" />
+                                    <span><span className="font-semibold">{overdueCheckResult.approachingDeadline || 0}</span> approaching deadline</span>
+                                  </div>
+                                  <div className="flex items-center gap-2">
+                                    <AlertCircle className="h-4 w-4 text-red-500 flex-shrink-0" />
+                                    <span><span className="font-semibold">{overdueCheckResult.overdue || 0}</span> overdue reviews</span>
+                                  </div>
+                                </div>
+                              </div>
+                              <button
+                                onClick={() => setShowOverdueAlert(false)}
+                                className="inline-flex text-blue-500 hover:bg-blue-100 focus:outline-none rounded p-1 flex-shrink-0"
+                              >
+                                <X className="h-4 w-4" />
+                              </button>
+                            </div>
+                          </div>
+                        )}
+              
+                        {/* Search and Filter Bar */}
+                        <div className="bg-white shadow rounded-lg p-4 mb-6">
+                          <div className="flex flex-col gap-3">
+                            <div className="relative w-full">
+                              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+                              <input
+                                type="text"
+                                placeholder="Search by name, email, or faculty..."
+                                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-journal-maroon focus:border-transparent"
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                              />
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <Filter className="h-5 w-5 text-gray-400 flex-shrink-0" />
+                              <select
+                                className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-journal-maroon flex-1 sm:flex-none"
+                                value={statusFilter}
+                                onChange={(e) => setStatusFilter(e.target.value)}
+                              >
+                                <option value="all">All Status</option>
+                                <option value="accepted">Accepted</option>
+                                <option value="pending">Pending</option>
+                                <option value="added">Added</option>
+                                <option value="expired">Expired</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                            {/* Reviewers List */}
           {isLoading ? (
             <div className="flex justify-center items-center h-64">
               <Loader2 className="h-8 w-8 animate-spin text-[#7A0019]" />
@@ -336,10 +335,9 @@ export default function ManuscriptReviewersPage() {
                     >
                       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                         <div className="flex items-start gap-4 min-w-0">
-                          <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-[#FFE9EE] flex items-center justify-center flex-shrink-0">
-                            <User className="h-6 w-6 text-[#7A0019]" />
-                          </div>
-                          <div className="min-w-0 flex-1">
+                                            <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-journal-rose flex items-center justify-center flex-shrink-0">
+                                              <User className="h-6 w-6 text-journal-maroon" />
+                                            </div>                          <div className="min-w-0 flex-1">
                             <div className="flex flex-wrap items-center gap-2">
                               <h3 className="text-base sm:text-lg font-medium text-gray-900 truncate">
                                 {reviewer.name}
@@ -486,8 +484,8 @@ export default function ManuscriptReviewersPage() {
                   </div>
                   <div className="bg-white border rounded-lg p-4">
                     <div className="flex items-center gap-3">
-                      <div className="flex-shrink-0 bg-[#FFE9EE] rounded-md p-2">
-                        <Award className="h-6 w-6 text-[#7A0019]" />
+                      <div className="flex-shrink-0 bg-journal-rose rounded-md p-2">
+                        <Award className="h-6 w-6 text-journal-maroon" />
                       </div>
                       <div className="min-w-0">
                         <p className="text-xs sm:text-sm font-medium text-gray-500">Completion Rate</p>

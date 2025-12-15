@@ -222,7 +222,7 @@ export default function FailedJobsPage() {
     return (
       <AdminLayout>
         <div className="flex justify-center items-center h-64">
-          <RefreshCw className="h-8 w-8 animate-spin text-[#7A0019]" />
+          <RefreshCw className="h-8 w-8 animate-spin text-journal-maroon" />
         </div>
       </AdminLayout>
     );
@@ -232,10 +232,10 @@ export default function FailedJobsPage() {
     <AdminLayout>
       <div className="space-y-6 p-4 md:p-6">
         {/* Header */}
-        <div className="bg-gradient-to-r from-[#7A0019]/10 to-purple-50 p-6 rounded-xl border border-[#7A0019]/20">
+        <div className="bg-gradient-to-r from-journal-maroon/10 to-purple-50 p-6 rounded-xl border border-journal-maroon/20">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
-              <h1 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-[#7A0019] to-purple-600 bg-clip-text text-transparent">
+              <h1 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-journal-maroon to-purple-600 bg-clip-text text-transparent">
                 Failed Jobs Management
               </h1>
               <p className="text-gray-600 mt-1">Monitor and retry failed background jobs</p>
@@ -244,7 +244,7 @@ export default function FailedJobsPage() {
               <Button
                 onClick={handleRetryAll}
                 disabled={isRetrying || !statistics || statistics.totalFailed === 0}
-                className="bg-gradient-to-r from-[#7A0019] to-[#5A0A1A] hover:from-[#5A0A1A] hover:to-[#7A0019] text-white"
+                className="bg-gradient-to-r from-journal-maroon to-journal-maroon-dark hover:from-journal-maroon-dark hover:to-journal-maroon text-white"
               >
                 {isRetrying ? (
                   <>
@@ -273,12 +273,12 @@ export default function FailedJobsPage() {
         {/* Statistics Cards */}
         {statistics && (
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <Card className="border-[#7A0019]/20 hover:shadow-lg transition-shadow">
+            <Card className="border-journal-maroon/20 hover:shadow-lg transition-shadow">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm text-gray-600 mb-1">Total Failed</p>
-                    <p className="text-3xl font-bold text-[#7A0019]">
+                    <p className="text-3xl font-bold text-journal-maroon">
                       {statistics.totalFailed}
                     </p>
                   </div>
@@ -287,7 +287,7 @@ export default function FailedJobsPage() {
               </CardContent>
             </Card>
 
-            <Card className="border-[#7A0019]/20 hover:shadow-lg transition-shadow">
+            <Card className="border-journal-maroon/20 hover:shadow-lg transition-shadow">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
@@ -302,14 +302,14 @@ export default function FailedJobsPage() {
             </Card>
 
             {statistics.failedByType.map((item) => (
-              <Card key={item._id} className="border-[#7A0019]/20 hover:shadow-lg transition-shadow">
+              <Card key={item._id} className="border-journal-maroon/20 hover:shadow-lg transition-shadow">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-sm text-gray-600 mb-1">
                         {getJobTypeLabel(item._id)}
                       </p>
-                      <p className="text-3xl font-bold text-[#7A0019]">
+                      <p className="text-3xl font-bold text-journal-maroon">
                         {item.count}
                       </p>
                     </div>
@@ -322,13 +322,13 @@ export default function FailedJobsPage() {
         )}
 
         {/* Filters */}
-        <Card className="border-[#7A0019]/20">
+        <Card className="border-journal-maroon/20">
           <CardContent className="p-4">
             <div className="flex flex-col md:flex-row gap-4 items-end">
               <div className="flex-1">
                 <Label className="text-sm font-medium mb-2 block">Job Type</Label>
                 <Select value={jobTypeFilter} onValueChange={setJobTypeFilter}>
-                  <SelectTrigger className="border-[#7A0019]/20">
+                  <SelectTrigger className="border-journal-maroon/20">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -344,7 +344,7 @@ export default function FailedJobsPage() {
               <div className="flex-1">
                 <Label className="text-sm font-medium mb-2 block">Status</Label>
                 <Select value={resolvedFilter} onValueChange={setResolvedFilter}>
-                  <SelectTrigger className="border-[#7A0019]/20">
+                  <SelectTrigger className="border-journal-maroon/20">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -358,7 +358,7 @@ export default function FailedJobsPage() {
               <Button
                 onClick={fetchJobs}
                 variant="outline"
-                className="border-[#7A0019] text-[#7A0019]"
+                className="border-journal-maroon text-journal-maroon"
               >
                 <Filter className="mr-2 h-4 w-4" />
                 Apply Filters
@@ -370,7 +370,7 @@ export default function FailedJobsPage() {
         {/* Jobs List */}
         <div className="space-y-4">
           {jobs.length === 0 ? (
-            <Card className="border-[#7A0019]/20">
+            <Card className="border-journal-maroon/20">
               <CardContent className="text-center py-12">
                 <CheckCircle className="h-16 w-16 text-green-300 mx-auto mb-4" />
                 <p className="text-gray-500 text-lg">No failed jobs found</p>
@@ -408,7 +408,7 @@ export default function FailedJobsPage() {
                         )}
                       </div>
 
-                      <h3 className="text-lg font-bold text-[#7A0019] mb-2">
+                      <h3 className="text-lg font-bold text-journal-maroon mb-2">
                         {job.articleId?.title || "Article Deleted"}
                       </h3>
 
@@ -453,7 +453,7 @@ export default function FailedJobsPage() {
                         size="sm"
                         variant="outline"
                         onClick={() => viewJobDetails(job)}
-                        className="border-[#7A0019] text-[#7A0019] hover:bg-[#7A0019]/10"
+                        className="border-journal-maroon text-journal-maroon hover:bg-journal-maroon/10"
                       >
                         <Eye className="h-4 w-4 mr-1" />
                         Details
@@ -465,7 +465,7 @@ export default function FailedJobsPage() {
                             size="sm"
                             onClick={() => handleRetryJob(job._id)}
                             disabled={isRetrying}
-                            className="bg-gradient-to-r from-[#7A0019] to-[#5A0A1A] text-white"
+                            className="bg-gradient-to-r from-journal-maroon to-journal-maroon-dark text-white"
                           >
                             <RotateCcw className="h-4 w-4 mr-1" />
                             Retry
@@ -497,7 +497,7 @@ export default function FailedJobsPage() {
               variant="outline"
               onClick={() => setPage(Math.max(1, page - 1))}
               disabled={page === 1}
-              className="border-[#7A0019]/20"
+              className="border-journal-maroon/20"
             >
               Previous
             </Button>
@@ -508,7 +508,7 @@ export default function FailedJobsPage() {
               variant="outline"
               onClick={() => setPage(Math.min(totalPages, page + 1))}
               disabled={page === totalPages}
-              className="border-[#7A0019]/20"
+              className="border-journal-maroon/20"
             >
               Next
             </Button>
@@ -519,7 +519,7 @@ export default function FailedJobsPage() {
         <Dialog open={showDetailsDialog} onOpenChange={setShowDetailsDialog}>
           <DialogContent className="sm:max-w-[700px] max-h-[80vh] overflow-y-auto">
             <DialogHeader>
-              <DialogTitle className="text-xl bg-gradient-to-r from-[#7A0019] to-purple-600 bg-clip-text text-transparent">
+              <DialogTitle className="text-xl bg-gradient-to-r from-journal-maroon to-purple-600 bg-clip-text text-transparent">
                 Job Details
               </DialogTitle>
               <DialogDescription>

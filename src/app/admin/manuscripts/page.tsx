@@ -555,7 +555,7 @@ function AdminManuscriptsPage() {
               <h1 className="text-2xl font-semibold text-gray-900">Manuscripts</h1>
               <button
                 onClick={refreshData}
-                className="flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#7A0019]"
+                className="flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-journal-maroon"
               >
                 <RefreshCw className="h-4 w-4 mr-2" />
                 Refresh
@@ -586,7 +586,7 @@ function AdminManuscriptsPage() {
                       name="status"
                       value={filters.status}
                       onChange={handleFilterChange}
-                      className="w-full rounded-md border border-gray-300 py-2 px-3 text-sm shadow-sm focus:border-[#7A0019] focus:outline-none focus:ring-1 focus:ring-[#7A0019]"
+                      className="w-full rounded-md border border-gray-300 py-2 px-3 text-sm shadow-sm focus:border-journal-maroon focus:outline-none focus:ring-1 focus:ring-journal-maroon"
                     >
                       <option value="">All Statuses</option>
                       <option value="submitted">Submitted</option>
@@ -609,7 +609,7 @@ function AdminManuscriptsPage() {
                       name="faculty"
                       value={filters.faculty}
                       onChange={handleFilterChange}
-                      className="w-full rounded-md border border-gray-300 py-2 px-3 text-sm shadow-sm focus:border-[#7A0019] focus:outline-none focus:ring-1 focus:ring-[#7A0019]"
+                      className="w-full rounded-md border border-gray-300 py-2 px-3 text-sm shadow-sm focus:border-journal-maroon focus:outline-none focus:ring-1 focus:ring-journal-maroon"
                     >
                       <option value="">All Faculties</option>
                       {faculties.map((faculty) => (
@@ -629,7 +629,7 @@ function AdminManuscriptsPage() {
                       name="sort"
                       value={filters.sort}
                       onChange={handleFilterChange}
-                      className="w-full rounded-md border border-gray-300 py-2 px-3 text-sm shadow-sm focus:border-[#7A0019] focus:outline-none focus:ring-1 focus:ring-[#7A0019]"
+                      className="w-full rounded-md border border-gray-300 py-2 px-3 text-sm shadow-sm focus:border-journal-maroon focus:outline-none focus:ring-1 focus:ring-journal-maroon"
                     >
                       <option value="createdAt">Submission Date</option>
                       <option value="title">Title</option>
@@ -645,7 +645,7 @@ function AdminManuscriptsPage() {
             <div className="bg-white shadow overflow-hidden rounded-lg border border-gray-200">
               {isLoading ? (
                 <div className="flex justify-center items-center h-64">
-                  <Loader2 className="h-8 w-8 animate-spin text-[#7A0019]" />
+                  <Loader2 className="h-8 w-8 animate-spin text-journal-maroon" />
                 </div>
               ) : manuscripts.length === 0 ? (
                 <div className="text-center py-16">
@@ -745,7 +745,7 @@ function AdminManuscriptsPage() {
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                               {manuscript.submitter.assignedFaculty ? (
-                                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#FFE9EE] text-[#7A0019]">
+                                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-journal-rose text-journal-maroon">
                                   {manuscript.submitter.assignedFaculty}
                                 </span>
                               ) : (
@@ -1213,12 +1213,11 @@ function AdminManuscriptsPage() {
         }
       }}>
         <DialogContent className="sm:max-w-2xl max-h-[80vh] overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle className="flex items-center gap-2">
-              <Building2 className="h-5 w-5 text-[#7A0019]" />
-              Assign Faculty
-            </DialogTitle>
-            <DialogDescription>
+                      <DialogHeader>
+                        <DialogTitle className="flex items-center gap-2">
+                          <Building2 className="h-5 w-5 text-journal-maroon" />
+                          Assign Faculty
+                        </DialogTitle>            <DialogDescription>
               Select a faculty to assign this manuscript. You can view departments within each faculty for additional information.
             </DialogDescription>
           </DialogHeader>
@@ -1239,11 +1238,10 @@ function AdminManuscriptsPage() {
 
             <div className="space-y-3">
               {faculties.map((faculty) => (
-                <div
-                  key={faculty.faculty}
-                  className="border border-gray-200 rounded-lg overflow-hidden hover:border-[#7A0019] transition-colors"
-                >
-                  <div className="flex items-center justify-between p-4 bg-white">
+                                  <div
+                                    key={faculty.faculty}
+                                    className="border border-gray-200 rounded-lg overflow-hidden hover:border-journal-maroon transition-colors"
+                                  >                  <div className="flex items-center justify-between p-4 bg-white">
                     <div className="flex-1">
                       <h3 className="text-sm font-semibold text-gray-900">
                         {faculty.faculty}
@@ -1259,7 +1257,7 @@ function AdminManuscriptsPage() {
                           handleAssignFaculty(faculty.faculty);
                         }}
                         disabled={assigningFaculty}
-                        className="bg-[#7A0019] hover:bg-[#5A0A1A] text-white text-sm"
+                        className="bg-journal-maroon hover:bg-journal-maroon-dark text-white text-sm"
                         size="sm"
                       >
                         {assigningFaculty && selectedFaculty === faculty.faculty ? (
@@ -1299,7 +1297,7 @@ function AdminManuscriptsPage() {
                             key={idx}
                             className="text-xs text-gray-600 flex items-center gap-2"
                           >
-                            <span className="w-1.5 h-1.5 bg-[#7A0019] rounded-full"></span>
+                            <span className="w-1.5 h-1.5 bg-journal-maroon rounded-full"></span>
                             {dept}
                           </li>
                         ))}
