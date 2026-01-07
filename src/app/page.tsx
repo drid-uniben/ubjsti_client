@@ -332,12 +332,12 @@ export default function STIJournalHome() {
 
             {/* Librarian */}
             <div className="bg-white rounded-xl p-6 shadow-md border border-[#071936] hover:border-[#071936] transition-colors">
-              <div className="w-24 h-24 bg-gray-200 rounded-full mx-auto mb-4">
+              <div className="w-20 h-24 bg-gray-200 rounded-full mx-auto mb-4">
                 <Image
-                  src="/editor-2.png"
+                  src="/librarian.png"
                   alt="Librarian"
-                  width={96}
-                  height={96}
+                  width={86}
+                  height={86}
                   className="rounded-full"
                 />
               </div>
@@ -346,12 +346,10 @@ export default function STIJournalHome() {
                   ASSOCIATE EDITOR
                 </p>
                 <h3 className="text-lg font-bold text-[#212121] mb-1">
-                  Mr Dan
+                  Professor Jane Igie Aba
                 </h3>
                 <p className="text-sm text-gray-600 mb-3">
-                  Librarian, John Harris Library
-                  <br />
-                  University of Benin
+                  University Librarian
                 </p>
               </div>
             </div>
