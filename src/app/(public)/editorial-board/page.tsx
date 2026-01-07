@@ -2,105 +2,50 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import {
-  Mail,
-  Award,
-  Users,
-  Globe,
-} from "lucide-react";
+import { Award, Users } from "lucide-react";
 import Footer from "@/components/Footer";
 
 interface EditorProfile {
   name: string;
   role: string;
   affiliation: string;
-  department: string;
-  bio: string;
+  department?: string;
+  bio?: string;
   photo: string;
   orcid?: string;
   email?: string;
-  specialization: string[];
+  specialization?: string[];
 }
 
 export default function EditorialBoardPage() {
-  const editorInChief: EditorProfile = {
-    name: "Prof. Adebayo M. Ogunleye",
+  const editorInChief = {
+    name: "Professor Edoba B. Omoregie, SAN.",
     role: "Editor-in-Chief",
-    affiliation: "University of Benin",
-    department: "Department of Computer Science",
-    bio: "Professor Ogunleye is a leading scholar in Artificial Intelligence and Machine Learning. His research focuses on developing innovative algorithms for data analysis and predictive modeling, with applications in various scientific domains. He has published extensively in top-tier conferences and journals.",
+    affiliation: "Vice Chancellor for UNIBEN",
     photo: "/editor-chief.png",
-    orcid: "0000-0001-2345-6789",
-    email: "adebayo.ogunleye@uniben.edu",
-    specialization: [
-      "Artificial Intelligence",
-      "Machine Learning",
-      "Data Science",
-    ],
   };
 
-  const managingEditor: EditorProfile = {
-    name: "Dr. Folake A. Williams",
+  const managingEditor = {
+    name: "Prof. Ngozi Finette Unuigbe",
     role: "Managing Editor",
-    affiliation: "University of Benin",
-    department: "Directorate of Research, Innovation & Development",
-    bio: "Dr. Williams oversees the editorial operations of UNIBEN journals and coordinates between authors, reviewers, and the editorial team. With expertise in scholarly publishing and research administration, she ensures the journal maintains high standards of academic integrity and efficient workflow management.",
+    affiliation:
+      "Director, Directorate of Research, Innovation and Development (DRID)",
     photo: "/managing-editor.png",
-    email: "folake.williams@uniben.edu",
-    specialization: ["Scholarly Publishing", "Research Administration"],
   };
 
   const associateEditors: EditorProfile[] = [
     {
-      name: "Dr. Chiamaka N. Eze",
+      name: "Mr Dan",
       role: "Associate Editor",
-      affiliation: "University of Benin",
-      department: "Department of Electrical Engineering",
-      bio: "Specializes in renewable energy systems, power electronics, and smart grid technologies. Her research focuses on sustainable energy solutions for developing regions.",
+      affiliation: "Librarian, John Harris Library, University of Benin",
       photo: "/editor-2.png",
-      orcid: "0000-0002-3456-7890",
-      email: "chiamaka.eze@uniben.edu",
-      specialization: [
-        "Renewable Energy",
-        "Power Electronics",
-        "Smart Grids",
-      ],
-    },
-    {
-      name: "Prof. Ibrahim K. Suleiman",
-      role: "Associate Editor",
-      affiliation: "University of Benin",
-      department: "Department of Chemical Engineering",
-      bio: "Expert in process optimization, reaction engineering, and sustainable chemical processes with over 20 years of academic and industrial experience.",
-      photo: "/editor-3.png",
-      orcid: "0000-0003-4567-8901",
-      email: "ibrahim.suleiman@uniben.edu",
-      specialization: [
-        "Process Optimization",
-        "Reaction Engineering",
-        "Sustainable Chemistry",
-      ],
-    },
-    {
-      name: "Dr. Ngozi F. Adekunle",
-      role: "Associate Editor",
-      affiliation: "University of Benin",
-      department: "Department of Physics",
-      bio: "Her research interests include quantum computing, theoretical physics, and materials science.",
-      photo: "/editor-4.png",
-      email: "ngozi.adekunle@uniben.edu",
-      specialization: [
-        "Quantum Computing",
-        "Theoretical Physics",
-        "Materials Science",
-      ],
     },
   ];
 
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
-      <header className="bg-[#071936] border-b border-white text-white shadow-lg sticky top-0 z-50">
+      <header className="bg-[#071936] text-white shadow-lg sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             <div className="flex items-center gap-4">
@@ -133,7 +78,7 @@ export default function EditorialBoardPage() {
       </header>
 
       {/* Hero */}
-      <section className="bg-[#071936] text-white py-16">
+      <section className="bg-gradient-to-br from-[#071936] to-[#0b1f41] text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
@@ -162,77 +107,25 @@ export default function EditorialBoardPage() {
               <Award className="h-8 w-8" />
               Editor-in-Chief
             </h2>
-            <div className="bg-white border-4 border-[#071936] rounded-2xl p-8 shadow-xl">
-              <div className="grid md:grid-cols-3 gap-8">
-                <div className="md:col-span-1">
-                  <div className="relative w-48 h-48 mx-auto mb-4">
-                    <Image
-                      src={editorInChief.photo}
-                      alt={editorInChief.name}
-                      fill
-                      className="rounded-full object-cover border-4 border-[#071936]"
-                    />
-                  </div>
-                  <div className="text-center">
-                    <h3 className="text-2xl font-bold text-[#212121] mb-2">
-                      {editorInChief.name}
-                    </h3>
-                    <p className="text-[#071936] font-semibold mb-2">
-                      {editorInChief.role}
-                    </p>
-                    <p className="text-sm text-gray-600 mb-1">
-                      {editorInChief.department}
-                    </p>
-                    <p className="text-sm text-gray-600 mb-4">
-                      {editorInChief.affiliation}
-                    </p>
-                    <div className="flex justify-center gap-3">
-                      {editorInChief.orcid && (
-                        <a
-                          href={`https://orcid.org/${editorInChief.orcid}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 text-[#071936] hover:text-[#071936]"
-                          aria-label="ORCID"
-                        >
-                          <Globe className="h-4 w-4" />
-                          <span className="text-sm font-medium">ORCID</span>
-                        </a>
-                      )}
-                      {editorInChief.email && (
-                        <a
-                          href={`mailto:${editorInChief.email}`}
-                          className="inline-flex items-center gap-1 text-[#071936] hover:text-[#071936]"
-                          aria-label="Email"
-                        >
-                          <Mail className="h-4 w-4" />
-                          <span className="text-sm font-medium">Email</span>
-                        </a>
-                      )}
-                    </div>
-                  </div>
+            <div className="bg-white border-4 border-[#071936] rounded-2xl p-8 shadow-xl max-w-sm mx-auto">
+              <div className="text-center">
+                <div className="relative w-48 h-48 mx-auto mb-4">
+                  <Image
+                    src={editorInChief.photo}
+                    alt={editorInChief.name}
+                    fill
+                    className="rounded-full object-cover border-4 border-[#071936]"
+                  />
                 </div>
-                <div className="md:col-span-2">
-                  <h4 className="text-lg font-bold text-[#212121] mb-3">
-                    Biography
-                  </h4>
-                  <p className="text-gray-700 leading-relaxed mb-6">
-                    {editorInChief.bio}
-                  </p>
-                  <h4 className="text-lg font-bold text-[#212121] mb-3">
-                    Areas of Specialization
-                  </h4>
-                  <div className="flex flex-wrap gap-2">
-                    {editorInChief.specialization.map((spec, idx) => (
-                      <span
-                        key={idx}
-                        className="px-4 py-2 bg-[#8690a0c2] border border-[#8690a0c2] text-[#071936] rounded-full text-sm font-semibold"
-                      >
-                        {spec}
-                      </span>
-                    ))}
-                  </div>
-                </div>
+                <h3 className="text-2xl font-bold text-[#212121] mb-2">
+                  {editorInChief.name}
+                </h3>
+                <p className="text-[#071936] font-semibold mb-2">
+                  {editorInChief.role}
+                </p>
+                <p className="text-sm text-gray-600 mb-4">
+                  {editorInChief.affiliation}
+                </p>
               </div>
             </div>
           </div>
@@ -242,54 +135,25 @@ export default function EditorialBoardPage() {
             <h2 className="text-3xl font-bold text-[#071936] mb-8 font-serif">
               Managing Editor
             </h2>
-            <div className="bg-white border-2 border-[#8690a0c2] rounded-xl p-6 hover:shadow-xl transition-all">
-              <div className="grid md:grid-cols-4 gap-6 items-center">
-                <div className="text-center">
-                  <div className="relative w-32 h-32 mx-auto mb-3">
-                    <Image
-                      src={managingEditor.photo}
-                      alt={managingEditor.name}
-                      fill
-                      className="rounded-full object-cover"
-                    />
-                  </div>
-                  <h3 className="text-lg font-bold text-[#212121] mb-1">
-                    {managingEditor.name}
-                  </h3>
-                  <p className="text-sm text-[#071936] font-semibold mb-2">
-                    {managingEditor.role}
-                  </p>
-                  {managingEditor.email && (
-                    <a
-                      href={`mailto:${managingEditor.email}`}
-                      className="inline-flex items-center gap-1 text-[#071936] hover:text-[#071936] text-sm"
-                    >
-                      <Mail className="h-3 w-3" />
-                      Email
-                    </a>
-                  )}
+            <div className="bg-white border-2 border-[#8690a0c2] rounded-xl p-6 hover:shadow-xl transition-all max-w-sm mx-auto">
+              <div className="text-center">
+                <div className="relative w-32 h-32 mx-auto mb-3">
+                  <Image
+                    src={managingEditor.photo}
+                    alt={managingEditor.name}
+                    fill
+                    className="rounded-full object-cover"
+                  />
                 </div>
-                <div className="md:col-span-3">
-                  <p className="text-sm text-gray-600 mb-1">
-                    {managingEditor.department}
-                  </p>
-                  <p className="text-sm text-gray-600 mb-4">
-                    {managingEditor.affiliation}
-                  </p>
-                  <p className="text-gray-700 leading-relaxed mb-3">
-                    {managingEditor.bio}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {managingEditor.specialization.map((spec, idx) => (
-                      <span
-                        key={idx}
-                        className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-medium"
-                      >
-                        {spec}
-                      </span>
-                    ))}
-                  </div>
-                </div>
+                <h3 className="text-lg font-bold text-[#212121] mb-1">
+                  {managingEditor.name}
+                </h3>
+                <p className="text-sm text-[#071936] font-semibold mb-2">
+                  {managingEditor.role}
+                </p>
+                <p className="text-sm text-gray-600 mb-4">
+                  {managingEditor.affiliation}
+                </p>
               </div>
             </div>
           </div>
@@ -299,11 +163,11 @@ export default function EditorialBoardPage() {
             <h2 className="text-3xl font-bold text-[#071936] mb-8 font-serif">
               Associate Editors
             </h2>
-            <div className="grid md:grid-cols-3 gap-6">
+            <div className="flex justify-center">
               {associateEditors.map((editor, idx) => (
                 <div
                   key={idx}
-                  className="bg-white border-2 border-[#8690a0c2] rounded-xl p-6 hover:shadow-xl hover:border-[#071936] transition-all"
+                  className="bg-white border-2 border-[#8690a0c2] rounded-xl p-6 w-full max-w-sm"
                 >
                   <div className="text-center mb-4">
                     <div className="relative w-24 h-24 mx-auto mb-3">
@@ -320,47 +184,9 @@ export default function EditorialBoardPage() {
                     <p className="text-sm text-[#071936] font-semibold mb-2">
                       {editor.role}
                     </p>
-                    <p className="text-xs text-gray-600 mb-1">
-                      {editor.department}
-                    </p>
-                    <p className="text-xs text-gray-600 mb-3">
+                    <p className="text-sm text-gray-600 mb-3">
                       {editor.affiliation}
                     </p>
-                    <div className="flex justify-center gap-3">
-                      {editor.orcid && (
-                        <a
-                          href={`https://orcid.org/${editor.orcid}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-[#071936] hover:text-[#071936]"
-                          aria-label="ORCID"
-                        >
-                          <Globe className="h-4 w-4" />
-                        </a>
-                      )}
-                      {editor.email && (
-                        <a
-                          href={`mailto:${editor.email}`}
-                          className="text-[#071936] hover:text-[#071936]"
-                          aria-label="Email"
-                        >
-                          <Mail className="h-4 w-4" />
-                        </a>
-                      )}
-                    </div>
-                  </div>
-                  <p className="text-sm text-gray-700 leading-relaxed mb-3">
-                    {editor.bio}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {editor.specialization.map((spec, specIdx) => (
-                      <span
-                        key={specIdx}
-                        className="px-2 py-1 bg-[#FAF7F8] text-gray-700 rounded-full text-xs"
-                      >
-                        {spec}
-                      </span>
-                    ))}
                   </div>
                 </div>
               ))}
@@ -370,7 +196,7 @@ export default function EditorialBoardPage() {
       </section>
 
       {/* Footer */}
-      <Footer/>
+      <Footer />
     </div>
   );
 }
