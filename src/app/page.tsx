@@ -282,7 +282,7 @@ export default function STIJournalHome() {
             <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-[#071936]">
               <div className="w-20 h-24 bg-gray-200 rounded-full mx-auto mb-4">
                 <Image
-                  src="/editor-chief.png"
+                  src="/editor-chiefff.png"
                   alt="Editor in Chief"
                   width={86}
                   height={86}
@@ -306,7 +306,7 @@ export default function STIJournalHome() {
             <div className="bg-white rounded-xl p-6 shadow-md border border-[#071936] hover:border-[#071936] transition-colors">
               <div className="w-24 h-22 bg-gray-200 rounded-full mx-auto mb-4">
                 <Image
-                  src="/managing-editor.png"
+                  src="/managing-editorrr.png"
                   alt="Managing Editor"
                   width={98}
                   height={98}
