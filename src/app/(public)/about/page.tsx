@@ -162,7 +162,7 @@ export default function AboutPage() {
                 <div className="bg-white border-2 border-[#071936] rounded-xl p-6">
                   <div className="w-20 h-20 bg-gray-200 rounded-full mb-4">
                     <Image
-                      src="/editor-chief.png"
+                      src="/editor-chiefff.png"
                       alt="Editor in Chief"
                       width={80}
                       height={80}
@@ -173,15 +173,10 @@ export default function AboutPage() {
                     EDITOR-IN-CHIEF
                   </p>
                   <h3 className="text-lg font-bold text-[#212121] mb-2">
-                    Prof. Adebayo M. Ogunleye
+                  Professor Edoba B. Omoregie, SAN.
                   </h3>
                   <p className="text-sm text-gray-600 mb-3">
-                    Department of Computer Science
-                    <br />
-                    University of Benin
-                  </p>
-                  <p className="text-sm text-gray-700">
-                    Specializes in Artificial Intelligence and Machine Learning applications
+                    Vice Chancellor, University of Benin
                   </p>
                 </div>
 
@@ -189,7 +184,7 @@ export default function AboutPage() {
                 <div className="bg-white border-2 border-[#8690a0c2] rounded-xl p-6 hover:border-[#071936c2] transition-colors">
                   <div className="w-20 h-20 bg-gray-200 rounded-full mb-4">
                     <Image
-                      src="/managing-editor.png"
+                      src="/managing-editorrr.png"
                       alt="Managing Editor"
                       width={80}
                       height={80}
@@ -200,15 +195,12 @@ export default function AboutPage() {
                     MANAGING EDITOR
                   </p>
                   <h3 className="text-lg font-bold text-[#212121] mb-2">
-                    Dr. Folake A. Williams
+                    Prof. Ngozi Finette Unuigbe
                   </h3>
                   <p className="text-sm text-gray-600 mb-3">
-                    Directorate of Research, Innovation & Development
+                  Director, Directorate of Research, Innovation and Development (DRID)
                     <br />
                     University of Benin
-                  </p>
-                  <p className="text-sm text-gray-700">
-                    Oversees submission workflow and editorial operations
                   </p>
                 </div>
               </div>
