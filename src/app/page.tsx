@@ -115,9 +115,13 @@ export default function STIJournalHome() {
         </div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
-            <h2 className="text-3xl md:text-5xl font-bold mb-6 leading-tight font-serif">
-              UNIBEN Journal of Science, Technology and Innovation
-            </h2>
+  <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full mb-4">
+    <Beaker className="h-4 w-4" />
+    <span className="text-sm font-semibold">University of Benin</span>
+  </div>
+  <h2 className="text-3xl md:text-4xl font-bold mb-6 leading-tight font-serif">
+    Journal of Science, Technology and Innovation
+  </h2>
             <p className="text-xl mb-8 text-white leading-relaxed">
             University of Benin • Applied sciences, engineering, computing, climate/energy tech, public-health technologies, data & AI for development.
             </p>
