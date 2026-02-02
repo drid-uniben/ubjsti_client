@@ -229,7 +229,7 @@ export default function CurrentIssuePage() {
 
               <div className="mt-6 pt-6 border-t border-white/20">
                 <p className="text-sm text-[#8690a0c2]">
-                  <strong>ISSN:</strong> eISSN: 2315-6228 (Online)
+                  <strong>ISSN:</strong> eISSN: 3121-7648 (Online)
                 </p>
               </div>
             </div>
