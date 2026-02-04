@@ -38,7 +38,7 @@ export default function ReviewGuideline() {
                                         <tr className="hover:bg-gray-50">
                                             <td className="border border-gray-300 p-3 font-medium text-gray-800">
                                                 <div className="flex items-center">
-                                                    <span className="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs mr-2">1</span>
+                                                    <span className="bg-journal-rose text-journal-maroon px-2 py-1 rounded text-xs mr-2">1</span>
                                                     Originality and Innovation
                                                 </div>
                                             </td>
@@ -50,7 +50,7 @@ export default function ReviewGuideline() {
                                         <tr className="hover:bg-gray-50">
                                             <td className="border border-gray-300 p-3 font-medium text-gray-800">
                                                 <div className="flex items-center">
-                                                    <span className="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs mr-2">2</span>
+                                                    <span className="bg-journal-rose text-journal-maroon px-2 py-1 rounded text-xs mr-2">2</span>
                                                     Methodology
                                                 </div>
                                             </td>
@@ -62,7 +62,7 @@ export default function ReviewGuideline() {
                                         <tr className="hover:bg-gray-50">
                                             <td className="border border-gray-300 p-3 font-medium text-gray-800">
                                                 <div className="flex items-center">
-                                                    <span className="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs mr-2">3</span>
+                                                    <span className="bg-journal-rose text-journal-maroon px-2 py-1 rounded text-xs mr-2">3</span>
                                                     Clarity of Presentation
                                                 </div>
                                             </td>
@@ -74,7 +74,7 @@ export default function ReviewGuideline() {
                                         <tr className="hover:bg-gray-50">
                                             <td className="border border-gray-300 p-3 font-medium text-gray-800">
                                                 <div className="flex items-center">
-                                                    <span className="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs mr-2">4</span>
+                                                    <span className="bg-journal-rose text-journal-maroon px-2 py-1 rounded text-xs mr-2">4</span>
                                                     Relevance and Significance
                                                 </div>
                                             </td>
@@ -86,7 +86,7 @@ export default function ReviewGuideline() {
                                         <tr className="hover:bg-gray-50">
                                             <td className="border border-gray-300 p-3 font-medium text-gray-800">
                                                 <div className="flex items-center">
-                                                    <span className="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs mr-2">5</span>
+                                                    <span className="bg-journal-rose text-journal-maroon px-2 py-1 rounded text-xs mr-2">5</span>
                                                     Literature Review
                                                 </div>
                                             </td>
@@ -98,7 +98,7 @@ export default function ReviewGuideline() {
                                         <tr className="hover:bg-gray-50">
                                             <td className="border border-gray-300 p-3 font-medium text-gray-800">
                                                 <div className="flex items-center">
-                                                    <span className="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs mr-2">6</span>
+                                                    <span className="bg-journal-rose text-journal-maroon px-2 py-1 rounded text-xs mr-2">6</span>
                                                     Results and Analysis
                                                 </div>
                                             </td>
@@ -110,7 +110,7 @@ export default function ReviewGuideline() {
                                         <tr className="hover:bg-gray-50">
                                             <td className="border border-gray-300 p-3 font-medium text-gray-800">
                                                 <div className="flex items-center">
-                                                    <span className="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs mr-2">7</span>
+                                                    <span className="bg-journal-rose text-journal-maroon px-2 py-1 rounded text-xs mr-2">7</span>
                                                     Overall Contribution
                                                 </div>
                                             </td>

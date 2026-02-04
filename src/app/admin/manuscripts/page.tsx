@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect, Suspense } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useState, useEffect, Suspense, useCallback } from 'react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import { manuscriptAdminApi, type Manuscript, type ExistingReviewForReassignment } from '@/services/api';
 import { AdminLayout } from '@/components/admin/AdminLayout';
@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Toaster, toast } from "sonner";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { FileUpload } from '@/components/FileUpload';
+import { Input } from '@/components/ui/input';
 
 interface Faculty {
   faculty: string;
@@ -24,7 +25,93 @@ interface PaginationData {
   currentPage: number;
 }
 
+interface ManuscriptFilters {
+  status: string;
+  faculty: string;
+  sort: string;
+  order: 'asc' | 'desc';
+}
 
+
+function usePaginationPersistence() {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  // Get current page from URL or localStorage
+  const getCurrentPage = useCallback(() => {
+    const urlPage = searchParams.get('page');
+    if (urlPage) {
+      return parseInt(urlPage, 10);
+    }
+
+    // Fallback to localStorage
+    const storedPage = localStorage.getItem('manuscripts_current_page');
+    return storedPage ? parseInt(storedPage, 10) : 1;
+  }, [searchParams]);
+
+  // Update URL with current pagination state
+  const updateURL = useCallback((page: number, filters: ManuscriptFilters) => {
+    const params = new URLSearchParams();
+    params.set('page', page.toString());
+    
+    if (filters.status) params.set('status', filters.status);
+    if (filters.faculty) params.set('faculty', filters.faculty);
+    if (filters.sort) params.set('sort', filters.sort);
+    if (filters.order) params.set('order', filters.order);
+
+    router.push(`${pathname}?${params.toString()}`, { scroll: false });
+    
+    // Also save to localStorage as backup
+    localStorage.setItem('manuscripts_current_page', page.toString());
+    localStorage.setItem('manuscripts_filters', JSON.stringify(filters));
+  }, [pathname, router]);
+
+  // Restore filters from URL or localStorage
+  const restoreFilters = useCallback(() => {
+    const urlStatus = searchParams.get('status');
+    const urlFaculty = searchParams.get('faculty');
+    const urlSort = searchParams.get('sort');
+    const urlOrder = searchParams.get('order');
+
+    if (urlStatus || urlFaculty || urlSort || urlOrder) {
+      return {
+        status: urlStatus || '',
+        faculty: urlFaculty || '',
+        sort: urlSort || 'createdAt',
+        order: (urlOrder as 'asc' | 'desc') || 'desc',
+      };
+    }
+
+    // Fallback to localStorage
+    const storedFilters = localStorage.getItem('manuscripts_filters');
+    if (storedFilters) {
+      try {
+        return JSON.parse(storedFilters);
+      } catch {
+        return {
+          status: '',
+          faculty: '',
+          sort: 'createdAt',
+          order: 'desc' as 'asc' | 'desc',
+        };
+      }
+    }
+
+    return {
+      status: '',
+      faculty: '',
+      sort: 'createdAt',
+      order: 'desc' as 'asc' | 'desc',
+    };
+  }, [searchParams]);
+
+  return {
+    getCurrentPage,
+    updateURL,
+    restoreFilters,
+  };
+}
 
 function AdminManuscriptsPage() {
   const { isAuthenticated } = useAuth();    
@@ -81,15 +168,25 @@ function AdminManuscriptsPage() {
   const [assigningFaculty, setAssigningFaculty] = useState(false);
   const [expandedFaculty, setExpandedFaculty] = useState<string | null>(null);
   
-  const searchParams = useSearchParams();
   const router = useRouter();
   
-  const [filters, setFilters] = useState({
-    status: searchParams.get('status') || '',
-    faculty: '',
-    sort: 'createdAt',
-    order: 'desc' as 'asc' | 'desc',
-  });
+  // Use the persistence hook
+  const { getCurrentPage, updateURL, restoreFilters } = usePaginationPersistence();
+
+  // Initialize filters from URL/localStorage
+  const [filters, setFilters] = useState<ManuscriptFilters>(() => restoreFilters());
+
+  // Initialize current page from URL/localStorage
+  useEffect(() => {
+    const currentPage = getCurrentPage();
+    setPagination(prev => ({ ...prev, currentPage }));
+  }, [getCurrentPage]);
+
+  const [searchQuery, setSearchQuery] = useState('');
+const [searchResults, setSearchResults] = useState<Manuscript[]>([]);
+const [isSearching, setIsSearching] = useState(false);
+const [showSearchResults, setShowSearchResults] = useState(false);
+
 
   useEffect(() => {
     const fetchFaculties = async () => {
@@ -245,15 +342,21 @@ function AdminManuscriptsPage() {
     fetchManuscripts();
   }, [isAuthenticated, pagination.currentPage, filters, refreshTrigger]);
 
-  const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const { name, value } = e.target;
+  useEffect(() => {
+    updateURL(pagination.currentPage, filters);
+  }, [pagination.currentPage, filters, updateURL]);
+
+  const handleFilterChange = (_e: React.ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = _e.target;
     setFilters(prev => ({ ...prev, [name]: value }));
-    setPagination(prev => ({ ...prev, currentPage: 1 }));
-  };
+    setPagination(prev => ({ ...prev, currentPage: 1 })); // Reset to page 1 when filters change
+    };
 
   const handlePageChange = (newPage: number) => {
     if (newPage < 1 || newPage > pagination.totalPages) return;
     setPagination(prev => ({ ...prev, currentPage: newPage }));
+    // Scroll to top of page
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const toggleSortOrder = (field: string) => {
@@ -429,6 +532,38 @@ function AdminManuscriptsPage() {
     }
   };
 
+  const handleSearch = async (query: string) => {
+  setSearchQuery(query);
+  
+  if (query.trim().length < 2) {
+    setShowSearchResults(false);
+    return;
+  }
+
+  setIsSearching(true);
+  try {
+    const response = await manuscriptAdminApi.searchManuscripts(query, 20);
+    setSearchResults(response.data);
+    setShowSearchResults(true);
+  } catch (error) {
+    console.error('Search failed:', error);
+    toast.error('Search failed');
+  } finally {
+    setIsSearching(false);
+  }
+};
+
+// Debounce search
+useEffect(() => {
+  const timer = setTimeout(() => {
+    if (searchQuery) {
+      handleSearch(searchQuery);
+    }
+  }, 300);
+
+  return () => clearTimeout(timer);
+}, [searchQuery]);
+
 
 
   const getStatusBadgeClass = (status: string) => {
@@ -501,7 +636,7 @@ function AdminManuscriptsPage() {
       <div
         key={reviewer._id}
         className={`p-4 hover:bg-gray-50 cursor-pointer border-b border-gray-100 last:border-b-0 transition-colors ${
-          selectedId === reviewer._id ? 'bg-purple-50 border-l-4 border-l-purple-500' : ''
+          selectedId === reviewer._id ? 'bg-journal-rose border-l-4 border-l-journal-maroon' : ''
         }`}
         onClick={() => onSelect(reviewer._id)}
       >
@@ -509,10 +644,10 @@ function AdminManuscriptsPage() {
           <div className="flex items-center space-x-4">
             <div className="flex-shrink-0">
               <div className={`h-10 w-10 rounded-full flex items-center justify-center ${
-                selectedId === reviewer._id ? 'bg-purple-100' : 'bg-gray-100'
+                selectedId === reviewer._id ? 'bg-journal-rose' : 'bg-gray-100'
               }`}>
                 <User className={`h-5 w-5 ${
-                  selectedId === reviewer._id ? 'text-purple-600' : 'text-gray-600'
+                  selectedId === reviewer._id ? 'text-journal-maroon' : 'text-gray-600'
                 }`} />
               </div>
             </div>
@@ -567,6 +702,62 @@ function AdminManuscriptsPage() {
                 {error}
               </div>
             )}
+
+            <div className="mb-6">
+  <div className="relative">
+    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+          <Input
+          type="text"
+          placeholder="Search by manuscript title, author name, or email..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="pl-10 pr-4 py-3 w-full border-gray-300 focus:border-journal-maroon focus:ring-journal-maroon"
+        />
+        {isSearching && (
+          <Loader2 className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 animate-spin text-journal-maroon" />
+        )}  </div>
+  
+  {/* Search Results Dropdown */}
+  {showSearchResults && searchResults.length > 0 && (
+    <div className="absolute z-10 mt-2 w-full bg-white border border-gray-200 rounded-lg shadow-lg max-h-96 overflow-y-auto">
+      <div className="p-2 border-b bg-gray-50">
+        <p className="text-sm text-gray-600">
+          Found {searchResults.length} result{searchResults.length !== 1 ? 's' : ''}
+        </p>
+      </div>
+      {searchResults.map((manuscript) => (
+        <div
+          key={manuscript._id}
+          className="p-3 hover:bg-gray-50 cursor-pointer border-b last:border-b-0"
+          onClick={() => {
+            router.push(`/admin/manuscripts/${manuscript._id}`);
+            setShowSearchResults(false);
+            setSearchQuery('');
+          }}
+        >
+          <p className="font-medium text-sm text-gray-900">{manuscript.title}</p>
+          <p className="text-xs text-gray-600 mt-1">
+            by {manuscript.submitter.name} ({manuscript.submitter.email})
+          </p>
+          <div className="flex items-center gap-2 mt-1">
+            <span className={`px-2 py-0.5 text-xs rounded-full ${getStatusBadgeClass(manuscript.status)}`}>
+              {getStatusLabel(manuscript.status)}
+            </span>
+            <span className="text-xs text-gray-500">
+              {formatDate(manuscript.createdAt)}
+            </span>
+          </div>
+        </div>
+      ))}
+    </div>
+  )}
+  
+  {showSearchResults && searchResults.length === 0 && !isSearching && (
+    <div className="absolute z-10 mt-2 w-full bg-white border border-gray-200 rounded-lg shadow-lg p-4 text-center text-gray-500">
+      No manuscripts found matching &quot;{searchQuery}&quot;
+    </div>
+  )}
+</div>
             
             {/* Filters */}
             <div className="mb-6 bg-white p-4 rounded-lg shadow-sm border border-gray-200">
@@ -762,7 +953,7 @@ function AdminManuscriptsPage() {
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
   <div className="flex flex-col gap-1">
     {manuscript.revisedPdfFile && (
-      <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+      <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-journal-rose text-journal-maroon">
         Revised
       </span>
     )}
@@ -1275,7 +1466,7 @@ function AdminManuscriptsPage() {
                         )}
                         variant="outline"
                         size="sm"
-                        className="text-gray-600 hover:text-[#7A0019]"
+                        className="text-gray-600 hover:text-journal-maroon"
                       >
                         {expandedFaculty === faculty.faculty ? (
                           <ChevronDown className="h-4 w-4" />

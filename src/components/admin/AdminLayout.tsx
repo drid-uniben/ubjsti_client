@@ -21,6 +21,8 @@ import {
   BookUser,
   LinkIcon,
   UserCheck,
+  Mail,
+  AlertTriangle,
 } from "lucide-react";
 
 const navigationItems = [
@@ -68,6 +70,16 @@ const navigationItems = [
     name: 'Final Decision', 
     href: '/admin/decisions', 
     icon: BookUser 
+  },
+  {
+  name: "Email Campaign",
+  href: "/admin/email-campaign",
+  icon: Mail,
+},
+{ 
+    name: 'Override Decision', 
+    href: '/admin/override-decision', 
+    icon: AlertTriangle
   },
 
 ];
@@ -155,8 +167,8 @@ function AdminLayoutComponent({ children }: AdminLayoutProps) {
           className={cn(
             "flex items-center justify-between w-full px-3 py-2 rounded-lg text-sm font-medium transition-colors",
             isArticleDropdownOpen
-              ? "bg-[#5A0A1A] text-white"
-              : "text-[#FFE9EE] hover:bg-[#5A0A1A] hover:text-white"
+              ? "bg-journal-maroon-dark text-white"
+              : "text-journal-rose hover:bg-journal-maroon-dark hover:text-white"
           )}
         >
           <div className="flex items-center space-x-3">
@@ -179,8 +191,8 @@ function AdminLayoutComponent({ children }: AdminLayoutProps) {
                 className={cn(
                   "flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors",
                   pathname === link.href
-                    ? "bg-[#5A0A1A] text-white"
-                    : "text-[#FFE9EE] hover:bg-[#5A0A1A] hover:text-white"
+                    ? "bg-journal-maroon-dark text-white"
+                    : "text-journal-rose hover:bg-journal-maroon-dark hover:text-white"
                 )}
                 onClick={() => setIsMobileMenuOpen(false)}
               >
