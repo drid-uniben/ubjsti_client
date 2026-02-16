@@ -41,6 +41,8 @@ export default function IssuesManagementPage() {
   const { isAuthenticated } = useAuth(); // Added
   const [issues, setIssues] = useState<Issue[]>([]);
   const [volumes, setVolumes] = useState<Volume[]>([]);
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const [deletingIssueId, setDeletingIssueId] = useState<string | null>(null);
   const [selectedVolume, setSelectedVolume] = useState<string>("all");
   const [isLoading, setIsLoading] = useState(true);
   const [showDialog, setShowDialog] = useState(false);
@@ -153,17 +155,25 @@ export default function IssuesManagementPage() {
     setShowDialog(true);
   };
 
-  const handleDelete = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this issue?")) return;
+  const handleDelete = (id: string) => {
+    setDeletingIssueId(id);
+    setShowDeleteDialog(true);
+  };
+
+  const confirmDelete = async () => {
+    if (!deletingIssueId) return;
 
     try {
-      await issueApi.deleteIssue(id);
+      await issueApi.deleteIssue(deletingIssueId);
       toast.success("Issue deleted successfully");
       fetchIssues();
     } catch (error: unknown) {
       const errorMsg =
         error instanceof Error ? error.message : "Failed to delete issue";
       toast.error(errorMsg);
+    } finally {
+      setShowDeleteDialog(false);
+      setDeletingIssueId(null);
     }
   };
 
@@ -176,7 +186,7 @@ export default function IssuesManagementPage() {
     return (
       <AdminLayout>
         <div className="flex justify-center items-center h-64">
-          <RefreshCw className="h-8 w-8 animate-spin text-[#7A0019]" />
+          <RefreshCw className="h-8 w-8 animate-spin text-[journal-maroon]" />
         </div>
       </AdminLayout>
     );
@@ -186,9 +196,9 @@ export default function IssuesManagementPage() {
     <AdminLayout>
       <div className="space-y-6 p-4 md:p-6">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-gradient-to-r from-[#7A0019]/10 to-purple-50 p-6 rounded-xl border border-[#7A0019]/20">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-gradient-to-r from-[journal-maroon]/10 to-purple-50 p-6 rounded-xl border border-[journal-maroon]/20">
           <div>
-            <h1 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-[#7A0019] to-purple-600 bg-clip-text text-transparent">
+            <h1 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-[journal-maroon] to-purple-600 bg-clip-text text-transparent">
               Issue Management
             </h1>
             <p className="text-gray-600 mt-1">Create and manage journal issues</p>
@@ -198,7 +208,7 @@ export default function IssuesManagementPage() {
               resetForm();
               setShowDialog(true);
             }}
-            className="bg-gradient-to-r from-[#7A0019] to-[#5A0A1A] hover:from-[#5A0A1A] hover:to-[#7A0019] text-white shadow-lg"
+            className="bg-gradient-to-r from-[journal-maroon] to-[#5A0A1A] hover:from-[#5A0A1A] hover:to-[journal-maroon] text-white shadow-lg"
           >
             <PlusCircle className="mr-2 h-4 w-4" />
             Create Issue
@@ -206,14 +216,14 @@ export default function IssuesManagementPage() {
         </div>
 
         {/* Filter */}
-        <Card className="border-[#7A0019]/20">
+        <Card className="border-[journal-maroon]/20">
           <CardContent className="p-4">
             <div className="flex items-center gap-4">
               <Label className="text-sm font-medium whitespace-nowrap">
                 Filter by Volume:
               </Label>
               <Select value={selectedVolume} onValueChange={setSelectedVolume}>
-                <SelectTrigger className="w-[200px] border-[#7A0019]/20">
+                <SelectTrigger className="w-[200px] border-[journal-maroon]/20">
                   <SelectValue placeholder="Select volume" />
                 </SelectTrigger>
                 <SelectContent>
@@ -246,12 +256,12 @@ export default function IssuesManagementPage() {
               return (
                 <Card
                   key={issue._id}
-                  className="group hover:shadow-xl transition-all duration-300 border-[#7A0019]/20 hover:border-[#7A0019]"
+                  className="group hover:shadow-xl transition-all duration-300 border-[journal-maroon]/20 hover:border-[journal-maroon]"
                 >
                   <CardContent className="p-6">
                     <div className="flex items-start justify-between mb-4">
                       <div>
-                        <h3 className="text-lg font-bold text-[#7A0019]">
+                        <h3 className="text-lg font-bold text-[journal-maroon]">
                           Issue {issue.issueNumber}
                         </h3>
                         {volume && (
@@ -260,7 +270,7 @@ export default function IssuesManagementPage() {
                           </p>
                         )}
                       </div>
-                      <BookOpen className="h-8 w-8 text-[#7A0019]/30" />
+                      <BookOpen className="h-8 w-8 text-[journal-maroon]/30" />
                     </div>
 
                     <div className="flex items-center gap-2 text-sm text-gray-600 mb-3">
@@ -281,7 +291,7 @@ export default function IssuesManagementPage() {
                         variant="outline"
                         size="sm"
                         onClick={() => handleEdit(issue)}
-                        className="flex-1 border-[#7A0019] text-[#7A0019] hover:bg-[#7A0019]/10"
+                        className="flex-1 border-[journal-maroon] text-[journal-maroon] hover:bg-[journal-maroon]/10"
                       >
                         <Edit className="h-4 w-4 mr-1" />
                         Edit
@@ -306,7 +316,7 @@ export default function IssuesManagementPage() {
         <Dialog open={showDialog} onOpenChange={setShowDialog}>
           <DialogContent className="sm:max-w-[500px]">
             <DialogHeader>
-              <DialogTitle className="text-xl bg-gradient-to-r from-[#7A0019] to-purple-600 bg-clip-text text-transparent">
+              <DialogTitle className="text-xl bg-gradient-to-r from-[journal-maroon] to-purple-600 bg-clip-text text-transparent">
                 {editingIssue ? "Edit Issue" : "Create New Issue"}
               </DialogTitle>
               <DialogDescription>
@@ -333,7 +343,7 @@ export default function IssuesManagementPage() {
                   }
                   required
                 >
-                  <SelectTrigger className="border-[#7A0019]/20">
+                  <SelectTrigger className="border-[journal-maroon]/20">
                     <SelectValue placeholder="Select volume" />
                   </SelectTrigger>
                   <SelectContent>
@@ -356,7 +366,7 @@ export default function IssuesManagementPage() {
                   placeholder="1"
                   value={formData.issueNumber}
                   onChange={handleInputChange}
-                  className="border-[#7A0019]/20 focus:border-[#7A0019]"
+                  className="border-[journal-maroon]/20 focus:border-[journal-maroon]"
                   required
                 />
               </div>
@@ -369,7 +379,7 @@ export default function IssuesManagementPage() {
                   type="date"
                   value={formData.publishDate}
                   onChange={handleInputChange}
-                  className="border-[#7A0019]/20 focus:border-[#7A0019]"
+                  className="border-[journal-maroon]/20 focus:border-[journal-maroon]"
                   required
                 />
               </div>
@@ -382,7 +392,7 @@ export default function IssuesManagementPage() {
                   placeholder="Brief description of this issue"
                   value={formData.description}
                   onChange={handleInputChange}
-                  className="min-h-[80px] border-[#7A0019]/20 focus:border-[#7A0019]"
+                  className="min-h-[80px] border-[journal-maroon]/20 focus:border-[journal-maroon]"
                   rows={3}
                 />
               </div>
@@ -392,14 +402,14 @@ export default function IssuesManagementPage() {
                   type="button"
                   variant="outline"
                   onClick={() => setShowDialog(false)}
-                  className="border-[#7A0019]/20"
+                  className="border-[journal-maroon]/20"
                 >
                   Cancel
                 </Button>
                 <Button
                   type="submit"
                   disabled={isSubmitting}
-                  className="bg-gradient-to-r from-[#7A0019] to-[#5A0A1A] hover:from-[#5A0A1A] hover:to-[#7A0019] text-white"
+                  className="bg-gradient-to-r from-[journal-maroon] to-[#5A0A1A] hover:from-[#5A0A1A] hover:to-[journal-maroon] text-white"
                 >
                   {isSubmitting ? (
                     <>
@@ -412,6 +422,29 @@ export default function IssuesManagementPage() {
                 </Button>
               </DialogFooter>
             </form>
+          </DialogContent>
+        </Dialog>
+
+        {/* Delete Confirmation Dialog */}
+        <Dialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Are you sure?</DialogTitle>
+              <DialogDescription>
+                This action cannot be undone. This will permanently delete this issue and all its associations.
+              </DialogDescription>
+            </DialogHeader>
+            <DialogFooter>
+              <Button
+                variant="outline"
+                onClick={() => setShowDeleteDialog(false)}
+              >
+                Cancel
+              </Button>
+              <Button variant="destructive" onClick={confirmDelete}>
+                Delete
+              </Button>
+            </DialogFooter>
           </DialogContent>
         </Dialog>
       </div>

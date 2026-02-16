@@ -14,6 +14,8 @@
   --color-journal-blush: var(--journal-blush);
   --color-journal-rose: var(--journal-rose);
   --color-journal-mauve: var(--journal-mauve);
+  --color-journal-off-white: var(--journal-off-white);
+  --color-journal-text-dark: var(--journal-text-dark);
   --color-success: var(--success);
   --color-warning: var(--warning);
   --color-error: var(--error);

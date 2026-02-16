@@ -336,7 +336,7 @@ export default function ArticleDetailPage() {
                           href={`https://orcid.org/${auth.orcid}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-[#7A0019] hover:text-[#5A0A1A]"
+                          className="text-[journal-maroon] hover:text-[#5A0A1A]"
                           aria-label="ORCID"
                         >
                           <Globe className="h-4 w-4" />
@@ -517,7 +517,7 @@ export default function ArticleDetailPage() {
             {/* Declarations */}
             {/* Assuming these fields are not directly available in PublishedArticle for now */}
             {/* <section className="mb-8">
-              <h2 className="text-2xl font-bold text-[#7A0019] mb-4 font-serif">
+              <h2 className="text-2xl font-bold text-[journal-maroon] mb-4 font-serif">
                 Declarations
               </h2>
               <div className="space-y-4">

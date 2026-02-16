@@ -1,144 +1,81 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
-import { Search, Filter, X } from "lucide-react";
+import { useSearchParams } from "next/navigation";
+import { Search, Filter, Loader } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { publicationApi } from "@/services/api";
 
-interface Article {
-  id: string;
-  title: string;
-  authors: string[];
-  articleType: string;
-  issue: string;
+interface Author {
+  name: string;
+  email?: string;
+  affiliation?: string;
 }
 
-export default function SearchPage() {
-  const [query, setQuery] = useState("");
+interface Article {
+  _id: string;
+  title: string;
+  abstract: string;
+  author: Author;
+  coAuthors?: Author[];
+  articleType: string;
+  volume: {
+    volumeNumber: number;
+    year: number;
+  };
+  issue: {
+    issueNumber: number;
+  };
+  publishDate: string;
+  doi?: string;
+}
+
+function SearchContent() {
+  const searchParams = useSearchParams();
+  const initialQuery = searchParams.get("q") || "";
+  
+  const [query, setQuery] = useState(initialQuery);
   const [showFilters, setShowFilters] = useState(false);
   const [filterType, setFilterType] = useState("");
-  const [filterAuthor, setFilterAuthor] = useState("");
-  const [filterIssue, setFilterIssue] = useState("");
+  const [filterVolumeNumber, setFilterVolumeNumber] = useState("");
+  const [filterIssueNumber, setFilterIssueNumber] = useState("");
+  const [articles, setArticles] = useState<Article[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  // Demo article data (replace with API later)
-  const articles: Article[] = [
-    {
-      id: "001",
-      title: "Decolonizing Legal Education in West Africa",
-      authors: ["Afolabi O. Johnson", "Chinwe M. Okeke"],
-      articleType: "Research Article",
-      issue: "Vol 1, Issue 1",
-    },
-    {
-      id: "002",
-      title: "Book Review: 'African Literatures and the CIA'",
-      authors: ["Obinna J. Okechukwu"],
-      articleType: "Book Review",
-      issue: "Vol 1, Issue 1",
-    },
-    {
-      id: "003",
-      title: "Ubuntu Philosophy and Contemporary African Ethics",
-      authors: ["Chukwudi A. Mbah"],
-      articleType: "Research Article",
-      issue: "Vol 1, Issue 2",
-    },
-    {
-      id: "004",
-      title: "Reimagining Justice: Indigenous Dispute Resolution Systems",
-      authors: ["Ngozi E. Chike", "Samuel B. Adeyemi"],
-      articleType: "Research Article",
-      issue: "Vol 1, Issue 2",
-    },
-    {
-      id: "005",
-      title: "Book Review: 'Postcolonial African Governance'",
-      authors: ["Ifeanyi U. Okoro"],
-      articleType: "Book Review",
-      issue: "Vol 1, Issue 3",
-    },
-    {
-      id: "006",
-      title: "Gender and Customary Law in Nigeria: A Critical Perspective",
-      authors: ["Ruth T. Nnaji"],
-      articleType: "Research Article",
-      issue: "Vol 1, Issue 3",
-    },
-    {
-      id: "007",
-      title: "African Environmental Ethics: Lessons from Indigenous Knowledge",
-      authors: ["Chimamanda U. Nwosu"],
-      articleType: "Research Article",
-      issue: "Vol 1, Issue 4",
-    },
-    {
-      id: "008",
-      title: "Book Review: 'Law and Power in Postcolonial Africa'",
-      authors: ["Michael O. Adebanjo"],
-      articleType: "Book Review",
-      issue: "Vol 1, Issue 4",
-    },
-    {
-      id: "009",
-      title: "Democracy and Development in African States: A Philosophical Inquiry",
-      authors: ["Tunde K. Balogun"],
-      articleType: "Research Article",
-      issue: "Vol 2, Issue 1",
-    },
-    {
-      id: "010",
-      title: "The Role of Women in African Peacebuilding Traditions",
-      authors: ["Amaka L. Eze"],
-      articleType: "Research Article",
-      issue: "Vol 2, Issue 1",
-    },
-    {
-      id: "011",
-      title: "Book Review: 'African Political Thought Revisited'",
-      authors: ["Joseph I. Akintola"],
-      articleType: "Book Review",
-      issue: "Vol 2, Issue 2",
-    },
-    {
-      id: "012",
-      title: "The Evolution of Customary Law under Colonial Rule",
-      authors: ["Kelechi N. Arinze"],
-      articleType: "Research Article",
-      issue: "Vol 2, Issue 2",
-    },
-  ];
-  
+  // Fetch articles based on query and filters
+  useEffect(() => {
+    if (query.trim().length < 2) {
+      setArticles([]);
+      setError(null);
+      return;
+    }
 
-  // 🔍 Enhanced Filtering Logic
- // ✅ Improved Filtering Logic
-const filteredArticles =
-query === "" && filterType === "" && filterAuthor === "" && filterIssue === ""
-  ? articles // Show all when nothing is selected or typed
-  : articles.filter((article) => {
-      const matchesQuery =
-        query === "" ||
-        article.title.toLowerCase().includes(query.toLowerCase()) ||
-        article.authors.some((a) =>
-          a.toLowerCase().includes(query.toLowerCase())
-        );
-
-      const matchesType =
-        filterType === "" ||
-        article.articleType.toLowerCase() === filterType.toLowerCase();
-
-      const matchesAuthor =
-        filterAuthor === "" ||
-        article.authors.some((a) =>
-          a.toLowerCase().includes(filterAuthor.toLowerCase())
-        );
-
-      const matchesIssue =
-        filterIssue === "" ||
-        article.issue.toLowerCase().includes(filterIssue.toLowerCase());
-
-      return matchesQuery && matchesType && matchesAuthor && matchesIssue;
+    const fetchArticles = async () => {
+      setIsLoading(true);
+      setError(null);
+      try {
+        const response = await publicationApi.searchArticles({
+          query: query.trim(),
+          limit: 50,
+          volumeNumber: filterVolumeNumber || undefined,
+          issueNumber: filterIssueNumber || undefined,
+          articleType: filterType || undefined,
     });
+    setArticles(response.data || []);
+      } catch (err) {
+        setError("Failed to fetch articles. Please try again.");
+        console.error("Search error:", err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    const debounceTimer = setTimeout(fetchArticles, 300);
+    return () => clearTimeout(debounceTimer);
+  }, [query, filterType, filterVolumeNumber, filterIssueNumber]);
 
 
   return (
@@ -160,7 +97,7 @@ query === "" && filterType === "" && filterAuthor === "" && filterIssue === ""
               <Search className="text-gray-500" />
               <input
                 type="text"
-                placeholder="Search by title or author..."
+                placeholder="Search by title, author, keywords or DOI..."
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 className="flex-1 text-gray-800 outline-none"
@@ -184,10 +121,14 @@ query === "" && filterType === "" && filterAuthor === "" && filterIssue === ""
                   Advanced Filters
                 </h3>
                 <button
-                  onClick={() => setShowFilters(false)}
-                  className="text-gray-500 hover:text-[journal-maroon]"
+                  onClick={() => {
+                    setFilterType("");
+                    setFilterVolumeNumber("");
+                    setFilterIssueNumber("");
+                  }}
+                  className="text-xs text-[journal-maroon] font-bold hover:underline"
                 >
-                  <X className="h-5 w-5" />
+                  Clear All
                 </button>
               </div>
 
@@ -202,36 +143,41 @@ query === "" && filterType === "" && filterAuthor === "" && filterIssue === ""
                     onChange={(e) => setFilterType(e.target.value)}
                     className="w-full px-3 py-2 border-2 border-[#8690a0c2] rounded-lg focus:ring-2 focus:ring-[journal-maroon]"
                   >
-                    <option value="">All</option>
-                    <option value="Research Article">Research Article</option>
-                    <option value="Book Review">Book Review</option>
+                    <option value="">All Types</option>
+                    <option value="research_article">Research Article</option>
+                    <option value="review_article">Review Article</option>
+                    <option value="book_review">Book Review</option>
+                    <option value="case_study">Case Study</option>
+                    <option value="editorial">Editorial</option>
                   </select>
                 </div>
 
-                {/* Author */}
+                {/* Volume Number */}
                 <div>
                   <label className="block text-sm font-semibold mb-1">
                     Author
                   </label>
                   <input
-                    type="text"
-                    placeholder="Enter author name"
-                    value={filterAuthor}
-                    onChange={(e) => setFilterAuthor(e.target.value)}
+                    type="number"
+                    min="1"
+                    placeholder="e.g. 5"
+                    value={filterVolumeNumber}
+                    onChange={(e) => setFilterVolumeNumber(e.target.value)}
                     className="w-full px-3 py-2 border-2 border-[#8690a0c2] rounded-lg focus:ring-2 focus:ring-[journal-maroon]"
                   />
                 </div>
 
-                {/* Issue */}
+                {/* Issue Number */}
                 <div>
                   <label className="block text-sm font-semibold mb-1">
-                    Issue / Volume
+                    Issue Number
                   </label>
                   <input
-                    type="text"
-                    placeholder="e.g. Vol 1, Issue 1"
-                    value={filterIssue}
-                    onChange={(e) => setFilterIssue(e.target.value)}
+                    type="number"
+                    min="1"
+                    placeholder="e.g. 2"
+                    value={filterIssueNumber}
+                    onChange={(e) => setFilterIssueNumber(e.target.value)}
                     className="w-full px-3 py-2 border-2 border-[#8690a0c2] rounded-lg focus:ring-2 focus:ring-[journal-maroon]"
                   />
                 </div>
@@ -247,35 +193,75 @@ query === "" && filterType === "" && filterAuthor === "" && filterIssue === ""
           <h2 className="text-lg font-bold text-[journal-maroon] mb-2">
             Search Results
           </h2>
-          <p className="text-gray-600 mb-6">
-            Found {filteredArticles.length}{" "}
-            {filteredArticles.length === 1 ? "article" : "articles"}
-          </p>
+          {isLoading && (
+            <div className="flex items-center gap-2 text-gray-600">
+              <Loader className="h-5 w-5 animate-spin text-[journal-maroon]" />
+              Searching database...
+            </div>
+          )}
+
+          {error && (
+            <p className="text-red-600 mb-6">{error}</p>
+          )}
+
+          {!isLoading && !error && (
+            <p className="text-gray-700 mb-6">
+              {query.trim().length < 2
+                ? "Enter at least 2 characters to search"
+                : `Found ${articles.length} ${
+                    articles.length === 1 ? "article" : "articles"
+                  }`}
+            </p>
+          )}
 
           <div className="space-y-5">
-            {filteredArticles.map((article) => (
-              <Link
-                key={article.id}
-                href={`/articles/${article.id}`}
-                className="block bg-white border-2 border-[#8690a0c2] rounded-xl p-5 hover:border-[journal-maroon] hover:shadow-xl transition-all"
-              >
-                <div className="flex flex-wrap justify-between items-start gap-3 mb-3">
-                  <span className="inline-flex px-3 py-1 bg-[journal-maroon] text-white text-xs font-bold rounded-full">
-                    {article.articleType}
-                  </span>
-                  <span className="text-sm text-gray-600">{article.issue}</span>
-                </div>
-                <h3 className="text-xl font-bold text-[journal-maroon] mb-2 hover:underline">
-                  {article.title}
-                </h3>
-                <p className="text-gray-700 text-sm">
-                  {article.authors.join(", ")}
-                </p>
-              </Link>
-            ))}
+            {articles.map((article) => {
+              const allAuthors = [
+                article.author,
+                ...(article.coAuthors || []),
+              ];
+              const authorNames = allAuthors
+                .map((a) => a.name)
+                .join(", ");
+              const issueLabel = `Vol ${article.volume.volumeNumber}, Issue ${article.issue.issueNumber}`;
 
-            {filteredArticles.length === 0 && (
-              <p className="text-gray-600 italic">No matching results found.</p>
+              return (
+                <Link
+                  key={article._id}
+                  href={`/articles/${article._id}`}
+                  className="block bg-white border-2 border-[journal-maroon]/20 rounded-xl p-5 hover:border-[journal-maroon] hover:shadow-xl transition-all"
+                >
+                  <div className="flex flex-wrap justify-between items-start gap-3 mb-3">
+                    <span className="inline-flex px-3 py-1 bg-[journal-maroon] text-white text-xs font-bold rounded-full capitalize">
+                      {article.articleType.replace(/_/g, " ")}
+                    </span>
+                    <span className="text-sm text-gray-600 font-medium">{issueLabel}</span>
+                  </div>
+                  <h3 className="text-xl font-bold text-[journal-maroon] mb-2 hover:underline">
+                    {article.title}
+                  </h3>
+                  <p className="text-gray-700 text-sm mb-2 font-medium">
+                    {authorNames}
+                  </p>
+                  <p className="text-gray-600 text-sm line-clamp-2 leading-relaxed">
+                    {article.abstract}
+                  </p>
+                  {article.doi && (
+                    <p className="text-xs text-gray-500 mt-2 font-mono">
+                      DOI: {article.doi}
+                    </p>
+                  )}
+                </Link>
+              );
+            })}
+
+            {!isLoading &&
+              !error &&
+              query.trim().length >= 2 &&
+              articles.length === 0 && (
+                <div className="text-center py-10 bg-white rounded-xl border-2 border-dashed border-gray-200">
+                  <p className="text-gray-600 italic">No matching results found in the database.</p>
+                </div>
             )}
           </div>
         </div>
@@ -283,5 +269,17 @@ query === "" && filterType === "" && filterAuthor === "" && filterIssue === ""
 
       <Footer />
     </div>
+  );
+}
+
+export default function SearchPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center">
+        <Loader className="h-8 w-8 animate-spin text-[journal-maroon]" />
+      </div>
+    }>
+      <SearchContent />
+    </Suspense>
   );
 }

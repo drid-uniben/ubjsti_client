@@ -136,7 +136,7 @@ export default function CurrentIssuePage() {
     return sum;
   }, 0);
 
-  const totalViews = articles.reduce((sum, article) => sum + (article.viewers?.count || 0), 0);
+  const totalViews = articles.reduce((sum, article) => sum + (article.views?.count || 0), 0);
 
   const publishYear = new Date(issue.publishDate).getFullYear();
   const publishMonthYear = new Date(issue.publishDate).toLocaleDateString("en-US", {
@@ -328,7 +328,7 @@ export default function CurrentIssuePage() {
             <div className="bg-white border-2 border-[#EAD3D9] rounded-xl p-6">
               <h3 className="text-xl font-bold text-[journal-maroon] mb-4">Citation Information</h3>
               <p className="text-sm text-gray-700 mb-2">
-                <strong>Journal Title:</strong> UNIBEN Journal of Humanities
+                <strong>Journal Title:</strong> UNIBEN Journal of Science, Technology and Innovation
               </p>
               <p className="text-sm text-gray-700 mb-2">
                 <strong>Volume/Issue:</strong> {issue.volume.volumeNumber}({issue.issueNumber})

@@ -216,7 +216,7 @@ export default function ManuscriptDetailPage() {
                   {manuscript.coAuthors && manuscript.coAuthors.length > 0 && (
                     <div className="mb-8">
                       <h4 className="text-lg font-medium text-gray-900 mb-4 flex items-center gap-2">
-                        <User className="h-5 w-5 text-[#7A0019]" />
+                        <User className="h-5 w-5 text-[journal-maroon]" />
                         Co-Authors
                       </h4>
                       <div className="bg-gray-50 rounded-md border border-gray-200 overflow-hidden">

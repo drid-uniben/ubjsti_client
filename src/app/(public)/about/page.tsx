@@ -432,10 +432,10 @@ export default function AboutPage() {
                       <strong className="text-[journal-text-dark]">Email:</strong>
                       <br />
                       <a
-                        href="mailto:journalst@uniben.edu"
+                        href="mailto:ubjst@uniben.edu"
                         className="text-[journal-maroon] hover:text-[journal-maroonc2]"
                       >
-                        journalst@uniben.edu
+                        ubjst@uniben.edu
                       </a>
                     </div>
                     <div>

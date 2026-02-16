@@ -132,7 +132,7 @@ export default function Footer() {
                 </div>
                 <div className="text-left">
                   <div className="text-xs font-semibold text-[#8690A0]">
-                    Online ISSN
+                    e-ISSN (Online)
                   </div>
                   <div className="text-sm font-bold text-white">3121-7648</div>
                 </div>
@@ -265,10 +265,10 @@ export default function Footer() {
                 <li className="flex items-start gap-2 text-[#8690A0]">
                   <Mail className="h-4 w-4 text-white mt-0.5 flex-shrink-0" />
                   <a
-                    href="mailto:journalst@uniben.edu"
+                    href="mailto:ubjst@uniben.edu"
                     className="hover:text-white transition-colors"
                   >
-                    journalst@uniben.edu
+                    ubjst@uniben.edu
                   </a>
                 </li>
                 <li className="flex items-start gap-2 text-[#8690A0]">
