@@ -339,7 +339,7 @@ export default function AuthorInvitationsPage() {
 
         {/* Invitations Card */}
         <Card className="shadow-lg border border-gray-200">
-          <CardHeader className="bg-gradient-to-r from-[#FAF7F8] to-white border-b border-gray-200">
+          <CardHeader className="bg-gradient-to-r from-[journal-off-white] to-white border-b border-gray-200">
             <CardTitle className="text-xl text-gray-900 flex items-center gap-2">
               <Mail className="h-5 w-5 text-[#7A0019]" />
               Author Invitations

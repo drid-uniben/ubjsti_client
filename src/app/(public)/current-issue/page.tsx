@@ -119,8 +119,8 @@ export default function CurrentIssuePage() {
         <Header />
         <div className="flex justify-center items-center py-20">
           <div className="flex flex-col items-center space-y-4">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#071936]"></div>
-            <p className="text-[#071936] font-medium">Loading current issue...</p>
+            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[journal-maroon]"></div>
+            <p className="text-[journal-maroon] font-medium">Loading current issue...</p>
           </div>
         </div>
         <Footer />
@@ -174,7 +174,7 @@ export default function CurrentIssuePage() {
   return (
     <div className="min-h-screen bg-white overflow-x-hidden">
       <Header />
-      <section className="bg-gradient-to-br from-[#071936] to-[#0e3169] text-white py-12">
+      <section className="bg-gradient-to-br from-[journal-maroon] to-[#0e3169] text-white py-12">
         <div className=" mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-3 gap-8 items-start">
             <div className="md:col-span-1">
@@ -215,13 +215,13 @@ export default function CurrentIssuePage() {
                 </div>
               </div>
               <div className="flex flex-wrap gap-3">
-                <button className="inline-flex items-center gap-2 bg-transparent border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-[#071936] transition-all">
+                <button className="inline-flex items-center gap-2 bg-transparent border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-[journal-maroon] transition-all">
 
                   <Share2 className="h-5 w-5" />
                   Share Issue
                 </button>
 
-                <button className="inline-flex items-center gap-2 bg-transparent border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-[#071936] transition-all">
+                <button className="inline-flex items-center gap-2 bg-transparent border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-[journal-maroon] transition-all">
                   <Quote className="h-5 w-5" />
                   Cite Issue
                 </button>
@@ -241,7 +241,7 @@ export default function CurrentIssuePage() {
         <div className="mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
             <div>
-              <h2 className="text-lg font-bold text-[#212121] mb-1">Table of Contents</h2>
+              <h2 className="text-lg font-bold text-[journal-text-dark] mb-1">Table of Contents</h2>
               <p className="text-sm text-gray-600">
                 Showing {filteredArticles.length} of {articles.length} articles
               </p>
@@ -251,7 +251,7 @@ export default function CurrentIssuePage() {
               <select
                 value={filterType}
                 onChange={(e) => setFilterType(e.target.value)}
-                className="px-4 py-2 border-2 border-[#8690a0c2] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#071936] font-medium"
+                className="px-4 py-2 border-2 border-[#8690a0c2] rounded-lg focus:outline-none focus:ring-2 focus:ring-[journal-maroon] font-medium"
               >
 
                 {articleTypes.map((type) => (
@@ -276,7 +276,7 @@ export default function CurrentIssuePage() {
 
               key={article._id}
 
-              className="block bg-white border-2 border-[#8690a0c2] rounded-xl overflow-hidden hover:shadow-xl hover:border-[#071936] transition-all transform hover:scale-[1.02]"
+              className="block bg-white border-2 border-[#8690a0c2] rounded-xl overflow-hidden hover:shadow-xl hover:border-[journal-maroon] transition-all transform hover:scale-[1.02]"
 
             >
 
@@ -289,7 +289,7 @@ export default function CurrentIssuePage() {
                   </span>
                   <span className="text-sm text-gray-500">Pages {article.pages?.start}-{article.pages?.end}</span>
                 </div>
-                <h3 className="text-2xl font-bold text-[#212121] mb-4 group-hover:text-[#071936] transition-colors font-serif leading-tight">
+                <h3 className="text-2xl font-bold text-[journal-text-dark] mb-4 group-hover:text-[journal-maroon] transition-colors font-serif leading-tight">
                   {index + 1}. {article.title}
                 </h3>
                 <div className="mb-4">
@@ -308,7 +308,7 @@ export default function CurrentIssuePage() {
                   </div> */}
                 </div>
                 <div className="mb-4">
-                  <h4 className="font-semibold text-[#212121] mb-2">Abstract</h4>
+                  <h4 className="font-semibold text-[journal-text-dark] mb-2">Abstract</h4>
                   <p className="text-gray-700 leading-relaxed">
                     {truncateAbstract(article.abstract, 20)}
                   </p>
@@ -322,7 +322,7 @@ export default function CurrentIssuePage() {
         <div className="mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-8">
             <div className="bg-white border-2 border-[#8690a0c2] rounded-xl p-6">
-              <h3 className="text-xl font-bold text-[#071936] mb-4 flex items-center gap-2">
+              <h3 className="text-xl font-bold text-[journal-maroon] mb-4 flex items-center gap-2">
                 <Mail className="h-6 w-6" />
                 Subscribe to Alerts
               </h3>
@@ -331,9 +331,9 @@ export default function CurrentIssuePage() {
                 <input
                   type="email"
                   placeholder="Enter your email"
-                  className="flex-1 mb-2 w-full md:mb-0 px-4 py-2 border-2 border-[#8690a0c2] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#071936]"
+                  className="flex-1 mb-2 w-full md:mb-0 px-4 py-2 border-2 border-[#8690a0c2] rounded-lg focus:outline-none focus:ring-2 focus:ring-[journal-maroon]"
                 />
-                <button className="bg-[#071936] text-white px-6 py-2 rounded-lg hover:bg-[#0e3169] transition-colors font-semibold">
+                <button className="bg-[journal-maroon] text-white px-6 py-2 rounded-lg hover:bg-[#0e3169] transition-colors font-semibold">
                   Subscribe
                 </button>
               </div>
@@ -343,7 +343,7 @@ export default function CurrentIssuePage() {
           <div className="mt-8 text-center">
             <Link
               href="/archives"
-              className="inline-flex items-center gap-2 text-[#071936] hover:text-[#0e3169] font-semibold text-lg"
+              className="inline-flex items-center gap-2 text-[journal-maroon] hover:text-[#0e3169] font-semibold text-lg"
             >
               View All Past Issues
               <ExternalLink className="h-5 w-5" />

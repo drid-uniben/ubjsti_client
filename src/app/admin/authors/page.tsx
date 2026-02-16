@@ -220,7 +220,7 @@ useEffect(() => {
 
         {/* Authors Table */}
         <Card className="shadow-lg border border-gray-200">
-          <CardHeader className="bg-gradient-to-r from-[#FAF7F8] to-white border-b border-gray-200">
+          <CardHeader className="bg-gradient-to-r from-[journal-off-white] to-white border-b border-gray-200">
             <CardTitle className="text-xl text-gray-900 flex items-center gap-2">
               <User className="h-5 w-5 text-[#7A0019]" />
               Author List
@@ -365,7 +365,7 @@ useEffect(() => {
             {selectedAuthor && (
               <div className="space-y-6 py-4">
                 {/* Author Info Card */}
-                <Card className="bg-gradient-to-br from-[#FAF7F8] to-white border-[#7A0019]">
+                <Card className="bg-gradient-to-br from-[journal-off-white] to-white border-[#7A0019]">
                   <CardContent className="pt-6">
                     <div className="flex items-start gap-4">
                       <div className="w-16 h-16 rounded-full bg-[#7A0019] text-white flex items-center justify-center text-2xl font-bold">

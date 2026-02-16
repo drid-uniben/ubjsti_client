@@ -126,7 +126,7 @@ export default function ManuscriptDetailPage() {
             <>
               <div className="bg-white shadow overflow-hidden rounded-lg border border-gray-200">
                 {/* Header Section */}
-                <div className="px-4 py-5 sm:px-6 bg-gradient-to-r from-[#FAF7F8] to-white border-b border-gray-200">
+                <div className="px-4 py-5 sm:px-6 bg-gradient-to-r from-[journal-off-white] to-white border-b border-gray-200">
                   <div className="flex flex-col md:flex-row md:items-center md:justify-between">
                     <div>
                       <h3 className="text-lg leading-6 font-medium text-gray-900">

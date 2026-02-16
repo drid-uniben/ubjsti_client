@@ -142,11 +142,11 @@ query === "" && filterType === "" && filterAuthor === "" && filterIssue === ""
 
 
   return (
-    <div className="min-h-screen bg-[#FAF7F8]">
+    <div className="min-h-screen bg-[journal-off-white]">
       <Header />
 
       {/* Search Section */}
-      <section className="bg-[#071936] text-white py-10">
+      <section className="bg-[journal-maroon] text-white py-10">
         <div className="max-w-5xl mx-auto px-4">
           <h1 className="text-3xl md:text-4xl font-bold mb-2">
             Search Research Articles
@@ -168,7 +168,7 @@ query === "" && filterType === "" && filterAuthor === "" && filterIssue === ""
             </div>
             <button
               onClick={() => setShowFilters(!showFilters)}
-              className="inline-flex items-center justify-center gap-2 border-2 border-white text-[#071936] px-4 py-2 rounded-lg hover:bg-white hover:text-[#8690a0c2] transition-all font-semibold"
+              className="inline-flex items-center justify-center gap-2 border-2 border-white text-[journal-maroon] px-4 py-2 rounded-lg hover:bg-white hover:text-[#8690a0c2] transition-all font-semibold"
             >
               <Filter className="h-5 w-5" />
               Advanced Filters
@@ -179,13 +179,13 @@ query === "" && filterType === "" && filterAuthor === "" && filterIssue === ""
           {showFilters && (
             <div className="mt-4 bg-white rounded-xl shadow-lg p-5 text-gray-800">
               <div className="flex justify-between items-center mb-4">
-                <h3 className="font-bold text-lg text-[#071936] flex items-center gap-2">
+                <h3 className="font-bold text-lg text-[journal-maroon] flex items-center gap-2">
                   <Filter className="h-5 w-5" />
                   Advanced Filters
                 </h3>
                 <button
                   onClick={() => setShowFilters(false)}
-                  className="text-gray-500 hover:text-[#071936]"
+                  className="text-gray-500 hover:text-[journal-maroon]"
                 >
                   <X className="h-5 w-5" />
                 </button>
@@ -200,7 +200,7 @@ query === "" && filterType === "" && filterAuthor === "" && filterIssue === ""
                   <select
                     value={filterType}
                     onChange={(e) => setFilterType(e.target.value)}
-                    className="w-full px-3 py-2 border-2 border-[#8690a0c2] rounded-lg focus:ring-2 focus:ring-[#071936]"
+                    className="w-full px-3 py-2 border-2 border-[#8690a0c2] rounded-lg focus:ring-2 focus:ring-[journal-maroon]"
                   >
                     <option value="">All</option>
                     <option value="Research Article">Research Article</option>
@@ -218,7 +218,7 @@ query === "" && filterType === "" && filterAuthor === "" && filterIssue === ""
                     placeholder="Enter author name"
                     value={filterAuthor}
                     onChange={(e) => setFilterAuthor(e.target.value)}
-                    className="w-full px-3 py-2 border-2 border-[#8690a0c2] rounded-lg focus:ring-2 focus:ring-[#071936]"
+                    className="w-full px-3 py-2 border-2 border-[#8690a0c2] rounded-lg focus:ring-2 focus:ring-[journal-maroon]"
                   />
                 </div>
 
@@ -232,7 +232,7 @@ query === "" && filterType === "" && filterAuthor === "" && filterIssue === ""
                     placeholder="e.g. Vol 1, Issue 1"
                     value={filterIssue}
                     onChange={(e) => setFilterIssue(e.target.value)}
-                    className="w-full px-3 py-2 border-2 border-[#8690a0c2] rounded-lg focus:ring-2 focus:ring-[#071936]"
+                    className="w-full px-3 py-2 border-2 border-[#8690a0c2] rounded-lg focus:ring-2 focus:ring-[journal-maroon]"
                   />
                 </div>
               </div>
@@ -244,7 +244,7 @@ query === "" && filterType === "" && filterAuthor === "" && filterIssue === ""
       {/* Results Section */}
       <section className="py-10">
         <div className="max-w-5xl mx-auto px-4">
-          <h2 className="text-lg font-bold text-[#071936] mb-2">
+          <h2 className="text-lg font-bold text-[journal-maroon] mb-2">
             Search Results
           </h2>
           <p className="text-gray-600 mb-6">
@@ -257,15 +257,15 @@ query === "" && filterType === "" && filterAuthor === "" && filterIssue === ""
               <Link
                 key={article.id}
                 href={`/articles/${article.id}`}
-                className="block bg-white border-2 border-[#8690a0c2] rounded-xl p-5 hover:border-[#071936] hover:shadow-xl transition-all"
+                className="block bg-white border-2 border-[#8690a0c2] rounded-xl p-5 hover:border-[journal-maroon] hover:shadow-xl transition-all"
               >
                 <div className="flex flex-wrap justify-between items-start gap-3 mb-3">
-                  <span className="inline-flex px-3 py-1 bg-[#071936] text-white text-xs font-bold rounded-full">
+                  <span className="inline-flex px-3 py-1 bg-[journal-maroon] text-white text-xs font-bold rounded-full">
                     {article.articleType}
                   </span>
                   <span className="text-sm text-gray-600">{article.issue}</span>
                 </div>
-                <h3 className="text-xl font-bold text-[#071936] mb-2 hover:underline">
+                <h3 className="text-xl font-bold text-[journal-maroon] mb-2 hover:underline">
                   {article.title}
                 </h3>
                 <p className="text-gray-700 text-sm">

@@ -52,7 +52,7 @@ export default function Header() {
     }`;
 
   return (
-    <header className="bg-[#071936] border-b border-white text-white shadow-lg sticky top-0 z-50">
+    <header className="bg-[journal-maroon] border-b border-white text-white shadow-lg sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Top Row */}
         <div className="flex items-center justify-between h-20">
@@ -102,7 +102,7 @@ export default function Header() {
             {/* Submit Button */}
             <Link
               href="/submission"
-              className="bg-white text-[#071936] px-4 py-2 rounded-full font-semibold hover:bg-[#8690A0C2] transition-all shadow-lg hover:shadow-xl hover:scale-105 whitespace-nowrap"
+              className="bg-white text-[journal-maroon] px-4 py-2 rounded-full font-semibold hover:bg-[#8690A0C2] transition-all shadow-lg hover:shadow-xl hover:scale-105 whitespace-nowrap"
             >
               Submit Manuscript
             </Link>
@@ -145,7 +145,7 @@ export default function Header() {
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-white/60" />
               <button
                 onClick={handleSearch}
-                className="absolute right-2 top-1/2 -translate-y-1/2 bg-white text-[#071936] px-6 py-2 rounded-full font-semibold hover:bg-[#8690A0C2] transition-colors"
+                className="absolute right-2 top-1/2 -translate-y-1/2 bg-white text-[journal-maroon] px-6 py-2 rounded-full font-semibold hover:bg-[#8690A0C2] transition-colors"
               >
                 Search
               </button>
@@ -185,7 +185,7 @@ export default function Header() {
             <Link
               href="/submission"
               onClick={() => setIsMenuOpen(false)}
-              className="bg-white text-[#071936] px-6 py-3 rounded-full font-semibold hover:bg-[#8690A0C2] transition-all text-center shadow-lg hover:shadow-xl"
+              className="bg-white text-[journal-maroon] px-6 py-3 rounded-full font-semibold hover:bg-[#8690A0C2] transition-all text-center shadow-lg hover:shadow-xl"
             >
               Submit Manuscript
             </Link>

@@ -45,7 +45,7 @@ export default function EditorialBoardPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
-      <header className="bg-[#071936] text-white shadow-lg sticky top-0 z-50">
+      <header className="bg-[journal-maroon] text-white shadow-lg sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             <div className="flex items-center gap-4">
@@ -78,7 +78,7 @@ export default function EditorialBoardPage() {
       </header>
 
       {/* Hero */}
-      <section className="bg-gradient-to-br from-[#071936] to-[#0b1f41] text-white py-16">
+      <section className="bg-gradient-to-br from-[journal-maroon] to-[journal-maroon-dark] text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
@@ -103,24 +103,24 @@ export default function EditorialBoardPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Editor-in-Chief */}
           <div className="mb-16">
-            <h2 className="text-3xl font-bold text-[#071936] mb-8 font-serif flex items-center gap-3">
+            <h2 className="text-3xl font-bold text-[journal-maroon] mb-8 font-serif flex items-center gap-3">
               <Award className="h-8 w-8" />
               Editor-in-Chief
             </h2>
-            <div className="bg-white border-4 border-[#071936] rounded-2xl p-8 shadow-xl max-w-sm mx-auto">
+            <div className="bg-white border-4 border-[journal-maroon] rounded-2xl p-8 shadow-xl max-w-sm mx-auto">
               <div className="text-center">
                 <div className="relative w-48 h-48 mx-auto mb-4">
                   <Image
                     src={editorInChief.photo}
                     alt={editorInChief.name}
                     fill
-                    className="rounded-full object-cover border-4 border-[#071936]"
+                    className="rounded-full object-cover border-4 border-[journal-maroon]"
                   />
                 </div>
-                <h3 className="text-2xl font-bold text-[#212121] mb-2">
+                <h3 className="text-2xl font-bold text-[journal-text-dark] mb-2">
                   {editorInChief.name}
                 </h3>
-                <p className="text-[#071936] font-semibold mb-2">
+                <p className="text-[journal-maroon] font-semibold mb-2">
                   {editorInChief.role}
                 </p>
                 <p className="text-sm text-gray-600 mb-4">
@@ -132,7 +132,7 @@ export default function EditorialBoardPage() {
 
           {/* Managing Editor */}
           <div className="mb-16">
-            <h2 className="text-3xl font-bold text-[#071936] mb-8 font-serif">
+            <h2 className="text-3xl font-bold text-[journal-maroon] mb-8 font-serif">
               Managing Editor
             </h2>
             <div className="bg-white border-2 border-[#8690a0c2] rounded-xl p-6 hover:shadow-xl transition-all max-w-sm mx-auto">
@@ -145,10 +145,10 @@ export default function EditorialBoardPage() {
                     className="rounded-full object-cover"
                   />
                 </div>
-                <h3 className="text-lg font-bold text-[#212121] mb-1">
+                <h3 className="text-lg font-bold text-[journal-text-dark] mb-1">
                   {managingEditor.name}
                 </h3>
-                <p className="text-sm text-[#071936] font-semibold mb-2">
+                <p className="text-sm text-[journal-maroon] font-semibold mb-2">
                   {managingEditor.role}
                 </p>
                 <p className="text-sm text-gray-600 mb-4">
@@ -160,7 +160,7 @@ export default function EditorialBoardPage() {
 
           {/* Associate Editors */}
           <div className="mb-16">
-            <h2 className="text-3xl font-bold text-[#071936] mb-8 font-serif">
+            <h2 className="text-3xl font-bold text-[journal-maroon] mb-8 font-serif">
               Associate Editors
             </h2>
             <div className="flex justify-center">
@@ -178,10 +178,10 @@ export default function EditorialBoardPage() {
                         className="rounded-full object-cover"
                       />
                     </div>
-                    <h3 className="text-lg font-bold text-[#212121] mb-1">
+                    <h3 className="text-lg font-bold text-[journal-text-dark] mb-1">
                       {editor.name}
                     </h3>
-                    <p className="text-sm text-[#071936] font-semibold mb-2">
+                    <p className="text-sm text-[journal-maroon] font-semibold mb-2">
                       {editor.role}
                     </p>
                     <p className="text-sm text-gray-600 mb-3">
