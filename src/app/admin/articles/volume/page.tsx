@@ -199,7 +199,7 @@ export default function VolumesManagementPage() {
               resetForm();
               setShowDialog(true);
             }}
-            className="bg-gradient-to-r from-[journal-maroon] to-[#5A0A1A] hover:from-[#5A0A1A] hover:to-[journal-maroon] text-white shadow-lg"
+            className="bg-gradient-to-r from-[journal-maroon] to-[journal-maroon-dark] hover:from-[journal-maroon-dark] hover:to-[journal-maroon] text-white shadow-lg"
           >
             <PlusCircle className="mr-2 h-4 w-4" />
             Create Volume
@@ -412,7 +412,7 @@ export default function VolumesManagementPage() {
                 <Button
                   type="submit"
                   disabled={isSubmitting}
-                  className="bg-gradient-to-r from-[journal-maroon] to-[#5A0A1A] hover:from-[#5A0A1A] hover:to-[journal-maroon] text-white"
+                  className="bg-gradient-to-r from-[journal-maroon] to-[journal-maroon-dark] hover:from-[journal-maroon-dark] hover:to-[journal-maroon] text-white"
                 >
                   {isSubmitting ? (
                     <>

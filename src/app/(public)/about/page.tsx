@@ -22,7 +22,7 @@ export default function AboutPage() {
      <Header/>
 
       {/* Hero Section */}
-      <section className="relative bg-[journal-maroon] to-[#5A0A1A] text-white py-20">
+      <section className="relative bg-[journal-maroon] to-[journal-maroon-dark] text-white py-20">
         <div className="absolute inset-0 opacity-10">
           <Image
             src="/about-hero0.png"

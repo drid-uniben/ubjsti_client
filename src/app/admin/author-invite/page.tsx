@@ -320,7 +320,7 @@ export default function AuthorInvitationsPage() {
           <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
             <Button 
               onClick={() => setShowInviteDialog(true)}
-              className="bg-[journal-maroon] hover:bg-[#5A0A1A] text-white"
+              className="bg-[journal-maroon] hover:bg-[journal-maroon-dark] text-white"
             >
               <Mail className="mr-2 h-4 w-4" />
               Invite Author
@@ -467,7 +467,7 @@ export default function AuthorInvitationsPage() {
                 <Button type="button" variant="outline" onClick={() => setShowInviteDialog(false)}>
                   Cancel
                 </Button>
-                <Button type="submit" disabled={isSubmitting} className="bg-[journal-maroon] hover:bg-[#5A0A1A]">
+                <Button type="submit" disabled={isSubmitting} className="bg-[journal-maroon] hover:bg-[journal-maroon-dark]">
                   {isSubmitting ? "Sending..." : "Send Invitation"}
                 </Button>
               </DialogFooter>
@@ -577,7 +577,7 @@ export default function AuthorInvitationsPage() {
                     href="https://orcid.org/register"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 mt-3 text-sm text-[journal-maroon] hover:text-[#5A0A1A] font-semibold"
+                    className="inline-flex items-center gap-2 mt-3 text-sm text-[journal-maroon] hover:text-[journal-maroon-dark] font-semibold"
                   >
                     Register for ORCID iD
                     <ExternalLink className="h-4 w-4" />
@@ -588,7 +588,7 @@ export default function AuthorInvitationsPage() {
                 <Button type="button" variant="outline" onClick={() => setShowAddAuthorDialog(false)}>
                   Cancel
                 </Button>
-                <Button type="submit" disabled={isSubmitting} className="bg-[journal-maroon] hover:bg-[#5A0A1A]">
+                <Button type="submit" disabled={isSubmitting} className="bg-[journal-maroon] hover:bg-[journal-maroon-dark]">
                   {isSubmitting ? "Creating..." : "Create Profile"}
                 </Button>
               </DialogFooter>
@@ -647,7 +647,7 @@ export default function AuthorInvitationsPage() {
                             handleAssignFaculty(faculty.faculty);
                           }}
                           disabled={assigningFaculty}
-                          className="bg-[journal-maroon] hover:bg-[#5A0A1A] text-white text-sm"
+                          className="bg-[journal-maroon] hover:bg-[journal-maroon-dark] text-white text-sm"
                           size="sm"
                         >
                           {assigningFaculty && selectedFacultyForAssign === faculty.faculty ? (

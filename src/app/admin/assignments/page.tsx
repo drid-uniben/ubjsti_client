@@ -170,7 +170,7 @@ const AdminAssignments: React.FC = () => {
             <p className="text-red-600 mb-4">{error}</p>
             <button
               onClick={fetchData}
-              className="bg-[journal-maroon] text-white px-4 py-2 rounded-lg hover:bg-[#5A0A1A] transition-colors"
+              className="bg-[journal-maroon] text-white px-4 py-2 rounded-lg hover:bg-[journal-maroon-dark] transition-colors"
             >
               Retry
             </button>
@@ -373,7 +373,7 @@ const AdminAssignments: React.FC = () => {
                         <div className="flex flex-col sm:flex-row lg:flex-col gap-2 lg:ml-6">
                           <Link
                             href={`/admin/assignments/${assignment._id}`}
-                            className="inline-flex items-center justify-center px-4 py-2 bg-[journal-maroon] text-white rounded-lg hover:bg-[#5A0A1A] transition-colors text-sm font-medium"
+                            className="inline-flex items-center justify-center px-4 py-2 bg-[journal-maroon] text-white rounded-lg hover:bg-[journal-maroon-dark] transition-colors text-sm font-medium"
                           >
                             <Eye className="w-4 h-4 mr-2" />
                             {assignment.status === 'in_progress' ? 'Continue Review' : assignment.status === 'completed' ? 'View Review' : 'Start Review'}

@@ -230,7 +230,7 @@ export default function ReviewerRegisterPage({ params }: ReviewerRegisterPagePro
 
             <Button 
               type="submit" 
-              className="w-full bg-[#800080] hover:bg-[#5A0A1A]" 
+              className="w-full bg-[#800080] hover:bg-[journal-maroon-dark]" 
               disabled={isLoading}
             >
               {isLoading ? "Submitting..." : "Complete Registration"}

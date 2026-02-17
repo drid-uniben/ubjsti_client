@@ -299,7 +299,7 @@ export default function PublicationsManagementPage() {
                         <div className="flex lg:flex-col gap-2">
                           <Button
                             onClick={() => handlePublishClick(article)}
-                            className="bg-gradient-to-r from-[journal-maroon] to-[#5A0A1A] hover:from-[#5A0A1A] hover:to-[journal-maroon] text-white"
+                            className="bg-gradient-to-r from-[journal-maroon] to-[journal-maroon-dark] hover:from-[journal-maroon-dark] hover:to-[journal-maroon] text-white"
                           >
                             <Upload className="mr-2 h-4 w-4" />
                             Publish
@@ -328,7 +328,7 @@ export default function PublicationsManagementPage() {
                   </p>
                   <Button
                     onClick={() => router.push("/admin/articles/publication/manual")}
-                    className="bg-gradient-to-r from-[journal-maroon] to-[#5A0A1A] hover:from-[#5A0A1A] hover:to-[journal-maroon] text-white"
+                    className="bg-gradient-to-r from-[journal-maroon] to-[journal-maroon-dark] hover:from-[journal-maroon-dark] hover:to-[journal-maroon] text-white"
                   >
                     <Upload className="mr-2 h-4 w-4" />
                     Upload Article
@@ -613,7 +613,7 @@ export default function PublicationsManagementPage() {
               <Button
                 type="submit"
                 disabled={isSubmitting}
-                className="bg-gradient-to-r from-[journal-maroon] to-[#5A0A1A]"
+                className="bg-gradient-to-r from-[journal-maroon] to-[journal-maroon-dark]"
               >
                 Continue to Confirmation
               </Button>

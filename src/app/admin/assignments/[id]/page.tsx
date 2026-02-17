@@ -415,7 +415,7 @@ const [conflictingReviews, setConflictingReviews] = useState<ConflictingReview[]
               <Link 
                 href="/admin/review-guideline" 
                 target="_blank" 
-                className="bg-gray-100 px-4 py-2 rounded-lg text-[journal-maroon] hover:text-[#5A0A1A] text-sm font-medium hover:bg-gray-200 transition-colors flex items-center justify-center gap-2"
+                className="bg-gray-100 px-4 py-2 rounded-lg text-[journal-maroon] hover:text-[journal-maroon-dark] text-sm font-medium hover:bg-gray-200 transition-colors flex items-center justify-center gap-2"
               >
                 <Eye className="w-4 h-4" />
                 Review Guidelines
@@ -561,7 +561,7 @@ const [conflictingReviews, setConflictingReviews] = useState<ConflictingReview[]
                     className="w-full"
                   >
                     <h4 className="font-semibold text-gray-700 mb-2">Manuscript to be Reviewed</h4>
-                    <div className="inline-flex items-center px-4 py-2 bg-[journal-maroon] text-white rounded-lg hover:bg-[#5A0A1A] transition-colors text-sm">
+                    <div className="inline-flex items-center px-4 py-2 bg-[journal-maroon] text-white rounded-lg hover:bg-[journal-maroon-dark] transition-colors text-sm">
                       <FileText className="w-4 h-4 mr-2" />
                       Click here to View Manuscript PDF
                     </div>
@@ -769,7 +769,7 @@ const [conflictingReviews, setConflictingReviews] = useState<ConflictingReview[]
                 <button 
                   onClick={handleSubmit}
                   disabled={submitting || isSubmitDisabled}
-                  className="flex-1 bg-[journal-maroon] text-white py-3 px-4 rounded-lg hover:bg-[#5A0A1A] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 text-sm md:text-base"
+                  className="flex-1 bg-[journal-maroon] text-white py-3 px-4 rounded-lg hover:bg-[journal-maroon-dark] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 text-sm md:text-base"
                 >
                   {submitting ? (
                     <>

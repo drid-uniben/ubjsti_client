@@ -324,7 +324,7 @@ export default function ReviewerInvitationsPage() {
           <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
             <Button 
               onClick={() => setShowInviteDialog(true)}
-              className="bg-[journal-maroon] hover:bg-[#5A0A1A] text-white"
+              className="bg-[journal-maroon] hover:bg-[journal-maroon-dark] text-white"
             >
               <Mail className="mr-2 h-4 w-4" />
               Invite Reviewer
@@ -471,7 +471,7 @@ export default function ReviewerInvitationsPage() {
                 <Button type="button" variant="outline" onClick={() => setShowInviteDialog(false)}>
                   Cancel
                 </Button>
-                <Button type="submit" disabled={isSubmitting} className="bg-[journal-maroon] hover:bg-[#5A0A1A]">
+                <Button type="submit" disabled={isSubmitting} className="bg-[journal-maroon] hover:bg-[journal-maroon-dark]">
                   {isSubmitting ? "Sending..." : "Send Invitation"}
                 </Button>
               </DialogFooter>
@@ -580,7 +580,7 @@ export default function ReviewerInvitationsPage() {
                 <Button type="button" variant="outline" onClick={() => setShowAddReviewerDialog(false)}>
                   Cancel
                 </Button>
-                <Button type="submit" disabled={isSubmitting} className="bg-[journal-maroon] hover:bg-[#5A0A1A]">
+                <Button type="submit" disabled={isSubmitting} className="bg-[journal-maroon] hover:bg-[journal-maroon-dark]">
                   {isSubmitting ? "Creating..." : "Create Profile"}
                 </Button>
               </DialogFooter>
@@ -639,7 +639,7 @@ export default function ReviewerInvitationsPage() {
                             handleAssignFaculty(faculty.faculty);
                           }}
                           disabled={assigningFaculty}
-                          className="bg-[journal-maroon] hover:bg-[#5A0A1A] text-white text-sm"
+                          className="bg-[journal-maroon] hover:bg-[journal-maroon-dark] text-white text-sm"
                           size="sm"
                         >
                           {assigningFaculty && selectedFacultyForAssign === faculty.faculty ? (

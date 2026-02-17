@@ -56,19 +56,19 @@ export default function STIJournalHome() {
               <div className="flex items-center gap-6 text-sm">
                 <Link
                   href="/editorial-board"
-                  className="text-[journal-maroon] hover:text-[#5A0A1A] font-medium transition-colors"
+                  className="text-[journal-maroon] hover:text-[journal-maroon-dark] font-medium transition-colors"
                 >
                   Editorial Board
                 </Link>
                 <Link
                   href="/policies"
-                  className="text-[journal-maroon] hover:text-[#5A0A1A] font-medium transition-colors"
+                  className="text-[journal-maroon] hover:text-[journal-maroon-dark] font-medium transition-colors"
                 >
                   Policies
                 </Link>
                 <Link
                   href="mailto:ubjst@uniben.edu"
-                  className="text-[journal-maroon] hover:text-[#5A0A1A] font-medium transition-colors hidden sm:block"
+                  className="text-[journal-maroon] hover:text-[journal-maroon-dark] font-medium transition-colors hidden sm:block"
                 >
                   Contact
                 </Link>
@@ -166,7 +166,7 @@ export default function STIJournalHome() {
               </div>
               <Link
                 href="/current-issue"
-                className="text-[journal-maroon] font-bold hover:text-[#5A0A1A] flex items-center gap-2 transition-colors"
+                className="text-[journal-maroon] font-bold hover:text-[journal-maroon-dark] flex items-center gap-2 transition-colors"
               >
                 View Full Issue
                 <ChevronRight className="h-5 w-5" />
@@ -193,7 +193,7 @@ export default function STIJournalHome() {
                     className="group bg-white border-2 border-[#EAD3D9] rounded-2xl p-8 shadow-sm hover:shadow-xl hover:border-[journal-maroon] transition-all flex flex-col"
                   >
                     <div className="mb-4">
-                      <span className="inline-flex items-center px-3 py-1 bg-[#FFE9EE] border border-[#E6B6C2] text-[#5A0A1A] rounded-full text-[10px] font-bold uppercase tracking-wider">
+                      <span className="inline-flex items-center px-3 py-1 bg-[#FFE9EE] border border-[#E6B6C2] text-[journal-maroon-dark] rounded-full text-[10px] font-bold uppercase tracking-wider">
                         {article.articleType.replace(/_/g, " ")}
                       </span>
                     </div>

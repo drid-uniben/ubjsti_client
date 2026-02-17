@@ -336,7 +336,7 @@ export default function ArticleDetailPage() {
                           href={`https://orcid.org/${auth.orcid}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-[journal-maroon] hover:text-[#5A0A1A]"
+                          className="text-[journal-maroon] hover:text-[journal-maroon-dark]"
                           aria-label="ORCID"
                         >
                           <Globe className="h-4 w-4" />

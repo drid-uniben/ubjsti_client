@@ -677,7 +677,7 @@ export default function FailedJobsPage() {
                 Cancel
               </Button>
               <Button
-                className="bg-[journal-maroon] text-white hover:bg-[#5A0A1A]"
+                className="bg-[journal-maroon] text-white hover:bg-[journal-maroon-dark]"
                 onClick={confirmRetryAll}
               >
                 Retry All
