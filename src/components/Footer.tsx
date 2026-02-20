@@ -51,7 +51,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-gradient-to-br from-[journal-maroon] to-[#0b2448] border-t-2 border-[#8690A0]/40 text-gray-200">
+    <footer className="bg-gradient-to-br from-journal-maroon to-[#0b2448] border-t-2 border-[#8690A0]/40 text-gray-200">
       {/* Indexing & Trust Indicators */}
       <section className="py-12 border-b border-[#8690A0]/40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -99,7 +99,7 @@ export default function Footer() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-wrap items-center justify-center gap-8">
             <div className="text-center">
-              <div className="flex items-center gap-2 bg-[journal-maroon] border border-[#8690A0]/40 rounded-lg px-6 py-3">
+              <div className="flex items-center gap-2 bg-journal-maroon border border-[#8690A0]/40 rounded-lg px-6 py-3">
                 <div className="text-white">
                   <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
@@ -120,7 +120,7 @@ export default function Footer() {
             </div>
 
             <div className="text-center">
-              <div className="flex items-center gap-2 bg-[journal-maroon] border border-[#8690A0]/40 rounded-lg px-6 py-3">
+              <div className="flex items-center gap-2 bg-journal-maroon border border-[#8690A0]/40 rounded-lg px-6 py-3">
                 <div className="text-white">
                   <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
                     <path

@@ -105,8 +105,8 @@ export default function ArchivesPage() {
         <Header />
         <div className="flex justify-center items-center py-20">
           <div className="flex flex-col items-center space-y-4">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[journal-maroon]"></div>
-            <p className="text-[journal-maroon] font-medium">Loading archives...</p>
+            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-journal-maroon"></div>
+            <p className="text-journal-maroon font-medium">Loading archives...</p>
           </div>
         </div>
         <Footer />
@@ -119,7 +119,7 @@ export default function ArchivesPage() {
       <Header />
 
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-[journal-maroon] via-[#0e3169] to-[journal-maroon] text-white py-20 overflow-hidden">
+      <section className="relative bg-gradient-to-br from-journal-maroon via-[#0e3169] to-journal-maroon text-white py-20 overflow-hidden">
         {/* Decorative Elements */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
@@ -187,22 +187,22 @@ export default function ArchivesPage() {
                   {/* Year Header */}
                   <button
                     onClick={() => toggleYear(year)}
-                    className="w-full flex items-center justify-between p-8 hover:bg-gradient-to-r hover:from-[journal-maroon]/5 hover:to-transparent transition-all duration-300 group"
+                    className="w-full flex items-center justify-between p-8 hover:bg-gradient-to-r hover:from-journal-maroon/5 hover:to-transparent transition-all duration-300 group"
                   >
                     <div className="flex items-center gap-6">
                       <div className="relative">
-                        <div className="w-16 h-16 bg-gradient-to-br from-[journal-maroon] to-[journal-maroon] rounded-2xl flex items-center justify-center text-white font-bold text-xl shadow-lg group-hover:scale-110 transition-transform duration-300">
+                        <div className="w-16 h-16 bg-gradient-to-br from-journal-maroon to-journal-maroon rounded-2xl flex items-center justify-center text-white font-bold text-xl shadow-lg group-hover:scale-110 transition-transform duration-300">
                           {volumesByYear[year].reduce(
                             (sum, vol) => sum + vol.issues.length,
                             0
                           )}
                         </div>
                         <div className="absolute -top-2 -right-2 w-6 h-6 bg-yellow-400 rounded-full flex items-center justify-center">
-                          <TrendingUp className="h-3 w-3 text-[journal-maroon]" />
+                          <TrendingUp className="h-3 w-3 text-journal-maroon" />
                         </div>
                       </div>
                       <div className="text-left">
-                        <h2 className="text-3xl font-bold text-[journal-maroon] font-serif group-hover:text-[#0e3169] transition-colors">
+                        <h2 className="text-3xl font-bold text-journal-maroon font-serif group-hover:text-[#0e3169] transition-colors">
                           {year}
                         </h2>
                         <p className="text-sm text-gray-600 mt-1">
@@ -233,23 +233,23 @@ export default function ArchivesPage() {
                     </div>
                     <div className="flex items-center gap-4">
                       {expandedYear === year ? (
-                        <ChevronUp className="h-8 w-8 text-[journal-maroon] group-hover:scale-110 transition-transform" />
+                        <ChevronUp className="h-8 w-8 text-journal-maroon group-hover:scale-110 transition-transform" />
                       ) : (
-                        <ChevronDown className="h-8 w-8 text-[journal-maroon] group-hover:scale-110 transition-transform" />
+                        <ChevronDown className="h-8 w-8 text-journal-maroon group-hover:scale-110 transition-transform" />
                       )}
                     </div>
                   </button>
 
                   {/* Expanded Content */}
                   {expandedYear === year && (
-                    <div className="border-t-2 border-[#EAD3D9] bg-gradient-to-b from-[journal-off-white] to-white p-6 sm:p-8 animate-fade-in">
+                    <div className="border-t-2 border-[#EAD3D9] bg-gradient-to-b from-journal-off-white to-white p-6 sm:p-8 animate-fade-in">
                       <div className="grid gap-6">
                         {volumesByYear[year].map((volume) =>
                           volume.issues.map((issue) => (
                             <Link
                               key={issue._id}
                               href={`/current-issue`}
-                              className="group bg-white border-2 border-[#EAD3D9] rounded-2xl overflow-hidden hover:shadow-2xl hover:border-[journal-maroon] transition-all duration-300 hover:-translate-y-1"
+                              className="group bg-white border-2 border-[#EAD3D9] rounded-2xl overflow-hidden hover:shadow-2xl hover:border-journal-maroon transition-all duration-300 hover:-translate-y-1"
                             >
                               <div className="flex flex-col sm:flex-row gap-6 p-6">
                                 {/* Cover Image */}
@@ -266,7 +266,7 @@ export default function ArchivesPage() {
                                 {/* Content */}
                                 <div className="flex-1">
                                   <div className="flex flex-wrap items-center gap-3 mb-4">
-                                    <span className="inline-flex items-center px-4 py-1.5 bg-[journal-maroon] text-white rounded-full text-xs font-bold uppercase tracking-wide shadow-md">
+                                    <span className="inline-flex items-center px-4 py-1.5 bg-journal-maroon text-white rounded-full text-xs font-bold uppercase tracking-wide shadow-md">
                                       Volume {volume.volumeNumber}, Issue{" "}
                                       {issue.issueNumber}
                                     </span>
@@ -276,14 +276,14 @@ export default function ArchivesPage() {
                                     </span>
                                   </div>
 
-                                  <h3 className="text-2xl font-bold text-[journal-maroon] mb-3 group-hover:text-[#0e3169] transition-colors font-serif">
+                                  <h3 className="text-2xl font-bold text-journal-maroon mb-3 group-hover:text-[#0e3169] transition-colors font-serif">
                                     {volume.description ||
                                       `Volume ${volume.volumeNumber}, Issue ${issue.issueNumber} (${year})`}
                                   </h3>
 
                                   <div className="flex flex-wrap items-center gap-6 text-sm text-gray-600 mb-4">
                                     <div className="flex items-center gap-2">
-                                      <Calendar className="h-4 w-4 text-[journal-maroon]" />
+                                      <Calendar className="h-4 w-4 text-journal-maroon" />
                                       <span className="font-medium">
                                         {new Date(
                                           issue.publishDate
@@ -294,7 +294,7 @@ export default function ArchivesPage() {
                                       </span>
                                     </div>
                                     <div className="flex items-center gap-2">
-                                      <FileText className="h-4 w-4 text-[journal-maroon]" />
+                                      <FileText className="h-4 w-4 text-journal-maroon" />
                                       <span className="font-medium">
                                         {issue.articleCount} articles
                                       </span>
@@ -308,11 +308,11 @@ export default function ArchivesPage() {
                                   )}
 
                                   <div className="flex flex-wrap gap-3 pt-4 border-t border-gray-200">
-                                    <span className="inline-flex items-center gap-2 bg-[journal-maroon] text-white px-6 py-2.5 rounded-xl font-semibold text-sm shadow-lg group-hover:shadow-xl group-hover:scale-105 transition-all">
+                                    <span className="inline-flex items-center gap-2 bg-journal-maroon text-white px-6 py-2.5 rounded-xl font-semibold text-sm shadow-lg group-hover:shadow-xl group-hover:scale-105 transition-all">
                                       <BookOpen className="h-4 w-4" />
                                       View Issue
                                     </span>
-                                    <span className="inline-flex items-center gap-2 border-2 border-[journal-maroon] text-[journal-maroon] px-6 py-2.5 rounded-xl font-semibold text-sm hover:bg-[journal-maroon] hover:text-white transition-all">
+                                    <span className="inline-flex items-center gap-2 border-2 border-journal-maroon text-journal-maroon px-6 py-2.5 rounded-xl font-semibold text-sm hover:bg-journal-maroon hover:text-white transition-all">
                                       <Download className="h-4 w-4" />
                                       Download PDF
                                     </span>
@@ -333,7 +333,7 @@ export default function ArchivesPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-r from-[journal-maroon] to-[#0e3169]">
+      <section className="py-16 bg-gradient-to-r from-journal-maroon to-[#0e3169]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h3 className="text-3xl md:text-4xl font-bold text-white mb-6 font-serif">
             Can&apos;t Find What You&apos;re Looking For?
@@ -345,14 +345,14 @@ export default function ArchivesPage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/search"
-              className="inline-flex items-center justify-center gap-2 bg-white text-[journal-maroon] px-8 py-4 rounded-full hover:bg-[#FFE9EE] transition-all font-bold text-lg shadow-xl hover:shadow-2xl hover:scale-105"
+              className="inline-flex items-center justify-center gap-2 bg-white text-journal-maroon px-8 py-4 rounded-full hover:bg-[#FFE9EE] transition-all font-bold text-lg shadow-xl hover:shadow-2xl hover:scale-105"
             >
               <FileText className="h-6 w-6" />
               Advanced Search
             </Link>
             <Link
               href="/submission"
-              className="inline-flex items-center justify-center gap-2 border-2 border-white text-white px-8 py-4 rounded-full hover:bg-white hover:text-[journal-maroon] transition-all font-bold text-lg"
+              className="inline-flex items-center justify-center gap-2 border-2 border-white text-white px-8 py-4 rounded-full hover:bg-white hover:text-journal-maroon transition-all font-bold text-lg"
             >
               <Download className="h-6 w-6" />
               Submit Research

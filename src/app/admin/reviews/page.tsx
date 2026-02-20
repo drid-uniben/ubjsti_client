@@ -394,7 +394,7 @@ export default function ManuscriptReviewsPage() {
         {/* Loading State */}
         {isLoading && (
           <div className="flex items-center justify-center py-12">
-            <Loader2 className="h-8 w-8 animate-spin text-[journal-maroon]" />
+            <Loader2 className="h-8 w-8 animate-spin text-journal-maroon" />
             <span className="ml-3 text-gray-600 text-sm sm:text-base">Loading manuscripts...</span>
           </div>
         )}

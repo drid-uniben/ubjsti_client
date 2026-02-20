@@ -79,11 +79,11 @@ function SearchContent() {
 
 
   return (
-    <div className="min-h-screen bg-[journal-off-white]">
+    <div className="min-h-screen bg-journal-off-white">
       <Header />
 
       {/* Search Section */}
-      <section className="bg-[journal-maroon] text-white py-10">
+      <section className="bg-journal-maroon text-white py-10">
         <div className="max-w-5xl mx-auto px-4">
           <h1 className="text-3xl md:text-4xl font-bold mb-2">
             Search Research Articles
@@ -105,7 +105,7 @@ function SearchContent() {
             </div>
             <button
               onClick={() => setShowFilters(!showFilters)}
-              className="inline-flex items-center justify-center gap-2 border-2 border-white text-[journal-maroon] px-4 py-2 rounded-lg hover:bg-white hover:text-[#8690a0c2] transition-all font-semibold"
+              className="inline-flex items-center justify-center gap-2 border-2 border-white text-journal-maroon px-4 py-2 rounded-lg hover:bg-white hover:text-[#8690a0c2] transition-all font-semibold"
             >
               <Filter className="h-5 w-5" />
               Advanced Filters
@@ -116,7 +116,7 @@ function SearchContent() {
           {showFilters && (
             <div className="mt-4 bg-white rounded-xl shadow-lg p-5 text-gray-800">
               <div className="flex justify-between items-center mb-4">
-                <h3 className="font-bold text-lg text-[journal-maroon] flex items-center gap-2">
+                <h3 className="font-bold text-lg text-journal-maroon flex items-center gap-2">
                   <Filter className="h-5 w-5" />
                   Advanced Filters
                 </h3>
@@ -126,7 +126,7 @@ function SearchContent() {
                     setFilterVolumeNumber("");
                     setFilterIssueNumber("");
                   }}
-                  className="text-xs text-[journal-maroon] font-bold hover:underline"
+                  className="text-xs text-journal-maroon font-bold hover:underline"
                 >
                   Clear All
                 </button>
@@ -141,7 +141,7 @@ function SearchContent() {
                   <select
                     value={filterType}
                     onChange={(e) => setFilterType(e.target.value)}
-                    className="w-full px-3 py-2 border-2 border-[#8690a0c2] rounded-lg focus:ring-2 focus:ring-[journal-maroon]"
+                    className="w-full px-3 py-2 border-2 border-[#8690a0c2] rounded-lg focus:ring-2 focus:ring-journal-maroon"
                   >
                     <option value="">All Types</option>
                     <option value="research_article">Research Article</option>
@@ -163,7 +163,7 @@ function SearchContent() {
                     placeholder="e.g. 5"
                     value={filterVolumeNumber}
                     onChange={(e) => setFilterVolumeNumber(e.target.value)}
-                    className="w-full px-3 py-2 border-2 border-[#8690a0c2] rounded-lg focus:ring-2 focus:ring-[journal-maroon]"
+                    className="w-full px-3 py-2 border-2 border-[#8690a0c2] rounded-lg focus:ring-2 focus:ring-journal-maroon"
                   />
                 </div>
 
@@ -178,7 +178,7 @@ function SearchContent() {
                     placeholder="e.g. 2"
                     value={filterIssueNumber}
                     onChange={(e) => setFilterIssueNumber(e.target.value)}
-                    className="w-full px-3 py-2 border-2 border-[#8690a0c2] rounded-lg focus:ring-2 focus:ring-[journal-maroon]"
+                    className="w-full px-3 py-2 border-2 border-[#8690a0c2] rounded-lg focus:ring-2 focus:ring-journal-maroon"
                   />
                 </div>
               </div>
@@ -190,12 +190,12 @@ function SearchContent() {
       {/* Results Section */}
       <section className="py-10">
         <div className="max-w-5xl mx-auto px-4">
-          <h2 className="text-lg font-bold text-[journal-maroon] mb-2">
+          <h2 className="text-lg font-bold text-journal-maroon mb-2">
             Search Results
           </h2>
           {isLoading && (
             <div className="flex items-center gap-2 text-gray-600">
-              <Loader className="h-5 w-5 animate-spin text-[journal-maroon]" />
+              <Loader className="h-5 w-5 animate-spin text-journal-maroon" />
               Searching database...
             </div>
           )}
@@ -229,15 +229,15 @@ function SearchContent() {
                 <Link
                   key={article._id}
                   href={`/articles/${article._id}`}
-                  className="block bg-white border-2 border-[journal-maroon]/20 rounded-xl p-5 hover:border-[journal-maroon] hover:shadow-xl transition-all"
+                  className="block bg-white border-2 border-journal-maroon/20 rounded-xl p-5 hover:border-journal-maroon hover:shadow-xl transition-all"
                 >
                   <div className="flex flex-wrap justify-between items-start gap-3 mb-3">
-                    <span className="inline-flex px-3 py-1 bg-[journal-maroon] text-white text-xs font-bold rounded-full capitalize">
+                    <span className="inline-flex px-3 py-1 bg-journal-maroon text-white text-xs font-bold rounded-full capitalize">
                       {article.articleType.replace(/_/g, " ")}
                     </span>
                     <span className="text-sm text-gray-600 font-medium">{issueLabel}</span>
                   </div>
-                  <h3 className="text-xl font-bold text-[journal-maroon] mb-2 hover:underline">
+                  <h3 className="text-xl font-bold text-journal-maroon mb-2 hover:underline">
                     {article.title}
                   </h3>
                   <p className="text-gray-700 text-sm mb-2 font-medium">
@@ -276,7 +276,7 @@ export default function SearchPage() {
   return (
     <Suspense fallback={
       <div className="min-h-screen flex items-center justify-center">
-        <Loader className="h-8 w-8 animate-spin text-[journal-maroon]" />
+        <Loader className="h-8 w-8 animate-spin text-journal-maroon" />
       </div>
     }>
       <SearchContent />

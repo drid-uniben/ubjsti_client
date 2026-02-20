@@ -98,7 +98,7 @@ export default function Header() {
     }`;
 
   return (
-    <header className="bg-[journal-maroon] border-b border-white text-white shadow-lg sticky top-0 z-50">
+    <header className="bg-journal-maroon border-b border-white text-white shadow-lg sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Top Row */}
         <div className="flex items-center justify-between h-20">
@@ -148,7 +148,7 @@ export default function Header() {
             {/* Submit Button */}
             <Link
               href="/submission"
-              className="bg-white text-[journal-maroon] px-4 py-2 rounded-full font-semibold hover:bg-[#8690A0C2] transition-all shadow-lg hover:shadow-xl hover:scale-105 whitespace-nowrap"
+              className="bg-white text-journal-maroon px-4 py-2 rounded-full font-semibold hover:bg-[#8690A0C2] transition-all shadow-lg hover:shadow-xl hover:scale-105 whitespace-nowrap"
             >
               Submit Manuscript
             </Link>
@@ -196,7 +196,7 @@ export default function Header() {
               )}
               <button
                 onClick={handleSearch}
-                className="absolute right-2 top-1/2 -translate-y-1/2 bg-white text-[journal-maroon] px-6 py-2 rounded-full font-semibold hover:bg-[#8690A0C2] transition-colors"
+                className="absolute right-2 top-1/2 -translate-y-1/2 bg-white text-journal-maroon px-6 py-2 rounded-full font-semibold hover:bg-[#8690A0C2] transition-colors"
               >
                 Search
               </button>
@@ -220,14 +220,14 @@ export default function Header() {
                       >
                         <div className="flex justify-between items-start gap-4">
                           <div className="flex-1">
-                            <h4 className="font-bold text-[#212121] text-sm md:text-base line-clamp-1 group-hover:text-[journal-maroon] mb-1">
+                            <h4 className="font-bold text-[#212121] text-sm md:text-base line-clamp-1 group-hover:text-journal-maroon mb-1">
                               {article.title}
                             </h4>
                             <p className="text-xs text-gray-500 font-medium">
                               {article.author?.name} • Vol {article.volume?.volumeNumber}, Issue {article.issue?.issueNumber}
                             </p>
                           </div>
-                          <span className="text-[10px] font-bold uppercase tracking-wider text-[journal-maroon] bg-[#FFE9EE] px-2 py-0.5 rounded">
+                          <span className="text-[10px] font-bold uppercase tracking-wider text-journal-maroon bg-[#FFE9EE] px-2 py-0.5 rounded">
                             {article.articleType.replace("_", " ")}
                           </span>
                         </div>
@@ -235,7 +235,7 @@ export default function Header() {
                     ))}
                     <button
                       onClick={handleSearch}
-                      className="w-full p-3 text-center text-sm font-bold text-[journal-maroon] hover:bg-[#FAF7F8] transition-colors"
+                      className="w-full p-3 text-center text-sm font-bold text-journal-maroon hover:bg-[#FAF7F8] transition-colors"
                     >
                       View all results for &quot;{searchQuery}&quot;
                     </button>
@@ -282,7 +282,7 @@ export default function Header() {
             <Link
               href="/submission"
               onClick={() => setIsMenuOpen(false)}
-              className="bg-white text-[journal-maroon] px-6 py-3 rounded-full font-semibold hover:bg-[#8690A0C2] transition-all text-center shadow-lg hover:shadow-xl"
+              className="bg-white text-journal-maroon px-6 py-3 rounded-full font-semibold hover:bg-[#8690A0C2] transition-all text-center shadow-lg hover:shadow-xl"
             >
               Submit Manuscript
             </Link>

@@ -652,7 +652,7 @@ export default function FailedJobsPage() {
               <Button
                 variant="outline"
                 onClick={() => setShowDetailsDialog(false)}
-                className="border-[journal-maroon]/20"
+                className="border-journal-maroon/20"
               >
                 Close
               </Button>
@@ -677,7 +677,7 @@ export default function FailedJobsPage() {
                 Cancel
               </Button>
               <Button
-                className="bg-[journal-maroon] text-white hover:bg-[journal-maroon-dark]"
+                className="bg-journal-maroon text-white hover:bg-journal-maroon-dark"
                 onClick={confirmRetryAll}
               >
                 Retry All

@@ -126,7 +126,7 @@ export default function ManuscriptDetailPage() {
             <>
               <div className="bg-white shadow overflow-hidden rounded-lg border border-gray-200">
                 {/* Header Section */}
-                <div className="px-4 py-5 sm:px-6 bg-gradient-to-r from-[journal-off-white] to-white border-b border-gray-200">
+                <div className="px-4 py-5 sm:px-6 bg-gradient-to-r from-journal-off-white to-white border-b border-gray-200">
                   <div className="flex flex-col md:flex-row md:items-center md:justify-between">
                     <div>
                       <h3 className="text-lg leading-6 font-medium text-gray-900">
@@ -216,7 +216,7 @@ export default function ManuscriptDetailPage() {
                   {manuscript.coAuthors && manuscript.coAuthors.length > 0 && (
                     <div className="mb-8">
                       <h4 className="text-lg font-medium text-gray-900 mb-4 flex items-center gap-2">
-                        <User className="h-5 w-5 text-[journal-maroon]" />
+                        <User className="h-5 w-5 text-journal-maroon" />
                         Co-Authors
                       </h4>
                       <div className="bg-gray-50 rounded-md border border-gray-200 overflow-hidden">

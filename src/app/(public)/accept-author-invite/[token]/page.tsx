@@ -231,7 +231,7 @@ export default function AuthorRegisterPage({ params }: AuthorRegisterPageProps) 
                 href="https://orcid.org/register"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 mt-3 text-sm text-[#800080] hover:text-[journal-maroon-dark] font-semibold"
+                className="inline-flex items-center gap-2 mt-3 text-sm text-[#800080] hover:text-journal-maroon-dark font-semibold"
               >
                 Register for ORCID iD
                 <ExternalLink className="h-4 w-4" />
@@ -240,7 +240,7 @@ export default function AuthorRegisterPage({ params }: AuthorRegisterPageProps) 
 
             <Button
               type="submit"
-              className="w-full bg-[#800080] hover:bg-[journal-maroon-dark]"
+              className="w-full bg-[#800080] hover:bg-journal-maroon-dark"
               disabled={isLoading}
             >
               {isLoading ? 'Submitting...' : 'Complete Registration'}

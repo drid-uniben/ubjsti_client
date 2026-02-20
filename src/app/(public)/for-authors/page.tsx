@@ -66,7 +66,7 @@ export default function ForAuthorsPage() {
      <Header/>
 
       {/* Hero Section */}
-      <section className="bg-[journal-maroon] text-white py-16">
+      <section className="bg-journal-maroon text-white py-16">
          <div className="absolute inset-0 opacity-3">
                           {/* Placeholder for subtle pattern/texture */}
                           <Image
@@ -96,29 +96,29 @@ export default function ForAuthorsPage() {
       </section>
 
       {/* Quick Stats */}
-      <section className="py-8 bg-[journal-off-white] border-b-2 border-[#8690a0c2]">
+      <section className="py-8 bg-journal-off-white border-b-2 border-[#8690a0c2]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-4 gap-8 text-center">
             <div>
-              <div className="text-4xl font-bold text-[journal-maroon] mb-2">
+              <div className="text-4xl font-bold text-journal-maroon mb-2">
                 0 NGN
               </div>
               <p className="text-gray-600">Article Processing Charges</p>
             </div>
             <div>
-              <div className="text-4xl font-bold text-[journal-maroon] mb-2">
+              <div className="text-4xl font-bold text-journal-maroon mb-2">
                 3-6
               </div>
               <p className="text-gray-600">Weeks to First Decision</p>
             </div>
             <div>
-              <div className="text-4xl font-bold text-[journal-maroon] mb-2">
+              <div className="text-4xl font-bold text-journal-maroon mb-2">
                 100%
               </div>
               <p className="text-gray-600">Open Access</p>
             </div>
             <div>
-              <div className="text-4xl font-bold text-[journal-maroon] mb-2">
+              <div className="text-4xl font-bold text-journal-maroon mb-2">
                 CC BY 4.0
               </div>
               <p className="text-gray-600">Creative Commons License</p>
@@ -134,21 +134,21 @@ export default function ForAuthorsPage() {
           <div className="lg:col-span-2 space-y-12">
             {/* Submission Guidelines */}
             <section id="guidelines">
-              <h2 className="text-3xl font-bold text-[journal-maroon] mb-6 font-serif">
+              <h2 className="text-3xl font-bold text-journal-maroon mb-6 font-serif">
                 Submission Guidelines
               </h2>
 
               <div className="space-y-6">
                 <div className="bg-white border-2 border-[#8690a0c2] rounded-xl p-6">
-                  <h3 className="text-xl font-bold text-[journal-text-dark] mb-4 flex items-center gap-2">
-                    <BookOpen className="h-6 w-6 text-[journal-maroon]" />
+                  <h3 className="text-xl font-bold text-journal-text-dark mb-4 flex items-center gap-2">
+                    <BookOpen className="h-6 w-6 text-journal-maroon" />
                     Types of Manuscripts We Accept
                   </h3>
                   <ul className="space-y-3">
                     <li className="flex items-start gap-3">
                       <CheckCircle className="h-5 w-5 text-green-600 shrink-0 mt-0.5" />
                       <div>
-                        <strong className="text-[journal-text-dark]">
+                        <strong className="text-journal-text-dark">
                           Original Research Articles
                         </strong>
                         <p className="text-gray-600 text-sm">
@@ -160,7 +160,7 @@ export default function ForAuthorsPage() {
                     <li className="flex items-start gap-3">
                       <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
                       <div>
-                        <strong className="text-[journal-text-dark]">
+                        <strong className="text-journal-text-dark">
                           Review Articles
                         </strong>
                         <p className="text-gray-600 text-sm">
@@ -172,7 +172,7 @@ export default function ForAuthorsPage() {
                     <li className="flex items-start gap-3">
                       <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
                       <div>
-                        <strong className="text-[journal-text-dark]">
+                        <strong className="text-journal-text-dark">
                           Short Communications
                         </strong>
                         <p className="text-gray-600 text-sm">
@@ -184,7 +184,7 @@ export default function ForAuthorsPage() {
                     <li className="flex items-start gap-3">
                       <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
                       <div>
-                        <strong className="text-[journal-text-dark]">Book Reviews</strong>
+                        <strong className="text-journal-text-dark">Book Reviews</strong>
                         <p className="text-gray-600 text-sm">
                           Critical assessments of recent publications (1,500-2,500
                           words)
@@ -194,7 +194,7 @@ export default function ForAuthorsPage() {
                     <li className="flex items-start gap-3">
                       <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
                       <div>
-                        <strong className="text-[journal-text-dark]">
+                        <strong className="text-journal-text-dark">
                           Policy Briefs
                         </strong>
                         <p className="text-gray-600 text-sm">
@@ -207,13 +207,13 @@ export default function ForAuthorsPage() {
                 </div>
 
                 <div className="bg-white border-2 border-[#8690a0c2] rounded-xl p-6">
-                  <h3 className="text-xl font-bold text-[journal-text-dark] mb-4 flex items-center gap-2">
-                    <FileText className="h-6 w-6 text-[journal-maroon]" />
+                  <h3 className="text-xl font-bold text-journal-text-dark mb-4 flex items-center gap-2">
+                    <FileText className="h-6 w-6 text-journal-maroon" />
                     Manuscript Formatting Requirements
                   </h3>
                   <div className="space-y-4">
                     <div>
-                      <h4 className="font-semibold text-[journal-text-dark] mb-2">
+                      <h4 className="font-semibold text-journal-text-dark mb-2">
                         Document Format
                       </h4>
                       <ul className="list-disc list-inside space-y-1 text-gray-700 ml-4">
@@ -232,7 +232,7 @@ export default function ForAuthorsPage() {
                     </div>
 
                     <div>
-                      <h4 className="font-semibold text-[journal-text-dark] mb-2">
+                      <h4 className="font-semibold text-journal-text-dark mb-2">
                         Structure
                       </h4>
                       <ul className="list-disc list-inside space-y-1 text-gray-700 ml-4">
@@ -265,9 +265,9 @@ export default function ForAuthorsPage() {
 
                     <div className=" border border-[#8690a0c2] rounded-lg p-4">
   <div className="flex items-start gap-3">
-    <Download className="h-5 w-5 text-[journal-maroon] flex-shrink-0 mt-0.5" />
+    <Download className="h-5 w-5 text-journal-maroon flex-shrink-0 mt-0.5" />
     <div>
-      <h4 className="font-semibold text-[journal-maroon] mb-2">
+      <h4 className="font-semibold text-journal-maroon mb-2">
         Download Manuscript Template
       </h4>
       <p className="text-gray-700 text-sm mb-3">
@@ -277,7 +277,7 @@ export default function ForAuthorsPage() {
       <a
         href="/files/UNIBEN_Journal_Of_Science_Technology_And_Innovation_Templates.docx"
         download
-        className="inline-flex items-center gap-2 bg-[journal-maroon] text-white px-4 py-2 rounded-lg hover:bg-[#8690a0c2] transition-colors text-sm font-semibold"
+        className="inline-flex items-center gap-2 bg-journal-maroon text-white px-4 py-2 rounded-lg hover:bg-[#8690a0c2] transition-colors text-sm font-semibold"
       >
         <Download className="h-4 w-4" />
         Download Template (DOCX)
@@ -293,7 +293,7 @@ export default function ForAuthorsPage() {
 
             {/* Submission Process */}
             <section id="process">
-              <h2 className="text-3xl font-bold text-[journal-maroon] mb-6 font-serif">
+              <h2 className="text-3xl font-bold text-journal-maroon mb-6 font-serif">
                 The Submission Process
               </h2>
 
@@ -306,11 +306,11 @@ export default function ForAuthorsPage() {
 
                   {/* Step 2 */}
                   <div className="relative flex gap-6">
-                    <div className="flex-shrink-0 w-16 h-16 bg-[journal-maroon] rounded-full flex items-center justify-center text-white font-bold text-xl z-10">
+                    <div className="flex-shrink-0 w-16 h-16 bg-journal-maroon rounded-full flex items-center justify-center text-white font-bold text-xl z-10">
                       1
                     </div>
                     <div className="flex-1 pt-2">
-                      <h3 className="text-xl font-bold text-[journal-text-dark] mb-2">
+                      <h3 className="text-xl font-bold text-journal-text-dark mb-2">
                         Prepare Your Manuscript
                       </h3>
                       <p className="text-gray-700 mb-3">
@@ -334,11 +334,11 @@ export default function ForAuthorsPage() {
 
                   {/* Step 3 */}
                   <div className="relative flex gap-6">
-                    <div className="flex-shrink-0 w-16 h-16 bg-[journal-maroon] rounded-full flex items-center justify-center text-white font-bold text-xl z-10">
+                    <div className="flex-shrink-0 w-16 h-16 bg-journal-maroon rounded-full flex items-center justify-center text-white font-bold text-xl z-10">
                       2
                     </div>
                     <div className="flex-1 pt-2">
-                      <h3 className="text-xl font-bold text-[journal-text-dark] mb-2">
+                      <h3 className="text-xl font-bold text-journal-text-dark mb-2">
                         Submit Online
                       </h3>
                       <p className="text-gray-700 mb-3">
@@ -357,11 +357,11 @@ export default function ForAuthorsPage() {
 
                   {/* Step 4 */}
                   <div className="relative flex gap-6">
-                    <div className="flex-shrink-0 w-16 h-16 bg-[journal-maroon] rounded-full flex items-center justify-center text-white font-bold text-xl z-10">
+                    <div className="flex-shrink-0 w-16 h-16 bg-journal-maroon rounded-full flex items-center justify-center text-white font-bold text-xl z-10">
                       3
                     </div>
                     <div className="flex-1 pt-2">
-                      <h3 className="text-xl font-bold text-[journal-text-dark] mb-2">
+                      <h3 className="text-xl font-bold text-journal-text-dark mb-2">
                         Editorial Assessment
                       </h3>
                       <p className="text-gray-700 mb-3">
@@ -380,11 +380,11 @@ export default function ForAuthorsPage() {
 
                   {/* Step 5 */}
                   <div className="relative flex gap-6">
-                    <div className="flex-shrink-0 w-16 h-16 bg-[journal-maroon] rounded-full flex items-center justify-center text-white font-bold text-xl z-10">
+                    <div className="flex-shrink-0 w-16 h-16 bg-journal-maroon rounded-full flex items-center justify-center text-white font-bold text-xl z-10">
                       4
                     </div>
                     <div className="flex-1 pt-2">
-                      <h3 className="text-xl font-bold text-[journal-text-dark] mb-2">
+                      <h3 className="text-xl font-bold text-journal-text-dark mb-2">
                         Peer Review
                       </h3>
                       <p className="text-gray-700 mb-3">
@@ -402,11 +402,11 @@ export default function ForAuthorsPage() {
 
                   {/* Step 6 */}
                   <div className="relative flex gap-6">
-                    <div className="flex-shrink-0 w-16 h-16 bg-[journal-maroon] rounded-full flex items-center justify-center text-white font-bold text-xl z-10">
+                    <div className="flex-shrink-0 w-16 h-16 bg-journal-maroon rounded-full flex items-center justify-center text-white font-bold text-xl z-10">
                       5
                     </div>
                     <div className="flex-1 pt-2">
-                      <h3 className="text-xl font-bold text-[journal-text-dark] mb-2">
+                      <h3 className="text-xl font-bold text-journal-text-dark mb-2">
                         Decision & Publication
                       </h3>
                       <p className="text-gray-700 mb-3">
@@ -458,15 +458,15 @@ export default function ForAuthorsPage() {
 
             {/* Copyright & Licensing */}
             <section id="copyright">
-              <h2 className="text-3xl font-bold text-[journal-maroon] mb-6 font-serif">
+              <h2 className="text-3xl font-bold text-journal-maroon mb-6 font-serif">
                 Copyright & Licensing
               </h2>
 
               <div className="bg-white border-2 border-[#8690a0c2] rounded-xl p-6 space-y-6">
                 <div className="flex items-start gap-4">
-                  <Shield className="h-8 w-8 text-[journal-maroon] flex-shrink-0" />
+                  <Shield className="h-8 w-8 text-journal-maroon flex-shrink-0" />
                   <div>
-                    <h3 className="text-xl font-bold text-[journal-text-dark] mb-3">
+                    <h3 className="text-xl font-bold text-journal-text-dark mb-3">
                       Authors Retain Copyright
                     </h3>
                     <p className="text-gray-700 mb-4 leading-relaxed">
@@ -505,7 +505,7 @@ export default function ForAuthorsPage() {
                 </div>
 
                 <div className="border border-[#8690a0c2] rounded-lg p-4">
-                  <h4 className="font-semibold text-[journal-text-dark] mb-2">
+                  <h4 className="font-semibold text-journal-text-dark mb-2">
                     Self-Archiving Policy
                   </h4>
                   <p className="text-gray-700 text-sm">
@@ -519,7 +519,7 @@ export default function ForAuthorsPage() {
                   href="https://creativecommons.org/licenses/by/4.0/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-[journal-maroon] hover:text-[#8690a0c2] font-semibold"
+                  className="inline-flex items-center gap-2 text-journal-maroon hover:text-[#8690a0c2] font-semibold"
                 >
                   Learn more about CC BY 4.0
                   <ChevronRight className="h-4 w-4" />
@@ -529,15 +529,15 @@ export default function ForAuthorsPage() {
 
             {/* Data Availability */}
             <section id="data-availability">
-              <h2 className="text-3xl font-bold text-[journal-maroon] mb-6 font-serif">
+              <h2 className="text-3xl font-bold text-journal-maroon mb-6 font-serif">
                 Data & Materials Sharing
               </h2>
 
               <div className="bg-white border-2 border-[#8690a0c2] rounded-xl p-6">
                 <div className="flex items-start gap-4 mb-6">
-                  <Globe className="h-8 w-8 text-[journal-maroon] flex-shrink-0" />
+                  <Globe className="h-8 w-8 text-journal-maroon flex-shrink-0" />
                   <div>
-                    <h3 className="text-xl font-bold text-[journal-text-dark] mb-3">
+                    <h3 className="text-xl font-bold text-journal-text-dark mb-3">
                       Data Availability Statement Required
                     </h3>
                     <p className="text-gray-700 leading-relaxed">
@@ -579,7 +579,7 @@ export default function ForAuthorsPage() {
 
             {/* FAQs */}
             <section id="faqs">
-              <h2 className="text-3xl font-bold text-[journal-maroon] mb-6 font-serif">
+              <h2 className="text-3xl font-bold text-journal-maroon mb-6 font-serif">
                 Frequently Asked Questions
               </h2>
 
@@ -593,11 +593,11 @@ export default function ForAuthorsPage() {
                       onClick={() => toggleFAQ(index)}
                       className="w-full flex items-center justify-between p-6 text-left hover:bg-[#8690a0c2] transition-colors"
                     >
-                      <h3 className="text-lg font-bold text-[journal-text-dark] pr-4">
+                      <h3 className="text-lg font-bold text-journal-text-dark pr-4">
                         {faq.question}
                       </h3>
                       <ChevronDown
-                        className={`h-6 w-6 text-[journal-maroon] flex-shrink-0 transition-transform ${
+                        className={`h-6 w-6 text-journal-maroon flex-shrink-0 transition-transform ${
                           openFAQ === index ? "rotate-180" : ""
                         }`}
                       />
@@ -615,7 +615,7 @@ export default function ForAuthorsPage() {
             </section>
 
             {/* Contact Section */}
-            <section id="contact" className="bg-[journal-maroon] text-white rounded-xl p-8">
+            <section id="contact" className="bg-journal-maroon text-white rounded-xl p-8">
               <div className="flex items-start gap-6">
                 <div className="flex-shrink-0 w-16 h-16 bg-white/10 rounded-full flex items-center justify-center">
                   <Mail className="h-8 w-8 text-white" />
@@ -653,14 +653,14 @@ export default function ForAuthorsPage() {
           <div className="lg:col-span-1">
             <div className="sticky top-24 space-y-6">
               {/* Quick Start CTA */}
-              <div className="bg-[journal-maroon] text-white rounded-xl p-6 shadow-xl">
+              <div className="bg-journal-maroon text-white rounded-xl p-6 shadow-xl">
                 <h3 className="text-xl font-bold mb-4">Ready to Submit?</h3>
                 <p className="text-[#fbefff] font-semibold text-sm mb-6">
                   Start your submission now through our online platform
                 </p>
                 <Link
                   href="/submission"
-                  className="block w-full bg-white text-[journal-maroon] text-center px-6 py-3 rounded-lg font-bold hover:bg-[#8690a0c2] transition-all shadow-lg"
+                  className="block w-full bg-white text-journal-maroon text-center px-6 py-3 rounded-lg font-bold hover:bg-[#8690a0c2] transition-all shadow-lg"
                 >
                   Submit Manuscript
                 </Link>
@@ -673,7 +673,7 @@ export default function ForAuthorsPage() {
 
               {/* Quick Links */}
               <div className="bg-white border-2 border-[#8690a0c2] rounded-xl p-6">
-                <h3 className="text-lg font-bold text-[journal-maroon] mb-4">
+                <h3 className="text-lg font-bold text-journal-maroon mb-4">
                   Quick Links
                 </h3>
                 <ul className="space-y-3">
@@ -727,7 +727,7 @@ export default function ForAuthorsPage() {
 
               {/* Downloads */}
               <div className="border-2 border-[#8690a0c2] rounded-xl p-6">
-                <h3 className="text-lg font-bold text-[journal-maroon] mb-4 flex items-center gap-2">
+                <h3 className="text-lg font-bold text-journal-maroon mb-4 flex items-center gap-2">
                   <Download className="h-5 w-5" />
                   Downloads
                 </h3>
@@ -773,32 +773,32 @@ export default function ForAuthorsPage() {
 
               {/* Service Levels */}
               <div className="bg-white border-2 border-[#8690a0c2] rounded-xl p-6">
-                <h3 className="text-lg font-bold text-[journal-maroon] mb-4 flex items-center gap-2">
+                <h3 className="text-lg font-bold text-journal-maroon mb-4 flex items-center gap-2">
                   <Clock className="h-5 w-5" />
                   Service Levels
                 </h3>
                 <ul className="space-y-3 text-sm">
                   <li className="flex justify-between items-center">
                     <span className="text-gray-700">Reviewer assignment</span>
-                    <span className="font-semibold text-[journal-maroon]">
+                    <span className="font-semibold text-journal-maroon">
                       21 days
                     </span>
                   </li>
                   <li className="flex justify-between items-center">
                     <span className="text-gray-700">First decision</span>
-                    <span className="font-semibold text-[journal-maroon]">
+                    <span className="font-semibold text-journal-maroon">
                       30-45 days
                     </span>
                   </li>
                   <li className="flex justify-between items-center">
                     <span className="text-gray-700">Author revisions</span>
-                    <span className="font-semibold text-[journal-maroon]">
+                    <span className="font-semibold text-journal-maroon">
                       ≤14 days
                     </span>
                   </li>
                   <li className="flex justify-between items-center">
                     <span className="text-gray-700">Publication</span>
-                    <span className="font-semibold text-[journal-maroon]">
+                    <span className="font-semibold text-journal-maroon">
                       Continuous
                     </span>
                   </li>
@@ -807,8 +807,8 @@ export default function ForAuthorsPage() {
 
               {/* Trust Badge */}
               <div className="border-2 border-[#8690a0c2] rounded-xl p-6 text-center">
-                <Award className="h-12 w-12 text-[journal-maroon] mx-auto mb-3" />
-                <h3 className="font-bold text-[journal-maroon] mb-2">
+                <Award className="h-12 w-12 text-journal-maroon mx-auto mb-3" />
+                <h3 className="font-bold text-journal-maroon mb-2">
                   Diamond Open Access
                 </h3>
                 <p className="text-sm text-gray-700">

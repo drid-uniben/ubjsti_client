@@ -313,7 +313,7 @@ export default function ManuscriptReviewersPage() {
                             {/* Reviewers List */}
           {isLoading ? (
             <div className="flex justify-center items-center h-64">
-              <Loader2 className="h-8 w-8 animate-spin text-[journal-maroon]" />
+              <Loader2 className="h-8 w-8 animate-spin text-journal-maroon" />
             </div>
           ) : (
             <div className="bg-white shadow rounded-lg overflow-hidden">
@@ -414,7 +414,7 @@ export default function ManuscriptReviewersPage() {
 
             {isLoadingDetails ? (
               <div className="flex justify-center items-center h-64">
-                <Loader2 className="h-8 w-8 animate-spin text-[journal-maroon]" />
+                <Loader2 className="h-8 w-8 animate-spin text-journal-maroon" />
               </div>
             ) : selectedReviewer ? (
               <div className="p-4 sm:p-6 space-y-6 overflow-y-auto max-h-[calc(100vh-200px)]">
@@ -423,7 +423,7 @@ export default function ManuscriptReviewersPage() {
                   <div className="flex flex-col sm:flex-row gap-6">
                     <div className="flex-shrink-0">
                       <div className="h-16 w-16 sm:h-20 sm:w-20 rounded-full bg-[#FFE9EE] flex items-center justify-center">
-                        <User className="h-8 w-8 sm:h-10 sm:w-10 text-[journal-maroon]" />
+                        <User className="h-8 w-8 sm:h-10 sm:w-10 text-journal-maroon" />
                       </div>
                     </div>
                     <div className="min-w-0 flex-1">

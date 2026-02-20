@@ -11,8 +11,6 @@
   --font-mono: var(--font-jetbrains);
   --color-journal-maroon: var(--journal-maroon);
   --color-journal-maroon-dark: var(--journal-maroon-dark);
-  --color-journal-primary: var(--journal-primary);
-  --color-journal-primary-dark: var(--journal-primary-dark);
   --color-journal-accent-tag: var(--journal-accent-tag);
   --color-journal-accent-border: var(--journal-accent-border);
   --color-journal-blush: var(--journal-blush);
@@ -95,8 +93,6 @@
 
   --journal-maroon: #071936;
   --journal-maroon-dark: #0b1f41;
-  --journal-primary: #071936;
-  --journal-primary-dark: #0b1f41;
   --journal-accent-tag: #E6F0FF;
   --journal-accent-border: #D9E2EA;
   --journal-blush: #E6E8F2;
@@ -145,8 +141,6 @@
 
   --journal-maroon: #071936;
   --journal-maroon-dark: #0b1f41;
-  --journal-primary: #071936;
-  --journal-primary-dark: #0b1f41;
   --journal-accent-tag: #E6F0FF;
   --journal-accent-border: #D9E2EA;
   --journal-blush: #E6E8F2;
