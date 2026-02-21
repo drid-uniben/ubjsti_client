@@ -568,6 +568,7 @@ export interface Volume {
   volumeNumber: number;
   year: number;
   coverImage?: string;
+  coverImageIssue2?: string;
   description?: string;
   publishDate: string;
   isActive: boolean;
@@ -2121,6 +2122,27 @@ export const publicationApi = {
     articleType?: string;
   }) => {
     const response = await api.get("/publication/articles/search", { params });
+    return response.data;
+  },
+
+  getManualArticles: async () => {
+    const response = await api.get("/publication/admin/articles");
+    return response.data;
+  },
+
+  updateManualArticle: async (id: string, formData: FormData) => {
+    const response = await api.patch(
+      `/publication/admin/articles/${id}`,
+      formData,
+      {
+        headers: { "Content-Type": "multipart/form-data" },
+      },
+    );
+    return response.data;
+  },
+
+  deleteManualArticle: async (id: string) => {
+    const response = await api.delete(`/publication/admin/articles/${id}`);
     return response.data;
   },
 };
